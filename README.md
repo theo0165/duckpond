@@ -100,3 +100,13 @@
 
 -   No mods on communties
     -   Only super user
+
+### TODO
+
+-   Create table migrations
+-   User
+    -   Login
+    -   Register
+-   Community
+-   Posts
+-   Comment
