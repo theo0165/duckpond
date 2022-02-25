@@ -110,3 +110,19 @@
 -   Community
 -   Posts
 -   Comment
+
+### Routes proposal
+
+-   / - Front page, posts from all communities if guest, followed communities if auth.
+    -   /c/{community} - Single community
+        -   /edit
+        -   /delete
+        -   /join (?) - follow/unfollow community
+        ***
+        -   /p/{post} - Single post in community
+            -   /edit
+            -   /delete
+    -   /u/{user} - Single user
+        -   /edit
+        -   /delete
+    -   /search
