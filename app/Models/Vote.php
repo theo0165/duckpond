@@ -9,12 +9,13 @@ class Vote extends Model
 {
     use HasFactory;
 
-    public function parent(){
-        if($this->post_id != null){
+    public function parent()
+    {
+        if ($this->post_id != null){
             return $this->belongsTo(Post::class, 'post_id', 'id');
-        }else if($this->comment_id != null){
+        } else if ($this->comment_id != null) {
             return $this->belongsTo(Comment::class, 'comment_id', 'id');
-        }else{
+        } else {
             return null;
         }
     }

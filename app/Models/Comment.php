@@ -9,11 +9,13 @@ class Comment extends Model
 {
     use HasFactory;
 
-    public function children(){
+    public function children()
+    {
         return $this->hasMany(Comment::class, 'comment_id', 'id');
     }
 
-    public function parent(){
+    public function parent()
+    {
         if($this->post_id != null){
             return $this->belongsTo(Post::class, 'post_id', 'id');
         }else if($this->comment_id != null){

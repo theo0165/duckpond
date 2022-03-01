@@ -9,11 +9,13 @@ class Community extends Model
 {
     use HasFactory;
 
-    public function owner(){
+    public function owner()
+    {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function posts(){
+    public function posts()
+    {
         return $this->hasMany(Post::class, 'community_id', 'id');
     }
 }

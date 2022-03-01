@@ -9,11 +9,13 @@ class UserFollowsCommunity extends Model
 {
     use HasFactory;
 
-    public function user(){
+    public function user()
+    {
         return $this->hasOne(User::class, 'user_id', 'id');
     }
 
-    public function community(){
+    public function community()
+    {
         return $this->hasOne(Community::class, 'community_id', 'id')
     }
 }

@@ -44,19 +44,23 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function posts(){
+    public function posts()
+    {
         return $this->hasMany(Post::class, 'user_id', 'id');
     }
 
-    public function comments(){
+    public function comments()
+    {
         return $this->hasMany(Comment::class, 'user_id', 'id');
     }
 
-    public function owned_communities(){
+    public function ownedCommunities()
+    {
         return $this->hasMany(Community::class, 'user_id', 'id');
     }
 
-    public function followed_communities(){
+    public function followedCommunities()
+    {
         return $this->hasMany(UserFollowsCommunity::class, 'user_id', 'id');
     }
 }

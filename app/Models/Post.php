@@ -9,15 +9,18 @@ class Post extends Model
 {
     use HasFactory;
 
-    public function comments(){
+    public function comments()
+    {
         return $this->hasMany(Comment::class, 'user_id', 'id');
     }
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function community(){
+    public function community()
+    {
         return $this->belongsTo(Community::class, 'community_id', 'id');
     }
 }
