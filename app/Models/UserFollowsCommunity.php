@@ -16,6 +16,6 @@ class UserFollowsCommunity extends Model
 
     public function community()
     {
-        return $this->hasOne(Community::class, 'community_id', 'id')
+        return $this->hasOne(Community::class, 'community_id', 'id');
     }
 }

@@ -2,13 +2,14 @@
 
 namespace Database\Factories;
 
+use App\Models\Community;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Community>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\UserFollowsCommunity>
  */
-class CommunityFactory extends Factory
+class UserFollowsCommunityFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,8 +19,8 @@ class CommunityFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->community,
-            'user_id' => User::all()->random()->id
+            'user_id' => User::all()->random(),
+            'community_id' => Community::all()->random()
         ];
     }
 }
