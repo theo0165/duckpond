@@ -10,6 +10,9 @@ use App\Models\UserFollowsCommunity;
 use App\Models\Vote;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,6 +23,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $admin = new User([
+            'username' => 'admin',
+            'email' => 'admin@admin.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('1234567890'),
+            'remember_token' => Str::random(10),
+            'is_admin' => true
+        ]);
+
+        $admin->save();
+
         User::factory()->count(100)->create();
         Community::factory()->count(10)->create();
         Post::factory()->link_type()->count(75)->create();
