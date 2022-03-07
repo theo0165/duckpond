@@ -19,6 +19,6 @@ class RegisterController extends Controller
 
         auth()->login($user);
 
-        return redirect('dashboard'); // add flash messages later on
+        return redirect('/'); // add flash messages later on
     }
 }

@@ -32,17 +32,14 @@
                 <li>
                     <a href="/">Duckpond</a>
                 </li>
-                <li>
-                    <a href="{{ route('dashboard') }}">Dashboard</a>
-                </li>
             </ul>
             <ul>
             @auth
                 <li>
-                    <a href="{{ route('user.profile', $user) }}">{{ auth()->user()->username }}</a>
+                    <a href="{{ route('users.profile', $user) }}">{{ auth()->user()->username }}</a>
                 </li>
                 <li>
-                    <form action="{{ route('logout') }}" method="post">
+                    <form action="{{ route('auth.logout') }}" method="post">
                     @csrf
                         <button type="submit">Logout</button>
                     </form>
