@@ -12,7 +12,6 @@ class LoginController extends Controller
 
         $credentials = $request->validate([
             'username' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'max:255'],
         ]);
 
@@ -21,8 +20,6 @@ class LoginController extends Controller
 
             return redirect('/'); // add flash messages later on
         }
-
-
 
         return back()->withErrors([
             'invalid' => 'Your provided credentials could not be verified.'

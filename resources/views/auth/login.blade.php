@@ -6,9 +6,6 @@
             <x-form.input name="username" required />
         </div>
         <div>
-            <x-form.input name="email" type="email" required />
-        </div>
-        <div>
             <x-form.input name="password" type="password" required />
         </div>
            <div>
