@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Vinkla\Hashids\Facades\Hashids;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class Post extends Model
 {
@@ -48,5 +50,16 @@ class Post extends Model
         $words = array_slice($words, 0, 40);
 
         return implode(" ", $words) . "...";
+    }
+
+    public static function getGuestPosts()
+    {
+        return Post::with(['community', 'user'])
+                ->where('posts.created_at', '>=', Carbon::now()->subDay()->toDateTimeString())
+                ->withCount('comments')
+                ->withSum('votes as votes', 'value')
+                ->limit(100)
+                ->orderBy('votes', 'desc')
+                ->get();
     }
 }

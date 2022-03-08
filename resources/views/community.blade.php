@@ -1,5 +1,5 @@
 <x-layout>
-    <h1 class="mb-5">Front page</h1>
+    <h1 class="mb-5">/c/{{$community->title}}</h1>
     @foreach ($posts as $post)
         <div class="row justify-content-center">
             <div class="d-inline-block pb-3">
