@@ -30,6 +30,7 @@ class ShowFrontPageController extends Controller
     {
         return Post::with(['community', 'user'])
                 ->where('posts.created_at', '>=', Carbon::now()->subDay()->toDateTimeString())
+                ->withCount('comments')
                 ->withSum('votes as votes', 'value')
                 ->limit(100)
                 ->orderBy('votes', 'desc')

@@ -22,6 +22,9 @@ Route::group(['middleware' => 'guest'], function () {
 
     Route::get('/c/{community:title}', ShowCommunityController::class)->name('community.show');
     Route::get('/c/{community:title}/p/{post:id}', ShowPostController::class)->name('post.show');
+
+    Route::get('/c/{community:title}/p/{post:id}/upvote', fn () => response())->name('post.upvote');
+    Route::get('/c/{community:title}/p/{post:id}/downvote', fn () => response())->name('post.downvote');
 });
 
 Route::group(['middleware' => 'auth'], function () {

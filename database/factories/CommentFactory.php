@@ -6,6 +6,7 @@ use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Vinkla\Hashids\Facades\Hashids;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Comment>
@@ -28,7 +29,7 @@ class CommentFactory extends Factory
     public function on_post(){
         return $this->state(function ($attributes){
             return [
-                'post_id' => Post::all()->random()->id,
+                'post_id' => Hashids::decode(Post::all()->random()->id)[0],
                 'parent_id' => null
             ];
         });
