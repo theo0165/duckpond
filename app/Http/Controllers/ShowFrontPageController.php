@@ -14,10 +14,9 @@ class ShowFrontPageController extends Controller
         $user = auth()->user();
         $posts = $user->frontPagePosts;
 
-        //dd($posts[0]);
-
-        dd(Post::withCount('votes')->first());
-
-        return view('frontpage');
+        return view('frontpage', [
+            'user' => $user,
+            'posts' => $posts
+        ]);
     }
 }
