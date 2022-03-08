@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Carbon;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -67,6 +68,31 @@ class User extends Authenticatable
 
     public function followedCommunities()
     {
-        return $this->hasMany(UserFollowsCommunity::class, 'user_id', 'id');
+        return $this->hasManyThrough(
+            Community::class,
+            UserFollowsCommunity::class,
+            'user_id',
+            'id',
+            'id',
+            'community_id'
+        );
+    }
+
+    public function frontPagePosts()
+    {
+        return $this->hasManyThrough(
+            Post::class,
+            UserFollowsCommunity::class,
+            'user_id',
+            'community_id',
+            '',
+            'community_id'
+        )
+        ->with(['community', 'user'])
+        ->where('posts.created_at', '>=', Carbon::now()->subDay()->toDateTimeString())
+        ->withCount('comments')
+        ->withSum('votes as votes', 'value')
+        ->limit(100)
+        ->orderBy('votes', 'desc');
     }
 }

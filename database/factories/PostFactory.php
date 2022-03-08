@@ -38,7 +38,7 @@ class PostFactory extends Factory
         return $this->state(function($attributes){
             return [
                 'type' => 'text',
-                'content' => $this->faker->sentence()
+                'content' => $this->faker->text(200)
             ];
         });
     }

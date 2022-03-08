@@ -57,6 +57,8 @@
             @endguest
             </ul>
         </nav>
-        {{ $slot }}
+        <div class="container">
+            {{ $slot }}
+        </div>
     </body>
 </html>
