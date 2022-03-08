@@ -16,7 +16,8 @@ class Post extends Model
     protected function id(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => Hashids::encode($value)
+            get: fn ($value) => Hashids::encode($value),
+            set: fn ($value) => Hashids::decode($value)
         );
     }
 

@@ -2,11 +2,13 @@
 
 namespace App\Providers;
 
+use App\Models\Post;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
+use Vinkla\Hashids\Facades\Hashids;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -27,6 +29,11 @@ class RouteServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->configureRateLimiting();
+
+        //Overwite route binding for posts, need to decode hashed id to compare to db id.
+        Route::bind('post', function ($value) {
+            return Post::where('id', Hashids::decode($value))->firstOrFail();
+        });
 
         $this->routes(function () {
             Route::prefix('api')
