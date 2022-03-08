@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 
-class ShowUserProfileController extends Controller
+class ShowUserPostController extends Controller
 {
     public function __invoke(User $user)
     {
-        return view('users.profile', [
+        return view('users.posts', [
             'user' => $user,
         ]);
     }
