@@ -2,12 +2,22 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Vinkla\Hashids\Facades\Hashids;
 
 class Post extends Model
 {
     use HasFactory;
+
+    protected function id(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => Hashids::encode($value),
+            set: fn ($value) => Hashids::decode($value)
+        );
+    }
 
     public function comments()
     {
