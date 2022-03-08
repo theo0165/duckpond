@@ -11,13 +11,12 @@ class Post extends Model
 {
     use HasFactory;
 
-    // protected function id(): Attribute
-    // {
-    //     return Attribute::make(
-    //         get: fn ($value) => Hashids::encode($value),
-    //         set: fn ($value) => Hashids::decode($value)
-    //     );
-    // }
+    protected function id(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => Hashids::encode($value)
+        );
+    }
 
     public function comments()
     {
