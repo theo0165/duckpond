@@ -66,6 +66,45 @@ class User extends Authenticatable
 
     public function followedCommunities()
     {
-        return $this->hasMany(UserFollowsCommunity::class, 'user_id', 'id');
+        return $this->hasManyThrough(
+            Community::class,
+            UserFollowsCommunity::class,
+            'user_id',
+            'id',
+            'id',
+            'community_id'
+        );
+    }
+
+    public function frontPagePosts()
+    {
+        return $this->hasManyThrough(
+            Post::class,
+            UserFollowsCommunity::class,
+            'user_id',
+            'community_id',
+            '',
+            'community_id'
+        )->limit(100);
+
+        /*
+        select
+            `posts`.*,
+            `user_follows_communities`.`user_id` as `laravel_through_key`
+        from `posts`
+        inner join `user_follows_communities`
+            on `user_follows_communities`.`id` = `posts`.`user_follows_community_id`
+        where `user_follows_communities`.`user_id` = 1
+        */
+
+        /*
+        select
+            `posts`.*,
+            `user_follows_communities`.`user_id` as `laravel_through_key`
+        from `posts`
+        inner join `user_follows_communities`
+            on `user_follows_communities`.`community_id` = `posts`.`user_follows_community_id`
+        where `user_follows_communities`.`user_id` = 1
+        */
     }
 }

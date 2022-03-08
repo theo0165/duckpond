@@ -23,4 +23,9 @@ class Post extends Model
     {
         return $this->belongsTo(Community::class, 'community_id', 'id');
     }
+
+    public function votes()
+    {
+        return $this->hasMany(Vote::class, 'post_id', 'id');
+    }
 }
