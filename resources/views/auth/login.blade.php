@@ -3,23 +3,20 @@
     <form action="{{ route('auth.login.user') }}" method="post">
     @csrf
         <div>
-            <label for="username">Username</label>
-            <input type="text" name="username" id="username">
+            <x-form.input name="username" required />
         </div>
         <div>
-            <label for="email">Email</label>
-            <input type="email" name="email" id="email">
+            <x-form.input name="email" type="email" required />
         </div>
         <div>
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password">
+            <x-form.input name="password" type="password" required />
         </div>
-        <div>
+           <div>
             <input type="checkbox" name="remember" id="remember">
             <label for="remember">Remember me</label>
         </div>
         <div>
-            <button type="submit">Login</button>
+            <x-form.button>Login</x-form.button>
         </div>
     </form>
 </x-layout>

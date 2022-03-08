@@ -3,23 +3,16 @@
     <form action="{{ route('auth.register.user') }}" method="post">
     @csrf
         <div>
-            <label for="username">Username</label>
-            <input type="text" name="username" id="username">
+            <x-form.input name="username" required />
         </div>
         <div>
-            <label for="email">Email</label>
-            <input type="email" name="email" id="email">
+            <x-form.input name="email" type="email" required />
         </div>
         <div>
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password">
+        <x-form.input name="password" type="password" required />
         </div>
         <div>
-            <label for="password_confirmation">Confirm password</label>
-            <input type="password" name="password_confirmation" id="password_confirmation">
-        </div>
-        <div>
-            <button type="submit">Register</button>
+            <x-form.button>Sign up</x-form.button>
         </div>
     </form>
 </x-layout>

@@ -36,7 +36,7 @@
             <ul>
             @auth
                 <li>
-                    <a href="{{ route('users.profile', $user) }}">{{ auth()->user()->username }}</a>
+                    {{-- <a href="{{ route('users.profile', $user) }}">{{ auth()->user()->username }}</a> --}}
                 </li>
                 <li>
                     <form action="{{ route('auth.logout') }}" method="post">
