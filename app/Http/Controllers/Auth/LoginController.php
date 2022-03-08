@@ -9,14 +9,13 @@ class LoginController extends Controller
 {
     public function __invoke(Request $request)
     {
-
         $credentials = $request->validate([
             'username' => ['required', 'string', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'max:255'],
         ]);
 
         if (auth()->attempt($credentials, $request->filled('remember'))) {
-            session()->regenerate();
+            $request->session()->regenerate();
 
             return redirect('/'); // add flash messages later on
         }
