@@ -27,7 +27,7 @@ class VoteFactory extends Factory
     public function downvote(){
         return $this->state(function ($attributes){
             return [
-                'is_up' => false
+                'value' => -1
             ];
         });
     }
@@ -35,7 +35,7 @@ class VoteFactory extends Factory
     public function upvote(){
         return $this->state(function ($attributes){
             return [
-                'is_up' => true
+                'value' => 1
             ];
         });
     }
