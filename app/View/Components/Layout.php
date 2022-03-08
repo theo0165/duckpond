@@ -10,7 +10,7 @@ class Layout extends Component
 
     public function __construct($title = null)
     {
-        $this->title = $title;;
+        $this->title = $title;
     }
 
     public function render()
