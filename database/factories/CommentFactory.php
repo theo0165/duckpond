@@ -28,7 +28,7 @@ class CommentFactory extends Factory
     public function on_post(){
         return $this->state(function ($attributes){
             return [
-                'post_id' => Post::all()->random(),
+                'post_id' => Post::all()->random()->id,
                 'parent_id' => null
             ];
         });
