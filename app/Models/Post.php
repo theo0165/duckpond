@@ -41,7 +41,7 @@ class Post extends Model
 
     public function excerpt()
     {
-        if (strlen($this->content) <= 140){
+        if (strlen($this->content) <= 140) {
             return $this->content;
         }
 
