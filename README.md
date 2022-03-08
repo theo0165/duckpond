@@ -126,3 +126,14 @@
         -   /edit
         -   /delete
     -   /search
+
+### Policies
+
+-   Post
+    -   Delete
+-   Community
+    -   Delete
+    -   Follow/Unfollow
+-   User
+    -   Delete
+    -   Edit
