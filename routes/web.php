@@ -5,7 +5,6 @@ use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ShowLoginController;
 use App\Http\Controllers\Auth\ShowRegisterController;
-use App\Http\Controllers\ShowDashboardController;
 use App\Http\Controllers\ShowUserProfileController;
 use Illuminate\Support\Facades\Route;
 
