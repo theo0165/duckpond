@@ -14,9 +14,9 @@ class ShowFrontPageController extends Controller
         // Get first 100 posts, sorted by most upvoted.
         $user = auth()->user();
 
-        if($user){
+        if ($user) {
             $posts = $user->frontPagePosts;
-        }else{
+        } else {
             $posts = $this->getGuestPosts();
         }
 
