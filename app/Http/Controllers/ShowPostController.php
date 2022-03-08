@@ -13,7 +13,7 @@ class ShowPostController extends Controller
         //TODO: Get comments and votes
         dd($post);
 
-        if($post->type === "link"){
+        if ($post->type === "link") {
             return redirect($post->content);
         }
 
