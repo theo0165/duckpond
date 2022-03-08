@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Comment;
 use App\Models\Post;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Vinkla\Hashids\Facades\Hashids;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Vote>
@@ -27,7 +28,7 @@ class VoteFactory extends Factory
     public function downvote(){
         return $this->state(function ($attributes){
             return [
-                'is_up' => false
+                'value' => -1
             ];
         });
     }
@@ -35,7 +36,7 @@ class VoteFactory extends Factory
     public function upvote(){
         return $this->state(function ($attributes){
             return [
-                'is_up' => true
+                'value' => 1
             ];
         });
     }
@@ -43,7 +44,7 @@ class VoteFactory extends Factory
     public function on_post(){
         return $this->state(function ($attributes){
             return [
-                'post_id' => Post::all()->random(),
+                'post_id' => Hashids::decode(Post::all()->random()->id)[0],
                 'comment_id' => null
             ];
         });

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('post_id')->nullable();
             $table->unsignedBigInteger('comment_id')->nullable();
             $table->unsignedBigInteger('user_id');
-            $table->boolean('is_up'); // Upvote if true, downvote if false
+            $table->tinyInteger('value'); // 1 if up, -1 if down
             $table->timestamps();
         });
     }

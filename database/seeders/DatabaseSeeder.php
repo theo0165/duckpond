@@ -45,5 +45,14 @@ class DatabaseSeeder extends Seeder
         Vote::factory()->downvote()->on_comment()->count(250)->create();
         Vote::factory()->upvote()->on_post()->count(250)->create();
         Vote::factory()->downvote()->on_post()->count(250)->create();
+
+        foreach(Community::all() as $community){
+            $follow = new UserFollowsCommunity([
+                'user_id' => $admin->id,
+                'community_id' => $community->id
+            ]);
+
+            $follow->save();
+        }
     }
 }
