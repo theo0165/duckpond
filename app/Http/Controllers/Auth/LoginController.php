@@ -9,13 +9,20 @@ class LoginController extends Controller
 {
     public function __invoke(Request $request)
     {
-        $credentials = $request->only('username', 'email', 'password');
+
+        $credentials = $request->validate([
+            'username' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'password' => ['required', 'string', 'min:8', 'max:255'],
+        ]);
 
         if (auth()->attempt($credentials, $request->filled('remember'))) {
             session()->regenerate();
 
-            return redirect('dashboard'); // add flash messages later on
+            return redirect('/'); // add flash messages later on
         }
+
+
 
         return back()->withErrors([
             'invalid' => 'Your provided credentials could not be verified.'
