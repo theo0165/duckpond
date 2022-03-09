@@ -29,7 +29,7 @@ class CommentFactory extends Factory
     public function on_post(){
         return $this->state(function ($attributes){
             return [
-                'post_id' => Hashids::decode(Post::all()->random()->id)[0],
+                'post_id' => Post::all()->random()->id,
                 'parent_id' => null
             ];
         });

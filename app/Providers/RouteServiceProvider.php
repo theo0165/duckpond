@@ -32,7 +32,11 @@ class RouteServiceProvider extends ServiceProvider
 
         //Overwite route binding for posts, need to decode hashed id to compare to db id.
         Route::bind('post', function ($value) {
-            return Post::where('id', Hashids::decode($value))->firstOrFail();
+            return Post::where('id', Hashids::decode($value))
+                    ->with(['community', 'user', 'comments'])
+                    ->withCount('comments')
+                    ->withSum('votes as votes', 'value')
+                    ->firstOrFail();
         });
 
         $this->routes(function () {

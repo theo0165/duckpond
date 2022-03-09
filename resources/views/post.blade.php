@@ -16,5 +16,25 @@
         <div class="">
             <p>{{$post->content}}</p>
         </div>
+        <hr>
+        <form class="">
+            <div>
+                <label class="form-label">Comment:</label>
+                <textarea name="content" class="form-control"></textarea>
+            </div>
+            <input type="submit" value="Submit" class="form-control mt-3 btn btn-primary">
+        </form>
+        <div>
+            @foreach($post->comments as $comment):
+                <ul>
+                    <li>{{$comment->content}}</li>
+                    @foreach($comment->children as $child)
+                        <ul>
+                            <li>{{$child->content}}</li>
+                        </ul>
+                    @endforeach
+                </ul>
+            @endforeach
+        </div>
     </div>
 </x-layout>
