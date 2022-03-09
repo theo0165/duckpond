@@ -7,7 +7,6 @@ use Illuminate\Validation\Rule;
 
 class UpdateUserProfileController extends Controller
 {
-
     public function __invoke(User $user)
     {
         $attributes = request()->validate([
