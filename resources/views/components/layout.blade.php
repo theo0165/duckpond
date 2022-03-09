@@ -29,18 +29,18 @@
         @endproduction
     </head>
     <body>
-        <nav>
-            <ul>
-                <li>
-                    <a href="/">Duckpond</a>
+        <nav class="navbar">
+            <ul class="navbar-nav">
+                <li class="nav-item p-3">
+                    <a href="/" class="nav-link">Duckpond</a>
                 </li>
             </ul>
-            <ul>
+            <ul class="navbar-nav flex-row">
             @auth
-                <li>
-                    <a href="{{ route('users.profile', Auth::user()) }}">{{ auth()->user()->username }}</a>
+                <li class="nav-item p-3">
+                    <a href="{{ route('users.profile', Auth::user()) }}" class="nav-link">{{ auth()->user()->username }}</a>
                 </li>
-                <li>
+                <li class="nav-item p-3">
                     <form action="{{ route('auth.logout') }}" method="post">
                     @csrf
                         <button type="submit">Logout</button>
@@ -48,11 +48,11 @@
                 </li>
             @endauth
             @guest
-                <li>
-                    <a href="{{ route('auth.login') }}">Login</a>
+                <li class="nav-item p-3">
+                    <a href="{{ route('auth.login') }}" class="nav-link">Login</a>
                 </li>
-                 <li>
-                    <a href="{{ route('auth.register') }}">Register</a>
+                 <li class="nav-item p-3">
+                    <a href="{{ route('auth.register') }}" class="nav-link">Register</a>
                 </li>
             @endguest
             </ul>

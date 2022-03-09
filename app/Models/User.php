@@ -53,7 +53,11 @@ class User extends Authenticatable
 
     public function posts()
     {
-        return $this->hasMany(Post::class, 'user_id', 'id');
+        return $this->hasMany(Post::class, 'user_id', 'id')
+            ->with(['community', 'user'])
+            ->where('posts.created_at', '>=', Carbon::now()->subDay()->toDateTimeString())
+            ->withCount('comments')
+            ->withSum('votes as votes', 'value');
     }
 
     public function comments()
@@ -88,11 +92,11 @@ class User extends Authenticatable
             '',
             'community_id'
         )
-        ->with(['community', 'user'])
-        ->where('posts.created_at', '>=', Carbon::now()->subDay()->toDateTimeString())
-        ->withCount('comments')
-        ->withSum('votes as votes', 'value')
-        ->limit(100)
-        ->orderBy('votes', 'desc');
+            ->with(['community', 'user'])
+            ->where('posts.created_at', '>=', Carbon::now()->subDay()->toDateTimeString())
+            ->withCount('comments')
+            ->withSum('votes as votes', 'value')
+            ->limit(100)
+            ->orderBy('votes', 'desc');
     }
 }
