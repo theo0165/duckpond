@@ -3,32 +3,40 @@
     <p>Profile created: {{ $user->created_at }}</p>
     <p>Posts made:
         @if ($user->posts_count > 0)
-        <a href="{{ route('users.posts', $user) }}">{{ $user->posts_count }}</a>
+            <a href="{{ route('users.posts', $user) }}">{{ $user->posts_count }}</a>
         @else
-        <span>0</span>
+            <span>0</span>
         @endif
     </p>
     <p>Comments made:
         @if ($user->comments_count > 0)
-        <a href="{{ route('users.comments', $user) }}">{{ $user->comments_count }}</a>
+            <a href="{{ route('users.comments', $user) }}">{{ $user->comments_count }}</a>
         @else
-        <span>0</span>
+            <span>0</span>
         @endif
     </p>
     <p>Owned communities:
         @if ($user->ownedCommunities_count > 0)
-        <a href="{{ route('users.owned.community', $user) }}">{{ $user->ownedCommunities_count }}</a>
+            <a href="{{ route('users.owned.community', $user) }}">{{ $user->ownedCommunities_count }}</a>
         @else
-        <span>0</span>
+            <span>0</span>
         @endif
     </p>
     <p>Followed communities:
         @if ($user->followedCommunities_count > 0)
-        <a href="{{ route('users.followed.community', $user) }}">{{ $user->followedCommunities_count }}</a>
+            <a href="{{ route('users.followed.community', $user) }}">{{ $user->followedCommunities_count }}</a>
         @else
-        <span>0</span>
+            <span>0</span>
         @endif
     </p>
+
+    <a href="{{ route('users.profile.edit', $user) }}">Update</a>
+
+    {{-- <form action="{{ route('users.profile.edit', $user) }}" method="get">
+    @csrf
+        <button type="submit">Update</button>
+    </form> --}}
+
     <hr>
     <p>Add some bio?</p>
 </x-layout>
