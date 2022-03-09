@@ -27,10 +27,13 @@
         <div>
             @foreach($post->comments as $comment):
                 <ul>
-                    <li>{{$comment->content}}</li>
-                    @foreach($comment->children as $child)
+                    <li>{{$comment->content}} - {{$comment->id}}</li>
+                    @foreach($comment->allChildren as $child)
                         <ul>
-                            <li>{{$child->content}}</li>
+                            <li>{{$child->content}} - {{$child->id}}</li>
+                            @if ($nextLevel = $child->allChildren)
+                                {{App\Models\Comment::printChildren($nextLevel)}}
+                            @endif
                         </ul>
                     @endforeach
                 </ul>

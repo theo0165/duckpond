@@ -11,7 +11,7 @@ class ShowPostController extends Controller
 {
     public function __invoke(Request $request, Community $community, Post $post)
     {
-        dd($post->comments[0]->allChildren);
+        //dd($post->comments[0]->allChildren);
         if ($post->type === "link") {
             return redirect($post->content);
         }

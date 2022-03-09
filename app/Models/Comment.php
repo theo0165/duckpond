@@ -29,4 +29,14 @@ class Comment extends Model
             return null;
         }
     }
+
+    public static function printChildren($comment){
+        foreach($comment as $child):
+            ?>
+                <ul>
+                    <li><?= $child->content ?> - <?= $child->id ?></li>
+                </ul>
+            <?php
+        endforeach;
+    }
 }
