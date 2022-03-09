@@ -6,7 +6,6 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ShowLoginController;
 use App\Http\Controllers\Auth\ShowRegisterController;
 use App\Http\Controllers\ShowCommunityController;
-use App\Http\Controllers\ShowDashboardController;
 use App\Http\Controllers\ShowFrontPageController;
 use App\Http\Controllers\ShowPostController;
 use App\Http\Controllers\ShowUserProfileController;
@@ -14,6 +13,9 @@ use App\Http\Controllers\ShowUserPostController;
 use App\Http\Controllers\ShowUserCommentController;
 use App\Http\Controllers\ShowUserOwnedCommunityController;
 use App\Http\Controllers\ShowUserFollowedCommunityController;
+use App\Http\Controllers\EditUserProfileController;
+use App\Http\Controllers\UpdateUserProfileController;
+use App\Http\Controllers\DeleteUserProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', ShowFrontPageController::class)->name('frontpage');
@@ -41,4 +43,7 @@ Route::get('u/{user:username}/owned-communities', ShowUserOwnedCommunityControll
 
 Route::group(['middleware' => 'auth'], function () {
     Route::post('logout', LogoutController::class)->name('auth.logout');
+    Route::get('u/{user:username}/edit', EditUserProfileController::class)->name('users.profile.edit');
+    Route::patch('u/{user:username}/update', UpdateUserProfileController::class)->name('users.profile.update');
+    Route::delete('u/{user:username}/delete', DeleteUserProfileController::class)->name('users.profile.delete');
 });
