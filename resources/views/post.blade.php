@@ -25,19 +25,7 @@
             <input type="submit" value="Submit" class="form-control mt-3 btn btn-primary">
         </form>
         <div>
-            @foreach($post->comments as $comment):
-                <ul>
-                    <li>{{$comment->content}} - {{$comment->id}}</li>
-                    @foreach($comment->allChildren as $child)
-                        <ul>
-                            <li>{{$child->content}} - {{$child->id}}</li>
-                            @if ($nextLevel = $child->allChildren)
-                                {{App\Models\Comment::printChildren($nextLevel)}}
-                            @endif
-                        </ul>
-                    @endforeach
-                </ul>
-            @endforeach
+            @include('partials.comments', ['comments' => $post->comments])
         </div>
     </div>
 </x-layout>
