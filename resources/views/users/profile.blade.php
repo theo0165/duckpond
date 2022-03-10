@@ -29,14 +29,9 @@
             <span>0</span>
         @endif
     </p>
-
-    <a href="{{ route('users.profile.edit', $user) }}">Update</a>
-
-    {{-- <form action="{{ route('users.profile.edit', $user) }}" method="get">
-    @csrf
-        <button type="submit">Update</button>
-    </form> --}}
-
+    @can('update', $user)
+        <a href="{{ route('users.profile.edit', $user) }}">Update</a>
+    @endcan
     <hr>
     <p>Add some bio?</p>
 </x-layout>

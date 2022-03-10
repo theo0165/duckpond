@@ -37,13 +37,17 @@ Route::get('u/{user:username}/posts', ShowUserPostController::class)->name('user
 Route::get('u/{user:username}/comments', ShowUserCommentController::class)->name('users.comments');
 Route::get('u/{user:username}/followed-communities', ShowUserFollowedCommunityController::class)->name('users.followed.community');
 Route::get('u/{user:username}/owned-communities', ShowUserOwnedCommunityController::class)->name('users.owned.community');
+// Route::get('u/{user:username}/edit', EditUserProfileController::class)->name('users.profile.edit')->middleware('can:delete,user');
 
+// Route::get('u/{user:username}/edit', EditUserProfileController::class)->name('users.profile.edit')->can('edit', 'user');
+// Route::patch('u/{user:username}/update', UpdateUserProfileController::class)->name('users.profile.update')->can('update', 'user');
+// Route::delete('u/{user:username}/delete', DeleteUserProfileController::class)->name('users.profile.delete')->can('delete', 'user');
 
+Route::get('u/{user:username}/edit', EditUserProfileController::class)->name('users.profile.edit');
+Route::patch('u/{user:username}/update', UpdateUserProfileController::class)->name('users.profile.update');
+Route::delete('u/{user:username}/delete', DeleteUserProfileController::class)->name('users.profile.delete');
 // });
 
 Route::group(['middleware' => 'auth'], function () {
     Route::post('logout', LogoutController::class)->name('auth.logout');
-    Route::get('u/{user:username}/edit', EditUserProfileController::class)->name('users.profile.edit');
-    Route::patch('u/{user:username}/update', UpdateUserProfileController::class)->name('users.profile.update');
-    Route::delete('u/{user:username}/delete', DeleteUserProfileController::class)->name('users.profile.delete');
 });
