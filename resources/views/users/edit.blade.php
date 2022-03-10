@@ -4,13 +4,13 @@
     @csrf
     @method('PATCH')
         <div>
-            <x-form.input name="username" value="{{ $user->username }}" />
+            <x-form.input name="username" value="{{ old('username') ?? $user->username }}" />
         </div>
         <div>
-            <x-form.input name="email" type="email" value="{{ $user->email }}" />
+            <x-form.input name="email" type="email" value="{{ old('email') ?? $user->email }}" />
         </div>
         <div>
-            <x-form.input name="password" type="password" value="{{ $user->email }}" />
+            <x-form.input name="password" type="password"/>
         </div>
         <div>
             <button type="submit">Save profile info</button>

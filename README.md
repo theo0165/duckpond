@@ -111,8 +111,8 @@
 -   Reply to comment page
 -   Optimize single post queries.
 -   Fix bug where you can only see amount of top level comments.
--   Upvote/downvote route.
--   Update user
+-   Upvote/downvote route. ✅
+-   Update user (almost)
 -   Search
 -   Tests
 -   Fix policies
