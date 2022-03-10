@@ -13,12 +13,19 @@ class UpdateUserProfileController extends Controller
         // $this->authorize('update', $user);
 
         $attributes = request()->validate([
-            'email' => ['string', 'max:255', Rule::unique('users')->ignore($user)],
-            'username' => ['string', 'max:255', 'unique:users'],
-            'password' => ['string', 'min:8', 'max:255',]
+            'email' => ['string', 'max:255', 'unique:users,email,' . $user->id],
+            'username' => ['string', 'max:255', 'unique:users,username,' . $user->username],
+            'password' => ['nullable', 'string', 'min:8', 'max:255',]
         ]);
 
-        $user->update($attributes);
+        if ($attributes['password'] === null) {
+            $user->update([
+                'email' => $attributes['email'],
+                'username' => $attributes['username'],
+            ]);
+        } else {
+            $user->update($attributes);
+        }
 
         return redirect()->route('users.profile', $user);
     }
