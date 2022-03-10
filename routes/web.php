@@ -17,6 +17,8 @@ use App\Http\Controllers\ShowUserFollowedCommunityController;
 use App\Http\Controllers\EditUserProfileController;
 use App\Http\Controllers\UpdateUserProfileController;
 use App\Http\Controllers\DeleteUserProfileController;
+use App\Http\Controllers\submit\ShowSubmitController;
+use App\Http\Controllers\submit\StoreSubmitController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', ShowFrontPageController::class)->name('frontpage');
@@ -42,6 +44,9 @@ Route::get('u/{user:username}/posts', ShowUserPostController::class)->name('user
 Route::get('u/{user:username}/comments', ShowUserCommentController::class)->name('users.comments');
 Route::get('u/{user:username}/followed-communities', ShowUserFollowedCommunityController::class)->name('users.followed.community');
 Route::get('u/{user:username}/owned-communities', ShowUserOwnedCommunityController::class)->name('users.owned.community');
+
+Route::get('/submit', ShowSubmitController::class)->name('submit.show');
+Route::post('/submit', StoreSubmitController::class)->name('submit.store');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::post('logout', LogoutController::class)->name('auth.logout');
