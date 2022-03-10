@@ -6,8 +6,8 @@
             <div>
                 <p>
                     {{$comment->vote_count}} points |
-                    <a href="{{ route('comment.upvote', ['community' => $community, 'comment' => $comment->getHashedId()]) }}">Upvote</a> |
-                    <a href="{{ route('comment.downvote', ['community' => $community, 'comment' => $comment->getHashedId()]) }}">Downvote</a> |
+                    <a href="{{ route('comment.upvote', ['community' => $community, 'comment' => $comment->getHashdId()]) }}">Upvote</a> |
+                    <a href="{{ route('comment.downvote', ['community' => $community, 'comment' => $comment->getHashdId()]) }}">Downvote</a> |
                     <a href="">Reply</a>
                 </p>
             </div>
