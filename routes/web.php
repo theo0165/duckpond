@@ -49,9 +49,9 @@ Route::get('u/{user:username}/followed-communities', ShowUserFollowedCommunityCo
 Route::get('u/{user:username}/owned-communities', ShowUserOwnedCommunityController::class)->name('users.owned.community');
 
 
-Route::get('/submit', ShowSubmitController::class)->name('submit.show');
-Route::post('/submit', StoreSubmitController::class)->name('submit.store');
-
 Route::group(['middleware' => 'auth'], function () {
+    Route::get('/submit', ShowSubmitController::class)->name('submit.show');
+    Route::post('/submit', StoreSubmitController::class)->name('submit.store');
+
     Route::post('logout', LogoutController::class)->name('auth.logout');
 });

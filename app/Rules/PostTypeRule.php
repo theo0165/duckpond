@@ -26,9 +26,9 @@ class PostTypeRule implements Rule, DataAwareRule
      */
     public function passes($attribute, $value)
     {
-        if($this->data['type'] === "text" && Validator::make(['content' => $this->data['content']], ['content' => 'string'])->passes()){
+        if ($this->data['type'] === "text" && Validator::make(['content' => $this->data['content']], ['content' => 'string'])->passes()) {
             return true;
-        }else if($this->data['type'] === "link" && Validator::make(['content' => $this->data['content']], ['content' => 'url'])->passes()){
+        } else if ($this->data['type'] === "link" && Validator::make(['content' => $this->data['content']], ['content' => 'url'])->passes()) {
             return true;
         }
 
