@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ShowLoginController;
 use App\Http\Controllers\Auth\ShowRegisterController;
+use App\Http\Controllers\CommunityIndexController;
 use App\Http\Controllers\ShowCommunityController;
 use App\Http\Controllers\ShowFrontPageController;
 use App\Http\Controllers\ShowPostController;
@@ -32,6 +33,7 @@ Route::get('/c/{community:title}/p/{post:id}/downvote', fn () => response())->na
 Route::get('/c/{community:title}/p/{comment:id}/upvote', fn () => response())->name('comment.upvote');
 Route::get('/c/{community:title}/p/{comment:id}/downvote', fn () => response())->name('comment.downvote');
 
+Route::get('/c/all', CommunityIndexController::class)->name('community.index');
 Route::get('/c/{community:title}', ShowCommunityController::class)->name('community.show');
 Route::get('/c/{community:title}/p/{post:id}', ShowPostController::class)->name('post.show');
 
