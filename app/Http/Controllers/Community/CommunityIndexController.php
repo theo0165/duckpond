@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Community;
 
+use App\Http\Controllers\Controller;
 use App\Models\Community;
 use Illuminate\Http\Request;
 
