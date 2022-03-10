@@ -29,7 +29,7 @@ Route::get('/', ShowFrontPageController::class)->name('frontpage');
 
 Route::get('register', ShowRegisterController::class)->name('auth.register');
 Route::post('register', RegisterController::class)->name('auth.register.user');
-Route::get('login', ShowLoginController::class)->name('auth.login');
+Route::get('login', ShowLoginController::class)->name('login');
 Route::post('login', LoginController::class)->name('auth.login.user');
 
 Route::get('/c/{community:title}/p/{post:id}/upvote', PostUpvoteController::class)->name('post.upvote');

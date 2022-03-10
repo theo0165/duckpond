@@ -52,7 +52,7 @@
             @endauth
             @guest
                 <li class="nav-item p-3">
-                    <a href="{{ route('auth.login') }}" class="nav-link">Login</a>
+                    <a href="{{ route('login') }}" class="nav-link">Login</a>
                 </li>
                  <li class="nav-item p-3">
                     <a href="{{ route('auth.register') }}" class="nav-link">Register</a>
