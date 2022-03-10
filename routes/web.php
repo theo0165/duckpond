@@ -32,14 +32,14 @@ Route::post('register', RegisterController::class)->name('auth.register.user');
 Route::get('login', ShowLoginController::class)->name('login');
 Route::post('login', LoginController::class)->name('auth.login.user');
 
-Route::get('/c/{community:title}/p/{post:id}/upvote', PostUpvoteController::class)->name('post.upvote');
-Route::get('/c/{community:title}/p/{post:id}/downvote', PostDownvoteController::class)->name('post.downvote');
+Route::get('/c/{community:title}/p/{post}/upvote', PostUpvoteController::class)->name('post.upvote');
+Route::get('/c/{community:title}/p/{post}/downvote', PostDownvoteController::class)->name('post.downvote');
 Route::get('/c/{community:title}/p/{comment:id}/upvote', CommentUpvoteController::class)->name('comment.upvote');
 Route::get('/c/{community:title}/p/{comment:id}/downvote', CommentDownvoteController::class)->name('comment.downvote');
 
 Route::get('/c/all', CommunityIndexController::class)->name('community.index');
 Route::get('/c/{community:title}', ShowCommunityController::class)->name('community.show');
-Route::get('/c/{community:title}/p/{post:id}', ShowPostController::class)->name('post.show');
+Route::get('/c/{community:title}/p/{post}', ShowPostController::class)->name('post.show');
 
 Route::get('u/{user:username}', ShowUserProfileController::class)->name('users.profile');
 Route::get('u/{user:username}/edit', EditUserProfileController::class)->name('users.profile.edit');
