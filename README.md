@@ -105,7 +105,7 @@
 
 -   Show posts even if user does not follow any communities. ✅
     -   Alt. Show text and link to explore communities. Print all communities with link on seperate page. ✅
--   Create post
+-   Create post ✅
 -   Create comment
 -   Follow community
 -   Reply to comment page
