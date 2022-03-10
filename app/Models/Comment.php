@@ -17,12 +17,18 @@ class Comment extends Model
 
     public function children()
     {
-        return $this->hasMany(Comment::class, 'parent_id', 'id');
+        return $this->hasMany(Comment::class, 'parent_id', 'id')
+                ->withSum('votes as vote_count', 'value');
+    }
+
+    public function votes()
+    {
+        return $this->hasMany(Vote::class, 'comment_id', 'id');
     }
 
     public function allChildren()
     {
-        return $this->children()->with('allChildren');
+        return $this->children()->with('allChildren')->orderByDesc('vote_count');
     }
 
     public function parent()

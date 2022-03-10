@@ -13,8 +13,14 @@ class ShowPostController extends Controller
     {
         $user = auth()->user() ?: null;
 
+        $comments = $post->comments()
+            ->withSum('votes as vote_count', 'value')
+            ->orderByDesc('vote_count')
+            ->get();
+
         return view('post', [
             'post' => $post,
+            'comments' => $comments,
             'user' => $user
         ]);
     }
