@@ -9,6 +9,8 @@ class UpdateUserProfileController extends Controller
 {
     public function __invoke(User $user)
     {
+        // $this->authorize('update', $user);
+
         $attributes = request()->validate([
             'email' => ['string', 'max:255', Rule::unique('users')->ignore($user)],
             'username' => ['string', 'max:255', 'unique:users'],

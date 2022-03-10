@@ -4,27 +4,24 @@ namespace App\Policies;
 
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
 
 class UserPolicy
 {
     use HandlesAuthorization;
 
-    public function update(User $user, User $model)
+    public function edit(User $user, User $userToEdit)
     {
-        return $user->id == $model->id ?
-            Response::allow() :
-            Response::deny("Unauthorized");
+        return $user->id === $userToEdit->id;
     }
 
-    // public function delete(User $user, User $model)
-    // {
-    //     return ($user->id == auth()->user()->id || $user->is_admin) ?
-    //         Response::allow() :
-    //         Response::deny("Unauthorized");
-    // }
-
-    public function delete(User $user)
+    public function update(User $user, User $userToEdit)
     {
-        return $user->id === auth()->user()->id;
+        return $user->id === $userToEdit->id;
+    }
+
+    public function delete(User $user, User $userToEdit)
+    {
+        return $user->id === $userToEdit->id;
     }
 }
