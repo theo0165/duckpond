@@ -11,6 +11,8 @@ use App\Http\Controllers\Community\CommunityIndexController;
 use App\Http\Controllers\Community\ShowCommunityController;
 use App\Http\Controllers\ShowFrontPageController;
 use App\Http\Controllers\Post\ShowPostController;
+use App\Http\Controllers\submit\ShowSubmitController;
+use App\Http\Controllers\submit\StoreSubmitController;
 use App\Http\Controllers\User\ShowUserProfileController;
 use App\Http\Controllers\User\ShowUserPostController;
 use App\Http\Controllers\User\ShowUserCommentController;
