@@ -15,7 +15,7 @@ class StoreSubmitController extends Controller
         $postData = $request->validate([
             'type' => ['required', 'string', 'in:text,link'],
             'title' => ['required', 'string'],
-            'content' => ['required', 'string', new PostTypeRule],
+            'content' => ['required', 'string', new PostTypeRule()],
             'community' => ['required', 'exists:communities,title']
         ]);
 
