@@ -42,7 +42,7 @@ class Comment extends Model
         }
     }
 
-    public function getHashedId()
+    public function getHashId()
     {
         return Hashids::encode($this->id);
     }
