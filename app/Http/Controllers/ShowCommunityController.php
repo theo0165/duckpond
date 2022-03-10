@@ -14,7 +14,7 @@ class ShowCommunityController extends Controller
         $user = auth()->user() ?: null;
         $posts = $community->getPosts();
 
-        return view('community', [
+        return view('community.show', [
             'user' => $user,
             'posts' => $posts,
             'community' => $community
