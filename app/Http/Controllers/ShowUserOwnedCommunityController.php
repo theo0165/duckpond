@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 
-class ShowUserProfileController extends Controller
+class ShowUserOwnedCommunityController extends Controller
 {
     public function __invoke(User $user)
     {
-        return view('users.profile', [
+        return view('users.owned-community', [
             'user' => $user,
         ]);
     }

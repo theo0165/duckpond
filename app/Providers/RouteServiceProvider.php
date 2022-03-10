@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
 use Vinkla\Hashids\Facades\Hashids;
+use App\Models\User;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -46,6 +47,10 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
+        });
+
+        Route::bind('user', function ($value) {
+            return User::where('username', $value)->withCount(['posts', 'comments', 'ownedCommunities', 'followedCommunities'])->firstOrFail();
         });
     }
 
