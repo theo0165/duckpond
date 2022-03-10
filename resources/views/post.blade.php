@@ -13,8 +13,12 @@
                 <a href="{{route('post.downvote', ['community' => $post->community, 'post' => $post])}}">Downvote</a>
             </div>
         </div>
-        <div class="">
-            <p>{{$post->content}}</p>
+        <div class="mb-3">
+            @if($post->type === "link")
+                <a href="{{$post->content}}">{{$post->content}}</a>
+            @else
+                <p>{{$post->content}}</p>
+            @endif
         </div>
         <hr>
         <form class="">
@@ -24,8 +28,9 @@
             </div>
             <input type="submit" value="Submit" class="form-control mt-3 btn btn-primary">
         </form>
-        <div>
-            @include('partials.comments', ['comments' => $post->comments])
+        <div class="mt-5">
+            <h3>Comments</h3>
+            @include('partials.comments', ['comments' => $post->comments, 'community' => $post->community])
         </div>
     </div>
 </x-layout>

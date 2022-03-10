@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Vinkla\Hashids\Facades\Hashids;
 
 class Comment extends Model
 {
@@ -33,5 +34,10 @@ class Comment extends Model
         } else {
             return null;
         }
+    }
+
+    public function getHashedId()
+    {
+        return Hashids::encode($this->id);
     }
 }

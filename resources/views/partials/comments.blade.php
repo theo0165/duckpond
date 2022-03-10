@@ -1,13 +1,14 @@
-@foreach($comments as $comment):
+@foreach($comments as $comment)
     <ul>
         <li>
-            <b>/u/{{$comment->owner->username}}</b>
+            <a href="{{ route('users.profile', $comment->owner) }}"><b>/u/{{$comment->owner->username}}</b></a>
             <p>{{$comment->content}}</p>
             <div>
                 <p>
                     {{$comment->votes}} points |
-                    <a>Upvote</a> |
-                    <a>Downvote</a>
+                    <a href="{{ route('comment.upvote', ['community' => $community, 'comment' => $comment->getHashedId()]) }}">Upvote</a> |
+                    <a href="{{ route('comment.downvote', ['community' => $community, 'comment' => $comment->getHashedId()]) }}">Downvote</a> |
+                    <a href="">Reply</a>
                 </p>
             </div>
         </li>

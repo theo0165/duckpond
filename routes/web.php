@@ -25,6 +25,9 @@ Route::group(['middleware' => 'guest'], function () {
 
     Route::get('/c/{community:title}/p/{post:id}/upvote', fn () => response())->name('post.upvote');
     Route::get('/c/{community:title}/p/{post:id}/downvote', fn () => response())->name('post.downvote');
+
+    Route::get('/c/{community:title}/p/{comment:id}/upvote', fn () => response())->name('comment.upvote');
+    Route::get('/c/{community:title}/p/{comment:id}/downvote', fn () => response())->name('comment.downvote');
 });
 
 Route::group(['middleware' => 'auth'], function () {
