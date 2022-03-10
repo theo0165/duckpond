@@ -20,26 +20,26 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', ShowFrontPageController::class)->name('frontpage');
 
-
-// Route::group(['middleware' => 'guest'], function () {
 Route::get('register', ShowRegisterController::class)->name('auth.register');
 Route::post('register', RegisterController::class)->name('auth.register.user');
 Route::get('login', ShowLoginController::class)->name('auth.login');
 Route::post('login', LoginController::class)->name('auth.login.user');
 
-Route::get('/c/{community:title}', ShowCommunityController::class)->name('community.show');
-Route::get('/c/{community:title}/p/{post:id}', ShowPostController::class)->name('post.show');
 
 Route::get('/c/{community:title}/p/{post:id}/upvote', fn () => response())->name('post.upvote');
 Route::get('/c/{community:title}/p/{post:id}/downvote', fn () => response())->name('post.downvote');
+
+Route::get('/c/{community:title}/p/{comment:id}/upvote', fn () => response())->name('comment.upvote');
+Route::get('/c/{community:title}/p/{comment:id}/downvote', fn () => response())->name('comment.downvote');
+
+Route::get('/c/{community:title}', ShowCommunityController::class)->name('community.show');
+Route::get('/c/{community:title}/p/{post:id}', ShowPostController::class)->name('post.show');
+
 Route::get('u/{user:username}', ShowUserProfileController::class)->name('users.profile');
 Route::get('u/{user:username}/posts', ShowUserPostController::class)->name('users.posts');
 Route::get('u/{user:username}/comments', ShowUserCommentController::class)->name('users.comments');
 Route::get('u/{user:username}/followed-communities', ShowUserFollowedCommunityController::class)->name('users.followed.community');
 Route::get('u/{user:username}/owned-communities', ShowUserOwnedCommunityController::class)->name('users.owned.community');
-
-
-// });
 
 Route::group(['middleware' => 'auth'], function () {
     Route::post('logout', LogoutController::class)->name('auth.logout');

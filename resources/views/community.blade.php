@@ -1,5 +1,5 @@
 <x-layout>
-    <h1 class="mb-5">Front page</h1>
+    <h1 class="mb-5">/c/{{$community->title}}</h1>
     @foreach ($posts as $post)
         <div class="row justify-content-center">
             <div class="d-inline-block pb-3">
@@ -10,8 +10,8 @@
                 </p>
                 <p class="mb-0">{{$post->votes}} points | {{$post->comments_count}} comments</p>
                 <div>
-                    <a href="{{route('post.upvote', ['community' => $post->community, 'post' => $post->getHashId()])}}">Upvote</a>
-                    <a href="{{route('post.downvote', ['community' => $post->community, 'post' => $post->getHashId()])}}">Downvote</a>
+                    <a href="{{route('post.upvote', ['community' => $post->community, 'post' => $post])}}">Upvote</a>
+                    <a href="{{route('post.downvote', ['community' => $post->community, 'post' => $post])}}">Downvote</a>
                 </div>
             </div>
             <div class="">
@@ -22,7 +22,7 @@
                     <p>{{$post->excerpt()}}</p>
                 @endif
                 <div>
-                    <a href="{{route('post.show', ['community' => $post->community, 'post' => $post->getHashId()])}}">Go to post</a>
+                    <a href="{{route('post.show', ['community' => $post->community, 'post' => $post])}}">Go to post</a>
                 </div>
             </div>
         </div>
