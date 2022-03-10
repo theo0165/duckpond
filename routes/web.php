@@ -55,9 +55,9 @@ Route::patch('u/{user:username}/update', UpdateUserProfileController::class)->na
 Route::delete('u/{user:username}/delete', DeleteUserProfileController::class)->name('users.profile.delete');
 // });
 
-Route::get('/submit', ShowSubmitController::class)->name('submit.show');
-Route::post('/submit', StoreSubmitController::class)->name('submit.store');
-
 Route::group(['middleware' => 'auth'], function () {
+    Route::get('/submit', ShowSubmitController::class)->name('submit.show');
+    Route::post('/submit', StoreSubmitController::class)->name('submit.store');
+
     Route::post('logout', LogoutController::class)->name('auth.logout');
 });
