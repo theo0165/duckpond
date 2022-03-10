@@ -9,6 +9,13 @@ class Vote extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'post_id',
+        'comment_id',
+        'value',
+        'user_id',
+    ];
+
     public function parent()
     {
         if ($this->post_id != null) {

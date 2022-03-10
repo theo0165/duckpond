@@ -9,8 +9,8 @@
             </p>
             <p class="mb-0">{{$post->votes}} points | {{$post->comments_count}} comments</p>
             <div>
-                <a href="{{route('post.upvote', ['community' => $post->community, 'post' => $post])}}">Upvote</a>
-                <a href="{{route('post.downvote', ['community' => $post->community, 'post' => $post])}}">Downvote</a>
+                <a href="{{route('post.upvote', ['community' => $post->community, 'post' => $post->getHashId()])}}">Upvote</a>
+                <a href="{{route('post.downvote', ['community' => $post->community, 'post' => $post->getHashId()])}}">Downvote</a>
             </div>
         </div>
         <div class="mb-3">
