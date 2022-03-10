@@ -103,13 +103,16 @@
 
 ### TODO
 
--   Create table migrations
--   User
-    -   Login
-    -   Register
--   Community
--   Posts
--   Comment
+-   Show posts even if user does not follow any communities.
+    -   Alt. Show text and link to explore communities. Print all communities with link on seperate page.
+-   Create post
+-   Create comment
+-   Reply to comment page
+-   Optimize single post queries.
+-   Fix bug where you can only see amount of top level comments.
+-   Upvote/downvote route.
+-   Update user
+-   Search
 
 ### Routes proposal
 
