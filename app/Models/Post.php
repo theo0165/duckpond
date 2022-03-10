@@ -14,6 +14,13 @@ class Post extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'type',
+        'title',
+        'content',
+        'community_id'
+    ];
+
     // protected function id(): Attribute
     // {
     //     return Attribute::make(
@@ -68,5 +75,14 @@ class Post extends Model
     public function getHashId()
     {
         return Hashids::encode($this->id);
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($query) {
+            $query->user_id = auth()->user()->id;
+        });
     }
 }
