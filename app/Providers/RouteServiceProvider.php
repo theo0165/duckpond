@@ -12,8 +12,6 @@ use App\Models\Comment;
 use App\Models\Post;
 use Vinkla\Hashids\Facades\Hashids;
 
-
-
 class RouteServiceProvider extends ServiceProvider
 {
     /**
