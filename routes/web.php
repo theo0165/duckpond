@@ -21,8 +21,11 @@ use App\Http\Controllers\User\ShowUserFollowedCommunityController;
 use App\Http\Controllers\User\EditUserProfileController;
 use App\Http\Controllers\User\UpdateUserProfileController;
 use App\Http\Controllers\User\DeleteUserProfileController;
+use App\Http\Controllers\User\UserFollowCommunityController;
+use App\Http\Controllers\User\UserUnfollowCommunityController;
 use App\Http\Controllers\Vote\PostDownvoteController;
 use App\Http\Controllers\Vote\PostUpvoteController;
+
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', ShowFrontPageController::class)->name('frontpage');
@@ -41,6 +44,7 @@ Route::get('/c/all', CommunityIndexController::class)->name('community.index');
 Route::get('/c/{community:title}', ShowCommunityController::class)->name('community.show');
 Route::get('/c/{community:title}/p/{post}', ShowPostController::class)->name('post.show');
 
+
 Route::get('u/{user:username}', ShowUserProfileController::class)->name('users.profile');
 Route::get('u/{user:username}/edit', EditUserProfileController::class)->name('users.profile.edit');
 Route::patch('u/{user:username}/update', UpdateUserProfileController::class)->name('users.profile.update');
@@ -56,4 +60,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/submit', StoreSubmitController::class)->name('submit.store');
 
     Route::post('logout', LogoutController::class)->name('auth.logout');
+    Route::post('/c/{community:title}/follow', UserFollowCommunityController::class)->name('user.follow');
+    Route::post('/c/{community:title}/unfollow', UserUnfollowCommunityController::class)->name('user.unfollow');
 });

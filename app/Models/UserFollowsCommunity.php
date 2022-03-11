@@ -9,6 +9,11 @@ class UserFollowsCommunity extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id',
+        'community_id'
+    ];
+
     public function user()
     {
         return $this->hasOne(User::class, 'user_id', 'id');
