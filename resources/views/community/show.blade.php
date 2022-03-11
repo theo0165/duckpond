@@ -1,5 +1,7 @@
 <x-layout>
-    <h1 class="mb-5">/c/{{$community->title}}</h1>
+    <h1>/c/{{$community->title}}</h1>
+    <a href="{{ route('submit.show') }}?community={{ $community->title }}">Submit a post</a>
+    <hr>
     @foreach ($posts as $post)
         <div class="row justify-content-center">
             <div class="d-inline-block pb-3">

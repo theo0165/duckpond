@@ -22,7 +22,7 @@
                     <p>{{$post->excerpt()}}</p>
                 @endif
                 <div>
-                    <a href="{{route('post.show', ['community' => $post->community, 'post' => $post])}}">Go to post</a>
+                    <a href="{{route('post.show', ['community' => $post->community, 'post' => $post->getHashId()])}}">Go to post</a>
                 </div>
             </div>
         </div>
