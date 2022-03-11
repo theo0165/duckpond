@@ -112,7 +112,7 @@
 -   Optimize single post queries.
 -   Fix bug where you can only see amount of top level comments.
 -   Upvote/downvote route. ✅
--   Update user (almost)
+-   Update user ✅
 -   Search
 -   Tests
 -   Fix policies
