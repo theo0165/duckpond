@@ -16,4 +16,5 @@
             <x-form.button>Login</x-form.button>
         </div>
     </form>
+    <a href="{{ route('auth.register') }}">Not a user? Register here</a>
 </x-layout>

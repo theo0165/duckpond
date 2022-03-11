@@ -2,6 +2,6 @@
     <h1>{{ $user->username }}</h1>
     <h3>Followed communities:</h3>
     @foreach ($user->followedCommunities as $community)
-    <h5>{{ $community->title}}</h5><span>(link to community)</span>
+    <a href="{{ route('community.show', $community) }}">/c/{{ $community->title }}</a>
     @endforeach
 </x-layout>

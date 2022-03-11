@@ -1,8 +1,12 @@
 <x-layout title="{{ $user->username }} - Comments">
-    <h1>{{ $user->username }}</h1>
-    <h3>Comments made:</h3>
-    @foreach ($user->comments as $comment)
-        <h5>{{ $comment->title }}</h5>
-        <p>{{ $comment->content }}</p>
+    <h1>{{ $user->username }}'s comments:</h1>
+    @foreach ($commentsWithData as $comment)
+        <div class="row justify-content-center">
+            <div class="">
+                <p>{{ $comment->content }}</p>
+                <p>{{ $comment->votes_count }} points</p>
+            </div>
+        </div>
+        <hr>
     @endforeach
 </x-layout>

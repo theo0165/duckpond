@@ -64,12 +64,12 @@ class Post extends Model
     public static function getGuestPosts()
     {
         return Post::with(['community', 'user'])
-                ->where('posts.created_at', '>=', Carbon::now()->subDay()->toDateTimeString())
-                ->withCount('comments')
-                ->withSum('votes as votes', 'value')
-                ->limit(100)
-                ->orderBy('votes', 'desc')
-                ->get();
+            ->where('posts.created_at', '>=', Carbon::now()->subDay()->toDateTimeString())
+            ->withCount('comments')
+            ->withSum('votes as votes', 'value')
+            ->limit(100)
+            ->orderBy('votes', 'desc')
+            ->get();
     }
 
     public function getHashId()
@@ -77,12 +77,12 @@ class Post extends Model
         return Hashids::encode($this->id);
     }
 
-    protected static function boot()
-    {
-        parent::boot();
+    // protected static function boot()
+    // {
+    //     parent::boot();
 
-        static::creating(function ($query) {
-            $query->user_id = auth()->user()->id;
-        });
-    }
+    //     static::creating(function ($query) {
+    //         $query->user_id = auth()->user()->id;
+    //     });
+    // }
 }
