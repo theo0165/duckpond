@@ -5,6 +5,9 @@ use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ShowLoginController;
 use App\Http\Controllers\Auth\ShowRegisterController;
+use App\Http\Controllers\Comment\CreateCommentController;
+use App\Http\Controllers\Comment\ShowCreateCommentController;
+use App\Http\Controllers\Comment\CreateReplyController;
 use App\Http\Controllers\Vote\CommentDownvoteController;
 use App\Http\Controllers\Vote\CommentUpvoteController;
 use App\Http\Controllers\Community\CommunityIndexController;
@@ -54,6 +57,10 @@ Route::get('u/{user:username}/owned-communities', ShowUserOwnedCommunityControll
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/submit', ShowSubmitController::class)->name('submit.show');
     Route::post('/submit', StoreSubmitController::class)->name('submit.store');
+
+    Route::post('/c/{community:title}/p/{post}/comment/create', CreateCommentController::class)->name('post.comment.create');
+    Route::post('/c/{community:title}/p/{post}/comment/{comment}/create', CreateReplyController::class)->name('comment.reply.create');
+    Route::get('/c/{community:title}/p/{post}/comment/{comment}/create', ShowCreateCommentController::class)->name('comment.show');
 
     Route::post('logout', LogoutController::class)->name('auth.logout');
 });

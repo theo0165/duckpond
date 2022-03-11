@@ -21,7 +21,8 @@
             @endif
         </div>
         <hr>
-        <form class="">
+        <form method="POST" action="{{ route('post.comment.create', ['community' => $post->community, 'post' => $post->getHashId()]) }}">
+            @csrf
             <div>
                 <label class="form-label">Comment:</label>
                 <textarea name="content" class="form-control"></textarea>
@@ -30,7 +31,7 @@
         </form>
         <div class="mt-5">
             <h3>Comments</h3>
-            @include('partials.comments', ['comments' => $comments, 'community' => $post->community])
+            @include('partials.comments', ['comments' => $comments, 'community' => $post->community, 'post' => $post])
         </div>
     </div>
 </x-layout>
