@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\ShowLoginController;
 use App\Http\Controllers\Auth\ShowRegisterController;
 use App\Http\Controllers\Comment\CreateCommentController;
 use App\Http\Controllers\Comment\ShowCreateCommentController;
+use App\Http\Controllers\Comment\CreateReplyController;
 use App\Http\Controllers\Vote\CommentDownvoteController;
 use App\Http\Controllers\Vote\CommentUpvoteController;
 use App\Http\Controllers\Community\CommunityIndexController;
@@ -43,9 +44,6 @@ Route::get('/c/all', CommunityIndexController::class)->name('community.index');
 Route::get('/c/{community:title}', ShowCommunityController::class)->name('community.show');
 Route::get('/c/{community:title}/p/{post}', ShowPostController::class)->name('post.show');
 
-Route::post('/c/{community:title}/p{post}/comment/create', CreateCommentController::class)->name('comment.create');
-Route::get('/comment/create', ShowCreateCommentController::class)->name('comment.show');
-
 Route::get('u/{user:username}', ShowUserProfileController::class)->name('users.profile');
 Route::get('u/{user:username}/edit', EditUserProfileController::class)->name('users.profile.edit');
 Route::patch('u/{user:username}/update', UpdateUserProfileController::class)->name('users.profile.update');
@@ -59,6 +57,10 @@ Route::get('u/{user:username}/owned-communities', ShowUserOwnedCommunityControll
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/submit', ShowSubmitController::class)->name('submit.show');
     Route::post('/submit', StoreSubmitController::class)->name('submit.store');
+
+    Route::post('/c/{community:title}/p/{post}/comment/create', CreateCommentController::class)->name('post.comment.create');
+    Route::post('/c/{community:title}/comment/{comment}/create', CreateReplyController::class)->name('comment.reply.create');
+    Route::get('/c/{community:title}/comment/{comment}/create', ShowCreateCommentController::class)->name('comment.show');
 
     Route::post('logout', LogoutController::class)->name('auth.logout');
 });

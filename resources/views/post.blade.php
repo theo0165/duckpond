@@ -21,7 +21,7 @@
             @endif
         </div>
         <hr>
-        <form method="POST" action="{{ route('comment.store', ['community' => $community, 'post' => $post]) }}">
+        <form method="POST" action="{{ route('post.comment.create', ['community' => $post->community, 'post' => $post->getHashId()]) }}">
             @csrf
             <div>
                 <label class="form-label">Comment:</label>
