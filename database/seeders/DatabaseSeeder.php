@@ -38,13 +38,13 @@ class DatabaseSeeder extends Seeder
         Community::factory()->count(10)->create();
         Post::factory()->link_type()->count(75)->create();
         Post::factory()->text_type()->count(75)->create();
-        Comment::factory()->on_post()->count(100)->create();
-        Comment::factory()->on_comment()->count(100)->create();
+        Comment::factory()->on_post()->count(500)->create();
+        Comment::factory()->on_comment()->count(500)->create();
         UserFollowsCommunity::factory()->count(50)->create();
-        Vote::factory()->upvote()->on_comment()->count(250)->create();
-        Vote::factory()->downvote()->on_comment()->count(250)->create();
-        Vote::factory()->upvote()->on_post()->count(250)->create();
-        Vote::factory()->downvote()->on_post()->count(250)->create();
+        Vote::factory()->upvote()->on_comment()->count(1000)->create();
+        Vote::factory()->downvote()->on_comment()->count(500)->create();
+        Vote::factory()->upvote()->on_post()->count(1000)->create();
+        Vote::factory()->downvote()->on_post()->count(500)->create();
 
         foreach(Community::all() as $community){
             $follow = new UserFollowsCommunity([
