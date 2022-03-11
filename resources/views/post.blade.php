@@ -21,7 +21,8 @@
             @endif
         </div>
         <hr>
-        <form class="">
+        <form method="POST" action="{{ route('comment.store', ['community' => $community, 'post' => $post]) }}">
+            @csrf
             <div>
                 <label class="form-label">Comment:</label>
                 <textarea name="content" class="form-control"></textarea>

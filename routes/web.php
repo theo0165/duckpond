@@ -5,6 +5,8 @@ use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ShowLoginController;
 use App\Http\Controllers\Auth\ShowRegisterController;
+use App\Http\Controllers\Comment\CreateCommentController;
+use App\Http\Controllers\Comment\ShowCreateCommentController;
 use App\Http\Controllers\Vote\CommentDownvoteController;
 use App\Http\Controllers\Vote\CommentUpvoteController;
 use App\Http\Controllers\Community\CommunityIndexController;
@@ -40,6 +42,9 @@ Route::get('/c/{community:title}/c/{comment}/downvote', CommentDownvoteControlle
 Route::get('/c/all', CommunityIndexController::class)->name('community.index');
 Route::get('/c/{community:title}', ShowCommunityController::class)->name('community.show');
 Route::get('/c/{community:title}/p/{post}', ShowPostController::class)->name('post.show');
+
+Route::post('/c/{community:title}/p{post}/comment/create', CreateCommentController::class)->name('comment.create');
+Route::get('/comment/create', ShowCreateCommentController::class)->name('comment.show');
 
 Route::get('u/{user:username}', ShowUserProfileController::class)->name('users.profile');
 Route::get('u/{user:username}/edit', EditUserProfileController::class)->name('users.profile.edit');
