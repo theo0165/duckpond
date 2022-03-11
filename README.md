@@ -117,6 +117,7 @@
 -   Tests
 -   Fix policies
 -   Overall security
+-   Fix bug where nothing is shown if post or comment has no upvotes. ("points" instead of "x points")
 
 ### Routes proposal
 
