@@ -64,12 +64,12 @@ class Post extends Model
     public static function getGuestPosts()
     {
         return Post::with(['community', 'user'])
-                ->where('posts.created_at', '>=', Carbon::now()->subDay()->toDateTimeString())
-                ->withCount('comments')
-                ->withSum('votes as votes', 'value')
-                ->limit(100)
-                ->orderBy('votes', 'desc')
-                ->get();
+            ->where('posts.created_at', '>=', Carbon::now()->subDay()->toDateTimeString())
+            ->withCount('comments')
+            ->withSum('votes as votes', 'value')
+            ->limit(100)
+            ->orderBy('votes', 'desc')
+            ->get();
     }
 
     public function getHashId()
