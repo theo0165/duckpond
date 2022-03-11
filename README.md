@@ -107,7 +107,7 @@
     -   Alt. Show text and link to explore communities. Print all communities with link on seperate page. ✅
 -   Create post ✅
 -   Create comment ✅
--   Follow community
+-   Follow community ✅
 -   Reply to comment page ✅
 -   Optimize single post queries.
 -   Fix bug where you can only see amount of top level comments.
