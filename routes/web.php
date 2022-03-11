@@ -38,20 +38,12 @@ Route::post('register', RegisterController::class)->name('auth.register.user');
 Route::get('login', ShowLoginController::class)->name('login');
 Route::post('login', LoginController::class)->name('auth.login.user');
 
-Route::get('/c/{community:title}/p/{post}/upvote', PostUpvoteController::class)->name('post.upvote');
-Route::get('/c/{community:title}/p/{post}/downvote', PostDownvoteController::class)->name('post.downvote');
-Route::get('/c/{community:title}/c/{comment}/upvote', CommentUpvoteController::class)->name('comment.upvote');
-Route::get('/c/{community:title}/c/{comment}/downvote', CommentDownvoteController::class)->name('comment.downvote');
-
 Route::get('/c/all', CommunityIndexController::class)->name('community.index');
 Route::get('/c/{community:title}', ShowCommunityController::class)->name('community.show');
 Route::get('/c/{community:title}/p/{post}', ShowPostController::class)->name('post.show');
 
 
 Route::get('u/{user:username}', ShowUserProfileController::class)->name('users.profile');
-Route::get('u/{user:username}/edit', EditUserProfileController::class)->name('users.profile.edit');
-Route::patch('u/{user:username}/update', UpdateUserProfileController::class)->name('users.profile.update');
-Route::delete('u/{user:username}/delete', DeleteUserProfileController::class)->name('users.profile.delete');
 Route::get('u/{user:username}/posts', ShowUserPostController::class)->name('users.posts');
 Route::get('u/{user:username}/comments', ShowUserCommentController::class)->name('users.comments');
 Route::get('u/{user:username}/followed-communities', ShowUserFollowedCommunityController::class)->name('users.followed.community');
@@ -59,6 +51,15 @@ Route::get('u/{user:username}/owned-communities', ShowUserOwnedCommunityControll
 
 
 Route::group(['middleware' => 'auth'], function () {
+    Route::get('/c/{community:title}/p/{post}/upvote', PostUpvoteController::class)->name('post.upvote');
+    Route::get('/c/{community:title}/p/{post}/downvote', PostDownvoteController::class)->name('post.downvote');
+    Route::get('/c/{community:title}/c/{comment}/upvote', CommentUpvoteController::class)->name('comment.upvote');
+    Route::get('/c/{community:title}/c/{comment}/downvote', CommentDownvoteController::class)->name('comment.downvote');
+
+    Route::get('u/{user:username}/edit', EditUserProfileController::class)->name('users.profile.edit');
+    Route::patch('u/{user:username}/update', UpdateUserProfileController::class)->name('users.profile.update');
+    Route::delete('u/{user:username}/delete', DeleteUserProfileController::class)->name('users.profile.delete');
+
     Route::get('/submit', ShowSubmitController::class)->name('submit.show');
     Route::post('/submit', StoreSubmitController::class)->name('submit.store');
 
