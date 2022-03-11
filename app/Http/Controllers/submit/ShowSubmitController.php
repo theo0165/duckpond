@@ -11,7 +11,8 @@ class ShowSubmitController extends Controller
     public function __invoke(Request $request)
     {
         return view('submit', [
-            'communities' => auth()->user()->followedCommunities
+            'communities' => auth()->user()->followedCommunities,
+            'selectedCommunity' => $request->get('community') ?? null
         ]);
     }
 }

@@ -10,11 +10,11 @@ class UpdateUserProfileController extends Controller
 {
     public function __invoke(User $user)
     {
-        // $this->authorize('update', $user);
+        $this->authorize('update', $user);
 
         $attributes = request()->validate([
             'email' => ['string', 'max:255', 'unique:users,email,' . $user->id],
-            'username' => ['string', 'max:255', 'unique:users,username,' . $user->username],
+            'username' => ['string', 'max:255', 'unique:users,username,' . $user->id],
             'password' => ['nullable', 'string', 'min:8', 'max:255',]
         ]);
 

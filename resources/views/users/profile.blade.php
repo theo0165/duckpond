@@ -16,15 +16,15 @@
         @endif
     </p>
     <p>Owned communities:
-        @if ($user->ownedCommunities_count > 0)
-            <a href="{{ route('users.owned.community', $user) }}">{{ $user->ownedCommunities_count }}</a>
+        @if ($user->ownedCommunities->count() > 0)
+            <a href="{{ route('users.owned.community', $user) }}">{{ $user->ownedCommunities->count() }}</a>
         @else
             <span>0</span>
         @endif
     </p>
     <p>Followed communities:
-        @if ($user->followedCommunities_count > 0)
-            <a href="{{ route('users.followed.community', $user) }}">{{ $user->followedCommunities_count }}</a>
+        @if ($user->followedCommunities->count() > 0)
+            <a href="{{ route('users.followed.community', $user) }}">{{ $user->followedCommunities->count() }}</a>
         @else
             <span>0</span>
         @endif

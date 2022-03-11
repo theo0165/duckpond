@@ -44,7 +44,7 @@
                 <select class="form-select @error('community') is-invalid @enderror" name="community" id="community">
                     <option disabled>Community</option>
                     @foreach ($communities as $community)
-                        <option value="{{$community->title}}">/c/{{$community->title}}</option>
+                        <option value="{{$community->title}}" {{$selectedCommunity == $community->title ? "selected" : "" }}>/c/{{$community->title}}</option>
                     @endforeach
                 </select>
                 @error('community')
