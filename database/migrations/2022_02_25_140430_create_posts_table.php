@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('title');
             $table->text('content');
             $table->string('type'); // Text/link
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('community_id');
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('community_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }

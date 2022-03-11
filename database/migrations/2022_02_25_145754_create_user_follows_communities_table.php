@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('user_follows_communities', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('community_id');
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('community_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
