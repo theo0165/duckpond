@@ -59,8 +59,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/submit', StoreSubmitController::class)->name('submit.store');
 
     Route::post('/c/{community:title}/p/{post}/comment/create', CreateCommentController::class)->name('post.comment.create');
-    Route::post('/c/{community:title}/comment/{comment}/create', CreateReplyController::class)->name('comment.reply.create');
-    Route::get('/c/{community:title}/comment/{comment}/create', ShowCreateCommentController::class)->name('comment.show');
+    Route::post('/c/{community:title}/p/{post}/comment/{comment}/create', CreateReplyController::class)->name('comment.reply.create');
+    Route::get('/c/{community:title}/p/{post}/comment/{comment}/create', ShowCreateCommentController::class)->name('comment.show');
 
     Route::post('logout', LogoutController::class)->name('auth.logout');
 });

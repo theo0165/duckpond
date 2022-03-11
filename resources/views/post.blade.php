@@ -31,7 +31,7 @@
         </form>
         <div class="mt-5">
             <h3>Comments</h3>
-            @include('partials.comments', ['comments' => $comments, 'community' => $post->community])
+            @include('partials.comments', ['comments' => $comments, 'community' => $post->community, 'post' => $post])
         </div>
     </div>
 </x-layout>
