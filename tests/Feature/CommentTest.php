@@ -62,7 +62,26 @@ class CommentTest extends TestCase
 
     public function test_user_can_see_post_with_comments_and_replys(){}
 
-    public function test_user_can_upvote_comment(){}
+    public function test_user_can_upvote_comment(){
+        $user = User::factory()->create();
+        $community = Community::factory()->create();
+        $post = Post::factory()->text_type()->create();
+        $comment = Comment::factory()->create();
+        UserFollowsCommunity::factory()->create();
+
+        $request = $this
+                    ->followingRedirects()
+                    ->actingAs($user)
+                    ->get("/c/{$community->title}/c/{$comment->getHashId()}/upvote");
+
+        $request->assertOk();
+        $this->assertDatabaseHas('votes', [
+            'post_id' => null,
+            'comment_id' => $comment->id,
+            'user_id' => $user->id,
+            'value' => 1
+        ]);
+    }
 
     public function test_user_can_downvote_comment(){}
 
