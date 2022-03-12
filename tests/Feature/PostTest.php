@@ -6,6 +6,7 @@ use App\Models\Community;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\UserFollowsCommunity;
+use App\Models\Vote;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -73,7 +74,21 @@ class PostTest extends TestCase
         ]);
     }
 
-    public function test_user_can_not_double_upvote_post(){}
+    public function test_user_can_not_double_upvote_post(){
+        $user = User::factory()->create();
+        $community = Community::factory()->create();
+        $post = Post::factory()->text_type()->create();
+
+        Vote::factory()->upvote()->on_post()->create();
+
+        $request = $this
+                    ->followingRedirects()
+                    ->actingAs($user)
+                    ->get("/c/{$community->title}/p/{$post->getHashId()}/upvote");
+
+        $request->assertOk();
+        $this->assertDatabaseCount('votes', 1);
+    }
 
     public function test_user_can_downvote_post(){
         $user = User::factory()->create();
@@ -94,5 +109,19 @@ class PostTest extends TestCase
         ]);
     }
 
-    public function test_user_can_not_double_downvote_post(){}
+    public function test_user_can_not_double_downvote_post(){
+        $user = User::factory()->create();
+        $community = Community::factory()->create();
+        $post = Post::factory()->text_type()->create();
+
+        Vote::factory()->downvote()->on_post()->create();
+
+        $request = $this
+                    ->followingRedirects()
+                    ->actingAs($user)
+                    ->get("/c/{$community->title}/p/{$post->getHashId()}/downvote");
+
+        $request->assertOk();
+        $this->assertDatabaseCount('votes', 1);
+    }
 }
