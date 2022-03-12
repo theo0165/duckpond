@@ -38,6 +38,9 @@
             <ul class="navbar-nav flex-row">
             @auth
                 <li class="nav-item p-3">
+                    <a href="{{route('community.create')}}" class="nav-link">Create a community</a>
+                </li>
+                <li class="nav-item p-3">
                     <a href="{{route('submit.show')}}" class="nav-link">Submit</a>
                 </li>
                 <li class="nav-item p-3">

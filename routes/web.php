@@ -11,6 +11,8 @@ use App\Http\Controllers\Comment\CreateReplyController;
 use App\Http\Controllers\Vote\CommentDownvoteController;
 use App\Http\Controllers\Vote\CommentUpvoteController;
 use App\Http\Controllers\Community\CommunityIndexController;
+use App\Http\Controllers\Community\CreateCommunityController;
+use App\Http\Controllers\Community\StoreCommunityController;
 use App\Http\Controllers\Community\ShowCommunityController;
 use App\Http\Controllers\ShowFrontPageController;
 use App\Http\Controllers\Post\ShowPostController;
@@ -62,6 +64,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/submit', ShowSubmitController::class)->name('submit.show');
     Route::post('/submit', StoreSubmitController::class)->name('submit.store');
+
+    Route::get('createcommunity', CreateCommunityController::class)->name('community.create');
+    Route::post('createcommunity', StoreCommunityController::class)->name('community.store');
 
     Route::post('/c/{community:title}/p/{post}/comment/create', CreateCommentController::class)->name('post.comment.create');
     Route::post('/c/{community:title}/p/{post}/comment/{comment}/create', CreateReplyController::class)->name('comment.reply.create');
