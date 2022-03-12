@@ -14,7 +14,7 @@ class PostTest extends TestCase
 
     public function test_user_can_create_post(){}
 
-    public function test_user_can_be_delete_post(){}
+    public function test_user_can_delete_post(){}
 
     public function test_user_can_upvote_post(){}
 
