@@ -7,6 +7,7 @@ use App\Models\Community;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\UserFollowsCommunity;
+use App\Models\Vote;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -98,7 +99,22 @@ class CommentTest extends TestCase
         ]);
     }
 
-    public function test_user_can_not_double_upvote_comment(){}
+    public function test_user_can_not_double_upvote_comment(){
+        $user = User::factory()->create();
+        $community = Community::factory()->create();
+        $post = Post::factory()->text_type()->create();
+        $comment = Comment::factory()->create();
+
+        Vote::factory()->upvote()->on_comment()->create();
+
+        $request = $this
+                    ->followingRedirects()
+                    ->actingAs($user)
+                    ->get("/c/{$community->title}/c/{$comment->getHashId()}/upvote");
+
+        $request->assertOk();
+        $this->assertDatabaseCount('votes', 1);
+    }
 
     public function test_user_can_downvote_comment(){
         $user = User::factory()->create();
@@ -120,7 +136,22 @@ class CommentTest extends TestCase
         ]);
     }
 
-    public function test_user_can_not_double_downvote_comment(){}
+    public function test_user_can_not_double_downvote_comment(){
+        $user = User::factory()->create();
+        $community = Community::factory()->create();
+        $post = Post::factory()->text_type()->create();
+        $comment = Comment::factory()->create();
+
+        Vote::factory()->downvote()->on_comment()->create();
+
+        $request = $this
+                    ->followingRedirects()
+                    ->actingAs($user)
+                    ->get("/c/{$community->title}/c/{$comment->getHashId()}/downvote");
+
+        $request->assertOk();
+        $this->assertDatabaseCount('votes', 1);
+    }
 
     public function test_user_can_delete_own_comment(){}
 
