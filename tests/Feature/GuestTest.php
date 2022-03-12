@@ -167,7 +167,26 @@ class GuestTest extends TestCase
 
     public function test_guest_can_not_delete_community(){}
 
-    public function test_guest_can_not_delete_user(){}
+    public function test_guest_can_not_delete_user(){
+        $user = User::factory()->create();
 
-    public function test_guest_can_not_follow_community(){}
+        $request = $this
+                    ->followingRedirects()
+                    ->post("/u/{$user->username}/delete");
+
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id
+        ]);
+    }
+
+    public function test_guest_can_not_follow_community(){
+        $user = User::factory()->create();
+        $community = Community::factory()->create();
+
+        $request = $this
+                    ->followingRedirects()
+                    ->post("/c/{$community->title}/follow");
+
+        $this->assertDatabaseCount('user_follows_communities', 0);
+    }
 }
