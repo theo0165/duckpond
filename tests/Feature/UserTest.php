@@ -89,6 +89,8 @@ class UserTest extends TestCase
 
     public function test_user_can_see_front_page_posts(){}
 
+    public function test_user_can_not_see_posts_if_not_following_communities(){}
+
     public function test_user_can_delete_own_user(){}
 
     public function test_user_can_see_their_own_posts(){}
