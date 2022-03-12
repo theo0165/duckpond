@@ -56,5 +56,9 @@ class PostTest extends TestCase
 
     public function test_user_can_upvote_post(){}
 
+    public function test_user_can_not_double_upvote_post(){}
+
     public function test_user_can_downvote_post(){}
+
+    public function test_user_can_not_double_downvote_post(){}
 }

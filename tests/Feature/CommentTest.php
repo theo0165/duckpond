@@ -98,6 +98,8 @@ class CommentTest extends TestCase
         ]);
     }
 
+    public function test_user_can_not_double_upvote_comment(){}
+
     public function test_user_can_downvote_comment(){
         $user = User::factory()->create();
         $community = Community::factory()->create();
@@ -117,6 +119,8 @@ class CommentTest extends TestCase
             'value' => -1
         ]);
     }
+
+    public function test_user_can_not_double_downvote_comment(){}
 
     public function test_user_can_delete_own_comment(){}
 
