@@ -25,6 +25,15 @@
                     <div>
                         <a href="{{route('post.show', ['community' => $post->community, 'post' => $post->getHashId()])}}">Go to post</a>
                     </div>
+                    <div>
+                    @can('delete', $post)
+                        <form action="{{ route('post.delete', $post->getHashId()) }}" method="post">
+                            @csrf
+                            @method('DELETE')
+                                <button type="submit">Delete post</button>
+                        </form>
+                    @endcan
+                    </div>
                 </div>
             </div>
             <hr>

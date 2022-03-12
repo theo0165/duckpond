@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\ShowRegisterController;
 use App\Http\Controllers\Comment\CreateCommentController;
 use App\Http\Controllers\Comment\ShowCreateCommentController;
 use App\Http\Controllers\Comment\CreateReplyController;
+use App\Http\Controllers\Comment\DeleteCommentController;
 use App\Http\Controllers\Vote\CommentDownvoteController;
 use App\Http\Controllers\Vote\CommentUpvoteController;
 use App\Http\Controllers\Community\CommunityIndexController;
@@ -16,6 +17,7 @@ use App\Http\Controllers\Community\DeleteCommunityController;
 use App\Http\Controllers\Community\StoreCommunityController;
 use App\Http\Controllers\Community\ShowCommunityController;
 use App\Http\Controllers\ShowFrontPageController;
+use App\Http\Controllers\Post\DeletePostController;
 use App\Http\Controllers\Post\ShowPostController;
 use App\Http\Controllers\submit\ShowSubmitController;
 use App\Http\Controllers\submit\StoreSubmitController;
@@ -67,12 +69,16 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/submit', ShowSubmitController::class)->name('submit.show');
     Route::post('/submit', StoreSubmitController::class)->name('submit.store');
 
+    Route::delete('/{post}/delete', DeletePostController::class)->name('post.delete');
+
     Route::get('createcommunity', CreateCommunityController::class)->name('community.create');
     Route::post('createcommunity', StoreCommunityController::class)->name('community.store');
 
     Route::post('/c/{community:title}/p/{post}/comment/create', CreateCommentController::class)->name('post.comment.create');
     Route::post('/c/{community:title}/p/{post}/comment/{comment}/create', CreateReplyController::class)->name('comment.reply.create');
     Route::get('/c/{community:title}/p/{post}/comment/{comment}/create', ShowCreateCommentController::class)->name('comment.show');
+    // Route::delete('/c/{community:title}/p/{post}/comment/{comment}/delete', DeleteCommentController::class)->name('comment.delete');
+    Route::delete('/{comment}/delete', DeleteCommentController::class)->name('comment.delete');
 
     Route::post('logout', LogoutController::class)->name('auth.logout');
     Route::post('/c/{community:title}/follow', UserFollowCommunityController::class)->name('user.follow');

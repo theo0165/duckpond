@@ -12,6 +12,15 @@
                 <a href="{{route('post.upvote', ['community' => $post->community, 'post' => $post->getHashId()])}}">Upvote</a>
                 <a href="{{route('post.downvote', ['community' => $post->community, 'post' => $post->getHashId()])}}">Downvote</a>
             </div>
+            <div>
+            @can('delete', $post)
+                <form action="{{ route('post.delete', $post->getHashId()) }}" method="post">
+                    @csrf
+                    @method('DELETE')
+                        <button type="submit">Delete post</button>
+                </form>
+            @endcan
+            </div>
         </div>
         <div class="mb-3">
             @if($post->type === "link")
