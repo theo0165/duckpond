@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Comment;
 use App\Models\Community;
 use App\Models\Post;
 use App\Models\User;
@@ -20,7 +21,21 @@ class GuestTest extends TestCase
 
     public function test_guest_can_see_users_posts(){}
 
-    public function test_guest_can_see_users_comments(){}
+    public function test_guest_can_see_users_comments(){
+        $user = User::factory()->create();
+        $community = Community::factory()->create();
+
+        UserFollowsCommunity::factory()->create();
+
+        $post = Post::factory()->text_type()->create();
+        $comment = Comment::factory()->create();
+
+        $request = $this
+                    ->get("/u/{$user->username}/comments");
+
+        $request->assertOk();
+        $request->assertSeeText($comment->content);
+    }
 
     public function test_guest_can_see_users_followed_communities(){
         $user = User::factory()->create();
