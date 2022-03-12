@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Models\Community;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -29,10 +31,31 @@ class GuestTest extends TestCase
                         'title' => 'Test community'
                     ]);
 
-        $this->assertDatabaseCount('communities', 0);
+        $this->assertDatabaseMissing('communities', [
+            'title' => 'Test community'
+        ]);
     }
 
-    public function test_guest_can_not_create_post(){}
+    public function test_guest_can_not_create_post(){
+        $user = User::factory()->create();
+        $community = Community::factory()->create();
+
+        $request = $this
+                    ->followingRedirects()
+                    ->post('/submit', [
+                        'type' => 'text',
+                        'title' => 'Test post',
+                        'content' => 'Some content',
+                        'community' => $community->title
+                    ]);
+
+        $this->assertDatabaseMissing('posts', [
+            'type' => 'text',
+            'title' => 'Test post',
+            'content' => 'Some content',
+            'community' => $community->title
+        ]);
+    }
 
     public function test_guest_can_not_create_comment(){}
 
