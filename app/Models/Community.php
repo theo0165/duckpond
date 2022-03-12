@@ -10,6 +10,11 @@ class Community extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id',
+        'title',
+    ];
+
     public function owner()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
@@ -23,12 +28,12 @@ class Community extends Model
     public function getPosts()
     {
         return $this->posts()
-                    ->with(['community', 'user'])
-                    ->where('posts.created_at', '>=', Carbon::now()->subDay()->toDateTimeString())
-                    ->withCount('comments')
-                    ->withSum('votes as votes', 'value')
-                    ->limit(100)
-                    ->orderBy('votes', 'desc')
-                    ->get();
+            ->with(['community', 'user'])
+            ->where('posts.created_at', '>=', Carbon::now()->subDay()->toDateTimeString())
+            ->withCount('comments')
+            ->withSum('votes as votes', 'value')
+            ->limit(100)
+            ->orderBy('votes', 'desc')
+            ->get();
     }
 }

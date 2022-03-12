@@ -67,7 +67,7 @@ class User extends Authenticatable
 
     public function ownedCommunities()
     {
-        return $this->hasMany(Community::class, 'user_id', 'id');
+        return $this->hasMany(Community::class);
     }
 
     public function followedCommunities()
