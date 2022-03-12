@@ -18,8 +18,6 @@ class CommunityPolicy
 
     public function delete(User $user, Community $community)
     {
-        return ($community->owner->id == $user->id || $user->is_admin) ?
-            Response::allow() :
-            Response::deny("Unauthorized");
+        return $user->id === $community->user_id;
     }
 }

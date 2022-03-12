@@ -9,6 +9,12 @@
     @csrf
         <button type="submit">Unfollow</button>
     </form>
+    @can('delete', $community)
+        <form action="{{ route('community.delete', $community) }}" method="post">
+        @csrf
+        <button type="submit">Delete</button>
+    </form>
+    @endcan
     <hr>
     @foreach ($posts as $post)
         <div class="row justify-content-center">

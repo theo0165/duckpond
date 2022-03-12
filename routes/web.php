@@ -12,6 +12,7 @@ use App\Http\Controllers\Vote\CommentDownvoteController;
 use App\Http\Controllers\Vote\CommentUpvoteController;
 use App\Http\Controllers\Community\CommunityIndexController;
 use App\Http\Controllers\Community\CreateCommunityController;
+use App\Http\Controllers\Community\DeleteCommunityController;
 use App\Http\Controllers\Community\StoreCommunityController;
 use App\Http\Controllers\Community\ShowCommunityController;
 use App\Http\Controllers\ShowFrontPageController;
@@ -42,6 +43,7 @@ Route::post('login', LoginController::class)->name('auth.login.user');
 
 Route::get('/c/all', CommunityIndexController::class)->name('community.index');
 Route::get('/c/{community:title}', ShowCommunityController::class)->name('community.show');
+Route::post('/c/{community:title}', DeleteCommunityController::class)->name('community.delete');
 Route::get('/c/{community:title}/p/{post}', ShowPostController::class)->name('post.show');
 
 
