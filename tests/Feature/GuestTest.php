@@ -17,7 +17,16 @@ class GuestTest extends TestCase
 
     public function test_guest_can_see_front_page_posts(){}
 
-    public function test_guest_can_see_users_profile(){}
+    public function test_guest_can_see_users_profile(){
+        $user = User::factory()->create();
+        $community = Community::factory()->create();
+
+        $request = $this
+                    ->get("/u/{$user->username}");
+
+        $request->assertOk();
+        $request->assertSeeText($user->username);
+    }
 
     public function test_guest_can_see_users_posts(){
         $user = User::factory()->create();
