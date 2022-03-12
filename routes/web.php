@@ -43,7 +43,6 @@ Route::post('login', LoginController::class)->name('auth.login.user');
 
 Route::get('/c/all', CommunityIndexController::class)->name('community.index');
 Route::get('/c/{community:title}', ShowCommunityController::class)->name('community.show');
-Route::post('/c/{community:title}', DeleteCommunityController::class)->name('community.delete');
 Route::get('/c/{community:title}/p/{post}', ShowPostController::class)->name('post.show');
 
 
@@ -59,6 +58,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/c/{community:title}/p/{post}/downvote', PostDownvoteController::class)->name('post.downvote');
     Route::get('/c/{community:title}/c/{comment}/upvote', CommentUpvoteController::class)->name('comment.upvote');
     Route::get('/c/{community:title}/c/{comment}/downvote', CommentDownvoteController::class)->name('comment.downvote');
+    Route::delete('/c/{community:title}', DeleteCommunityController::class)->name('community.delete');
 
     Route::get('u/{user:username}/edit', EditUserProfileController::class)->name('users.profile.edit');
     Route::patch('u/{user:username}/update', UpdateUserProfileController::class)->name('users.profile.update');
