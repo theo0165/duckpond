@@ -22,7 +22,7 @@ class GuestTest extends TestCase
 
     public function test_guest_can_see_users_owned_communities(){}
 
-    public function test_guest_can_not_create_post(){
+    public function test_guest_can_not_create_community(){
         $request = $this
                     ->followingRedirects()
                     ->post('/createcommunity', [
@@ -31,6 +31,8 @@ class GuestTest extends TestCase
 
         $this->assertDatabaseCount('communities', 0);
     }
+
+    public function test_guest_can_not_create_post(){}
 
     public function test_guest_can_not_create_comment(){}
 
