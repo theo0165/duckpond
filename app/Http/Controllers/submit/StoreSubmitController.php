@@ -25,7 +25,8 @@ class StoreSubmitController extends Controller
             'type' => $postData['type'],
             'title' => $postData['title'],
             'content' => $postData['content'],
-            'community_id' => $community->id
+            'community_id' => $community->id,
+            'user_id' => auth()->user()->id
         ]);
 
         $post->save();

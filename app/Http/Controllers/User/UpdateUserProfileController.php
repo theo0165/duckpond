@@ -18,7 +18,7 @@ class UpdateUserProfileController extends Controller
             'password' => ['nullable', 'string', 'min:8', 'max:255',]
         ]);
 
-        if ($attributes['password'] === null) {
+        if ($attributes['password']) {
             $user->update([
                 'email' => $attributes['email'],
                 'username' => $attributes['username'],

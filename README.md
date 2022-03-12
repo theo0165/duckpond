@@ -145,3 +145,59 @@
 -   User
     -   Delete
     -   Edit
+
+### Tests needed
+
+-   User
+    -   Login
+    -   Register
+    -   Can not register with existing email
+    -   Can not register with existing username
+    -   Update username
+    -   Update email
+    -   Update password
+    -   Can't update to existing username
+    -   Can't update to existing email
+    -   See front page posts
+    -   Delete user
+    -   See their own posts
+    -   See their own comments
+    -   See their followed communities
+    -   See their owned communities
+-   Community
+    -   See single community
+    -   Follow
+    -   Can not follow if already following
+    -   Unfollow
+    -   Create
+    -   Delete
+    -   User and guest can see page with all communities (/c/all)
+-   Post
+    -   See single post
+    -   Create post to community
+    -   Delete
+    -   Upvote
+    -   Downvote
+-   Comment
+    -   Create comment on post
+    -   Create comment reply
+    -   See post with comments and replys
+    -   Upvote
+    -   Downvote
+    -   Delete
+-   Guest
+    -   Can see front page posts
+    -   Can see user profile
+        -   +posts
+        -   +comments
+        -   +follwed
+        -   +owned
+    -   Can not create post
+    -   Can not create comment
+    -   Can not upvote
+    -   Can not downvote
+    -   Can not delete post
+    -   Can not delete comment
+    -   Can not delete community
+    -   Can not delete user
+    -   Can not follow community
