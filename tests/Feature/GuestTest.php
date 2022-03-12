@@ -15,7 +15,16 @@ class GuestTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_guest_can_see_front_page_posts(){}
+    public function test_guest_can_see_front_page_posts(){
+        $user = User::factory()->create();
+        $community = Community::factory()->create();
+        $post = Post::factory()->text_type()->create();
+
+        $request = $this->get('/');
+
+        $request->assertOk();
+        $request->assertSeeText($post->title);
+    }
 
     public function test_guest_can_see_users_profile(){
         $user = User::factory()->create();
