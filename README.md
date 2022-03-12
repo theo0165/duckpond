@@ -151,6 +151,8 @@
 -   User
     -   Login
     -   Register
+    -   Can not register with existing email
+    -   Can not register with existing username
     -   Update username
     -   Update email
     -   Update password
@@ -165,6 +167,7 @@
 -   Community
     -   See single community
     -   Follow
+    -   Can not follow if already following
     -   Unfollow
     -   Create
     -   Delete
