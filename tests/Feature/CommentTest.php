@@ -60,7 +60,22 @@ class CommentTest extends TestCase
         ]);
     }
 
-    public function test_user_can_see_post_with_comments_and_replys(){}
+    public function test_user_can_see_post_with_comments_and_replies(){
+        $user = User::factory()->create();
+        $community = Community::factory()->create();
+        $post = Post::factory()->text_type()->create();
+        $comment = Comment::factory()->on_post()->create();
+        $reply = Comment::factory()->on_comment()->create();
+
+        $request = $this->get("/c/{$community->title}/p/{$post->getHashId()}");
+
+        $request->assertOk();
+        $request->assertSeeTextInOrder([
+            $post->title,
+            $comment->content,
+            $reply->content
+        ]);
+    }
 
     public function test_user_can_upvote_comment(){
         $user = User::factory()->create();
