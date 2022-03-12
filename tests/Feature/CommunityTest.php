@@ -93,7 +93,23 @@ class CommunityTest extends TestCase
         $request->assertOk();
     }
 
-    public function test_user_can_create_community(){}
+    public function test_user_can_create_community(){
+        $user = User::factory()->create();
+
+        $request = $this
+                    ->actingAs($user)
+                    ->followingRedirects()
+                    ->post('/createcommunity', [
+                        'title' => 'Test community'
+                    ]);
+
+        $request->assertOk();
+        $this->assertDatabaseHas('communities', [
+            'title' => 'Test community',
+            'user_id' => $user->id
+        ]);
+        $this->assertDatabaseCount('communities', 1);
+    }
 
     public function test_user_can_delete_owned_community(){}
 
