@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Community;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\UserFollowsCommunity;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -25,7 +26,31 @@ class PostTest extends TestCase
         $request->assertSeeText($post->title);
     }
 
-    public function test_user_can_create_post(){}
+    public function test_user_can_create_post(){
+        $user = User::factory()->create();
+        $community = Community::factory()->create();
+
+        UserFollowsCommunity::factory()->create();
+
+        $request = $this
+                    ->followingRedirects()
+                    ->actingAs($user)
+                    ->post('/submit', [
+                        'type' => 'text',
+                        'title' => 'Test post',
+                        'content' => 'Test post content',
+                        'community' => $community->title
+                    ]);
+
+        $request->assertOk();
+        $this->assertDatabaseHas('posts', [
+            'type' => 'text',
+            'title' => 'Test post',
+            'content' => 'Test post content',
+            'community_id' => $community->id,
+            'user_id' => $user->id
+        ]);
+    }
 
     public function test_user_can_delete_post(){}
 
