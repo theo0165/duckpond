@@ -66,5 +66,7 @@
         <div class="container">
             {{ $slot }}
         </div>
+        <x-flash message="success" />
+        <x-flash message="error" />
     </body>
 </html>

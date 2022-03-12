@@ -3,7 +3,7 @@
     <form action="{{ route('auth.login.user') }}" method="post">
     @csrf
         <div>
-            <x-form.input name="username" required />
+            <x-form.input name="username" value="{{ old('username') }}" required />
         </div>
         <div>
             <x-form.input name="password" type="password" required />

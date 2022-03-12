@@ -13,6 +13,6 @@ class DeleteCommunityController extends Controller
 
         $community->delete();
 
-        return redirect('/');
+        return redirect('/')->with('success', 'Community deleted!');
     }
 }

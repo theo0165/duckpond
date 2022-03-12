@@ -9,7 +9,7 @@
             <x-form.input name="email" type="email" required />
         </div>
         <div>
-        <x-form.input name="password" type="password" required />
+            <x-form.input name="password" type="password" required />
         </div>
         <div>
             <x-form.button>Sign up</x-form.button>

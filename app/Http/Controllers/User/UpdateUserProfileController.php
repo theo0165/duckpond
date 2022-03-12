@@ -27,6 +27,6 @@ class UpdateUserProfileController extends Controller
             $user->update($attributes);
         }
 
-        return redirect()->route('users.profile', $user);
+        return redirect()->route('users.profile', $user)->with('success', 'Info updated!');
     }
 }

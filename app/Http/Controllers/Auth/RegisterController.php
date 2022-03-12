@@ -19,6 +19,6 @@ class RegisterController extends Controller
 
         auth()->login($user);
 
-        return redirect('/'); // add flash messages later on
+        return redirect('/')->with('success', 'Welcome!'); // add flash messages later on
     }
 }

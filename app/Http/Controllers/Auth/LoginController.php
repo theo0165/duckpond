@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
@@ -15,13 +16,11 @@ class LoginController extends Controller
         ]);
 
         if (auth()->attempt($credentials, $request->filled('remember'))) {
-            $request->session()->regenerate();
+            session()->regenerate();
 
-            return redirect('/');
+            return redirect('/')->with('success', 'Welcome back!');
+        } else {
+            return back()->with('error', 'Invalid credentials');
         }
-
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ]);
     }
 }

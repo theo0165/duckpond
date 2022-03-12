@@ -14,6 +14,6 @@ class LogoutController extends Controller
 
         session()->regenerateToken();
 
-        return redirect('/'); // add flash messages later on
+        return redirect('/')->with('success', 'Goodbye for now!'); // add flash messages later on
     }
 }

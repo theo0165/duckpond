@@ -29,6 +29,6 @@ class StoreCommunityController extends Controller
 
         $autoFollow->save();
 
-        return redirect()->route('community.show', $newCommunity);
+        return redirect()->route('community.show', $newCommunity)->with('success', 'Community created!');
     }
 }

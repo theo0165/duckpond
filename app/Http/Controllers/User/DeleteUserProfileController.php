@@ -16,6 +16,6 @@ class DeleteUserProfileController extends Controller
 
         $request->session()->invalidate();
 
-        return redirect('/');
+        return redirect('/')->with('error', 'Sad to see you go!');
     }
 }

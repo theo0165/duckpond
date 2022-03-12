@@ -12,6 +12,7 @@
     @can('delete', $community)
         <form action="{{ route('community.delete', $community) }}" method="post">
         @csrf
+        @method('DELETE')
         <button type="submit">Delete</button>
     </form>
     @endcan
