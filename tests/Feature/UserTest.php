@@ -41,7 +41,7 @@ class UserTest extends TestCase
         $request = $this
                     ->actingAs($user)
                     ->patch("/u/{$user->username}/update", [
-                        'username' => $user->email,
+                        'username' => $user->username,
                         'email' => 'new@email.com',
                         'password' => null
                     ]);
@@ -53,9 +53,39 @@ class UserTest extends TestCase
 
     public function test_user_can_update_password(){}
 
-    public function test_user_can_not_update_to_existing_username(){}
+    public function test_user_can_not_update_to_existing_username(){
+        $user = User::factory()->create();
+        $secondUser = User::factory()->create();
 
-    public function test_user_can_not_update_to_existing_email(){}
+        $request = $this
+                    ->followingRedirects()
+                    ->actingAs($user)
+                    ->from("/u/{$user->username}/edit")
+                    ->patch("/u/{$user->username}/update", [
+                        'username' => $secondUser->username,
+                        'email' => $user->email,
+                        'password' => null
+                    ]);
+
+        $request->assertSeeText("The username has already been taken.");
+    }
+
+    public function test_user_can_not_update_to_existing_email(){
+        $user = User::factory()->create();
+        $secondUser = User::factory()->create();
+
+        $request = $this
+                    ->followingRedirects()
+                    ->actingAs($user)
+                    ->from("/u/{$user->username}/edit")
+                    ->patch("/u/{$user->username}/update", [
+                        'username' => $user->username,
+                        'email' => $secondUser->email,
+                        'password' => null
+                    ]);
+
+        $request->assertSeeText("The email has already been taken.");
+    }
 
     public function test_user_can_see_front_page_posts(){}
 
