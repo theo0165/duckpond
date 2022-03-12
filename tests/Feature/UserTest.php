@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Models\Community;
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -89,7 +91,18 @@ class UserTest extends TestCase
 
     public function test_user_can_see_front_page_posts(){}
 
-    public function test_user_can_not_see_posts_if_not_following_communities(){}
+    public function test_user_can_not_see_posts_if_not_following_communities(){
+        $user = User::factory()->create();
+        $community = Community::factory()->create();
+        $post = Post::factory()->text_type()->create();
+
+        $request = $this
+                    ->actingAs($user)
+                    ->get('/');
+
+        $request->assertOk();
+        $request->assertSeeText("You don't follow any communities. Explore communities here.", false);
+    }
 
     public function test_user_can_delete_own_user(){}
 
