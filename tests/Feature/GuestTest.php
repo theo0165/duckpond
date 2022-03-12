@@ -3,7 +3,9 @@
 namespace Tests\Feature;
 
 use App\Models\Community;
+use App\Models\Post;
 use App\Models\User;
+use App\Models\UserFollowsCommunity;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -20,9 +22,29 @@ class GuestTest extends TestCase
 
     public function test_guest_can_see_users_comments(){}
 
-    public function test_guest_can_see_users_followed_communities(){}
+    public function test_guest_can_see_users_followed_communities(){
+        $user = User::factory()->create();
+        $community = Community::factory()->create();
 
-    public function test_guest_can_see_users_owned_communities(){}
+        UserFollowsCommunity::factory()->create();
+
+        $request = $this
+                    ->get("/u/{$user->username}/followed-communities");
+
+        $request->assertOk();
+        $request->assertSeeText("/c/{$community->title}");
+    }
+
+    public function test_guest_can_see_users_owned_communities(){
+        $user = User::factory()->create();
+        $community = Community::factory()->create();
+
+        $request = $this
+                    ->get("/u/{$user->username}/owned-communities");
+
+        $request->assertOk();
+        $request->assertSeeText("/c/{$community->title}");
+    }
 
     public function test_guest_can_not_create_community(){
         $request = $this
@@ -31,6 +53,7 @@ class GuestTest extends TestCase
                         'title' => 'Test community'
                     ]);
 
+        $request->assertOk();
         $this->assertDatabaseMissing('communities', [
             'title' => 'Test community'
         ]);
@@ -49,6 +72,7 @@ class GuestTest extends TestCase
                         'community' => $community->title
                     ]);
 
+        $request->assertOk();
         $this->assertDatabaseMissing('posts', [
             'type' => 'text',
             'title' => 'Test post',
@@ -57,11 +81,48 @@ class GuestTest extends TestCase
         ]);
     }
 
-    public function test_guest_can_not_create_comment(){}
+    public function test_guest_can_not_create_comment(){
+        $user = User::factory()->create();
+        $community = Community::factory()->create();
+        $post = Post::factory()->text_type()->create();
 
-    public function test_guest_can_not_upvote_post(){}
+        $request = $this
+                    ->followingRedirects()
+                    ->post("/c/{$community->title}/p/{$post->getHashId()}/comment/create", [
+                        'content' => 'Test comment'
+                    ]);
 
-    public function test_guest_can_not_downvote_post(){}
+        $request->assertOk();
+        $this->assertDatabaseMissing('comments', [
+            'content' => 'Test comment'
+        ]);
+    }
+
+    public function test_guest_can_not_upvote_post(){
+        $user = User::factory()->create();
+        $community = Community::factory()->create();
+        $post = Post::factory()->text_type()->create();
+
+        $request = $this
+                    ->followingRedirects()
+                    ->get("/c/{$community->title}/p/{$post->title}/upvote");
+
+        $request->assertOk();
+        $this->assertDatabaseCount('votes', 0);
+    }
+
+    public function test_guest_can_not_downvote_post(){
+        $user = User::factory()->create();
+        $community = Community::factory()->create();
+        $post = Post::factory()->text_type()->create();
+
+        $request = $this
+                    ->followingRedirects()
+                    ->get("/c/{$community->title}/p/{$post->title}/downvote");
+
+        $request->assertOk();
+        $this->assertDatabaseCount('votes', 0);
+    }
 
     public function test_guest_can_not_delete_post(){}
 
