@@ -11,11 +11,6 @@ class CommunityPolicy
 {
     use HandlesAuthorization;
 
-    public function create(User $user)
-    {
-        return true;
-    }
-
     public function delete(User $user, Community $community)
     {
         return $user->id === $community->user_id;

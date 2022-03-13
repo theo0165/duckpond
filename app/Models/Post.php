@@ -18,7 +18,8 @@ class Post extends Model
         'type',
         'title',
         'content',
-        'community_id'
+        'community_id',
+        'user_id'
     ];
 
     // protected function id(): Attribute
