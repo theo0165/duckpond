@@ -20,7 +20,7 @@ class PostUpvoteController extends Controller
 
 
         if ($checkUpvote) {
-            return back();
+            return back()->with('error', 'Already liked!');
         }
 
         if ($checkDownvote) {
