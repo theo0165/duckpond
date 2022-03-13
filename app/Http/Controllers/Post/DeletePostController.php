@@ -15,7 +15,7 @@ class DeletePostController extends Controller
 
         $post->delete();
 
-        // return redirect()->route('community.show', $community)->with('success', 'Post deleted!');
+        // return redirect()->route('community.show', ['community', $community])->with('success', 'Post deleted!');
         return redirect('/')->with('success', 'Post deleted!');
     }
 }
