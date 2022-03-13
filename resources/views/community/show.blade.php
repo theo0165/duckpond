@@ -1,26 +1,22 @@
 <x-layout>
     <h1>/c/{{$community->title}}</h1>
     <a href="{{ route('submit.show') }}?community={{ $community->title }}">Submit a post</a>
-    {{-- @if (!$checkFollows) --}}
+    @if ($checkFollows === null)
         <form action="{{ route('user.follow', $community) }}" method="post">
         @csrf
             <button type="submit">Follow</button>
         </form>
-    {{-- @elseif ($checkFollows) --}}
+    @elseif ($checkFollows)
         <form action="{{ route('user.unfollow', $community) }}" method="post">
         @csrf
             <button type="submit">Unfollow</button>
         </form>
-    {{-- @else --}}
-        <form action="{{ route('user.follow', $community) }}" method="post">
+    @else
+         <form action="{{ route('user.follow', $community) }}" method="post">
         @csrf
             <button type="submit">Follow</button>
         </form>
-        <form action="{{ route('user.unfollow', $community) }}" method="post">
-        @csrf
-            <button type="submit">Unfollow</button>
-        </form>
-    {{-- @endif --}}
+    @endif
     @can('delete', $community)
         <form action="{{ route('community.delete', $community) }}" method="post">
         @csrf
