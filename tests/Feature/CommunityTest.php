@@ -14,15 +14,16 @@ class CommunityTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_user_can_see_single_community(){
+    public function test_user_can_see_single_community()
+    {
         $user = User::factory()->create();
         $community = Community::factory()->create();
         $post = Post::factory()->text_type()->create();
 
         $request = $this
-                    ->actingAs($user)
-                    ->followingRedirects()
-                    ->get("/c/{$community->title}");
+            ->actingAs($user)
+            ->followingRedirects()
+            ->get("/c/create/{$community->title}");
 
         $request->assertOk();
         $request->assertSeeText([
@@ -31,15 +32,16 @@ class CommunityTest extends TestCase
         ]);
     }
 
-    public function test_user_can_follow_community(){
+    public function test_user_can_follow_community()
+    {
         $user = User::factory()->create();
         $community = Community::factory()->create();
         $post = Post::factory()->text_type()->create();
 
         $request = $this
-                    ->actingAs($user)
-                    ->followingRedirects()
-                    ->post("/c/{$community->title}/follow");
+            ->actingAs($user)
+            ->followingRedirects()
+            ->post("/c/create/{$community->title}/follow");
 
         $request->assertOk();
         $this->assertDatabaseHas('user_follows_communities', [
@@ -48,7 +50,8 @@ class CommunityTest extends TestCase
         ]);
     }
 
-    public function test_user_can_not_follow_if_already_following(){
+    public function test_user_can_not_follow_if_already_following()
+    {
         $user = User::factory()->create();
         $community = Community::factory()->create();
         $post = Post::factory()->text_type()->create();
@@ -56,15 +59,16 @@ class CommunityTest extends TestCase
         UserFollowsCommunity::factory()->create();
 
         $request = $this
-                    ->actingAs($user)
-                    ->followingRedirects()
-                    ->post("/c/{$community->title}/follow");
+            ->actingAs($user)
+            ->followingRedirects()
+            ->post("/c/create/{$community->title}/follow");
 
         $request->assertOk();
         $this->assertDatabaseCount('user_follows_communities', 1);
     }
 
-    public function test_user_can_unfollow_community(){
+    public function test_user_can_unfollow_community()
+    {
         $user = User::factory()->create();
         $community = Community::factory()->create();
         $post = Post::factory()->text_type()->create();
@@ -72,36 +76,38 @@ class CommunityTest extends TestCase
         UserFollowsCommunity::factory()->create();
 
         $request = $this
-                    ->actingAs($user)
-                    ->followingRedirects()
-                    ->post("/c/{$community->title}/unfollow");
+            ->actingAs($user)
+            ->followingRedirects()
+            ->post("/c/create/{$community->title}/unfollow");
 
         $request->assertOk();
         $this->assertDatabaseCount('user_follows_communities', 0);
     }
 
-    public function test_user_can_not_unfollow_if_not_following(){
+    public function test_user_can_not_unfollow_if_not_following()
+    {
         $user = User::factory()->create();
         $community = Community::factory()->create();
         $post = Post::factory()->text_type()->create();
 
         $request = $this
-                    ->actingAs($user)
-                    ->followingRedirects()
-                    ->post("/c/{$community->title}/unfollow");
+            ->actingAs($user)
+            ->followingRedirects()
+            ->post("/c/create/{$community->title}/unfollow");
 
         $request->assertOk();
     }
 
-    public function test_user_can_create_community(){
+    public function test_user_can_create_community()
+    {
         $user = User::factory()->create();
 
         $request = $this
-                    ->actingAs($user)
-                    ->followingRedirects()
-                    ->post('/createcommunity', [
-                        'title' => 'Test community'
-                    ]);
+            ->actingAs($user)
+            ->followingRedirects()
+            ->post('/c/create', [
+                'title' => 'Test community'
+            ]);
 
         $request->assertOk();
         $this->assertDatabaseHas('communities', [
@@ -111,9 +117,15 @@ class CommunityTest extends TestCase
         $this->assertDatabaseCount('communities', 1);
     }
 
-    public function test_user_can_delete_owned_community(){}
+    public function test_user_can_delete_owned_community()
+    {
+    }
 
-    public function test_user_can_not_delete_other_users_community(){}
+    public function test_user_can_not_delete_other_users_community()
+    {
+    }
 
-    public function test_user_can_see_page_with_all_communities(){}
+    public function test_user_can_see_page_with_all_communities()
+    {
+    }
 }

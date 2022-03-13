@@ -16,18 +16,19 @@ class CommentTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_user_can_create_comment(){
+    public function test_user_can_create_comment()
+    {
         $user = User::factory()->create();
         $community = Community::factory()->create();
         $post = Post::factory()->text_type()->create();
         UserFollowsCommunity::factory()->create();
 
         $request = $this
-                    ->followingRedirects()
-                    ->actingAs($user)
-                    ->post("/c/{$community->title}/p/{$post->getHashId()}/comment/create", [
-                        'content' => 'Test comment'
-                    ]);
+            ->followingRedirects()
+            ->actingAs($user)
+            ->post("/c/create/{$community->title}/p/{$post->getHashId()}/comment/create", [
+                'content' => 'Test comment'
+            ]);
 
         $request->assertOk();
         $this->assertDatabaseHas('comments', [
@@ -38,7 +39,8 @@ class CommentTest extends TestCase
         ]);
     }
 
-    public function test_user_can_reply_to_comment(){
+    public function test_user_can_reply_to_comment()
+    {
         $user = User::factory()->create();
         $community = Community::factory()->create();
         $post = Post::factory()->text_type()->create();
@@ -46,11 +48,11 @@ class CommentTest extends TestCase
         UserFollowsCommunity::factory()->create();
 
         $request = $this
-                    ->followingRedirects()
-                    ->actingAs($user)
-                    ->post("/c/{$community->title}/p/{$post->getHashId()}/comment/{$comment->getHashId()}/create", [
-                        'content' => 'Test comment'
-                    ]);
+            ->followingRedirects()
+            ->actingAs($user)
+            ->post("/c/create/{$community->title}/p/{$post->getHashId()}/comment/{$comment->getHashId()}/create", [
+                'content' => 'Test comment'
+            ]);
 
         $request->assertOk();
         $this->assertDatabaseHas('comments', [
@@ -61,14 +63,15 @@ class CommentTest extends TestCase
         ]);
     }
 
-    public function test_user_can_see_post_with_comments_and_replies(){
+    public function test_user_can_see_post_with_comments_and_replies()
+    {
         $user = User::factory()->create();
         $community = Community::factory()->create();
         $post = Post::factory()->text_type()->create();
         $comment = Comment::factory()->on_post()->create();
         $reply = Comment::factory()->on_comment()->create();
 
-        $request = $this->get("/c/{$community->title}/p/{$post->getHashId()}");
+        $request = $this->get("/c/create/{$community->title}/p/{$post->getHashId()}");
 
         $request->assertOk();
         $request->assertSeeTextInOrder([
@@ -78,7 +81,8 @@ class CommentTest extends TestCase
         ]);
     }
 
-    public function test_user_can_upvote_comment(){
+    public function test_user_can_upvote_comment()
+    {
         $user = User::factory()->create();
         $community = Community::factory()->create();
         $post = Post::factory()->text_type()->create();
@@ -86,9 +90,9 @@ class CommentTest extends TestCase
         UserFollowsCommunity::factory()->create();
 
         $request = $this
-                    ->followingRedirects()
-                    ->actingAs($user)
-                    ->get("/c/{$community->title}/c/{$comment->getHashId()}/upvote");
+            ->followingRedirects()
+            ->actingAs($user)
+            ->get("/c/create/{$community->title}/c/{$comment->getHashId()}/upvote");
 
         $request->assertOk();
         $this->assertDatabaseHas('votes', [
@@ -99,7 +103,8 @@ class CommentTest extends TestCase
         ]);
     }
 
-    public function test_user_can_not_double_upvote_comment(){
+    public function test_user_can_not_double_upvote_comment()
+    {
         $user = User::factory()->create();
         $community = Community::factory()->create();
         $post = Post::factory()->text_type()->create();
@@ -108,24 +113,25 @@ class CommentTest extends TestCase
         Vote::factory()->upvote()->on_comment()->create();
 
         $request = $this
-                    ->followingRedirects()
-                    ->actingAs($user)
-                    ->get("/c/{$community->title}/c/{$comment->getHashId()}/upvote");
+            ->followingRedirects()
+            ->actingAs($user)
+            ->get("/c/create/{$community->title}/c/{$comment->getHashId()}/upvote");
 
         $request->assertOk();
         $this->assertDatabaseCount('votes', 1);
     }
 
-    public function test_user_can_downvote_comment(){
+    public function test_user_can_downvote_comment()
+    {
         $user = User::factory()->create();
         $community = Community::factory()->create();
         $post = Post::factory()->text_type()->create();
         $comment = Comment::factory()->create();
 
         $request = $this
-                    ->actingAs($user)
-                    ->followingRedirects()
-                    ->get("/c/{$community->title}/c/{$comment->getHashId()}/downvote");
+            ->actingAs($user)
+            ->followingRedirects()
+            ->get("/c/create/{$community->title}/c/{$comment->getHashId()}/downvote");
 
         $request->assertOk();
         $this->assertDatabaseHas('votes', [
@@ -136,7 +142,8 @@ class CommentTest extends TestCase
         ]);
     }
 
-    public function test_user_can_not_double_downvote_comment(){
+    public function test_user_can_not_double_downvote_comment()
+    {
         $user = User::factory()->create();
         $community = Community::factory()->create();
         $post = Post::factory()->text_type()->create();
@@ -145,15 +152,19 @@ class CommentTest extends TestCase
         Vote::factory()->downvote()->on_comment()->create();
 
         $request = $this
-                    ->followingRedirects()
-                    ->actingAs($user)
-                    ->get("/c/{$community->title}/c/{$comment->getHashId()}/downvote");
+            ->followingRedirects()
+            ->actingAs($user)
+            ->get("/c/create/{$community->title}/c/{$comment->getHashId()}/downvote");
 
         $request->assertOk();
         $this->assertDatabaseCount('votes', 1);
     }
 
-    public function test_user_can_delete_own_comment(){}
+    public function test_user_can_delete_own_comment()
+    {
+    }
 
-    public function test_user_can_not_delete_other_users_comment(){}
+    public function test_user_can_not_delete_other_users_comment()
+    {
+    }
 }
