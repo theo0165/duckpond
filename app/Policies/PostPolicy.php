@@ -18,8 +18,6 @@ class PostPolicy
 
     public function delete(User $user, Post $post)
     {
-        return ($post->user->id == $user->id || $user->is_admin) ?
-            Response::allow() :
-            Response::deny("Unauthorized");
+        return $user->id === $post->user_id;
     }
 }

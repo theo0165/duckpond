@@ -77,4 +77,13 @@ class Post extends Model
     {
         return Hashids::encode($this->id);
     }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($query) {
+            $query->user_id = auth()->user()->id;
+        });
+    }
 }
