@@ -42,8 +42,8 @@ Route::get('login', ShowLoginController::class)->name('login');
 Route::post('login', LoginController::class)->name('auth.login.user');
 
 Route::get('/c/all', CommunityIndexController::class)->name('community.index');
-Route::get('/c/{community:title}', ShowCommunityController::class)->name('community.show');
-Route::get('/c/{community:title}/p/{post}', ShowPostController::class)->name('post.show');
+Route::get('/c/create/{community:title}', ShowCommunityController::class)->name('community.show');
+Route::get('/c/create/{community:title}/p/{post}', ShowPostController::class)->name('post.show');
 
 Route::get('u/{user:username}', ShowUserProfileController::class)->name('users.profile');
 Route::get('u/{user:username}/posts', ShowUserPostController::class)->name('users.posts');
@@ -57,11 +57,11 @@ Route::group(['middleware' => 'guest'], function () {
 });
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/c/{community:title}/p/{post}/upvote', PostUpvoteController::class)->name('post.upvote');
-    Route::get('/c/{community:title}/p/{post}/downvote', PostDownvoteController::class)->name('post.downvote');
-    Route::get('/c/{community:title}/c/{comment}/upvote', CommentUpvoteController::class)->name('comment.upvote');
-    Route::get('/c/{community:title}/c/{comment}/downvote', CommentDownvoteController::class)->name('comment.downvote');
-    Route::delete('/c/{community:title}', DeleteCommunityController::class)->name('community.delete');
+    Route::get('/c/create/{community:title}/p/{post}/upvote', PostUpvoteController::class)->name('post.upvote');
+    Route::get('/c/create/{community:title}/p/{post}/downvote', PostDownvoteController::class)->name('post.downvote');
+    Route::get('/c/create/{community:title}/c/{comment}/upvote', CommentUpvoteController::class)->name('comment.upvote');
+    Route::get('/c/create/{community:title}/c/{comment}/downvote', CommentDownvoteController::class)->name('comment.downvote');
+    Route::delete('/c/create/{community:title}', DeleteCommunityController::class)->name('community.delete');
 
     Route::get('u/{user:username}/edit', EditUserProfileController::class)->name('users.profile.edit');
     Route::patch('u/{user:username}/update', UpdateUserProfileController::class)->name('users.profile.update');
@@ -70,17 +70,17 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/submit', ShowSubmitController::class)->name('submit.show');
     Route::post('/submit', StoreSubmitController::class)->name('submit.store');
 
-    Route::delete('/{post}/delete', DeletePostController::class)->name('post.delete');
+    Route::delete('/p/{post}/delete', DeletePostController::class)->name('post.delete');
 
-    Route::get('createcommunity', CreateCommunityController::class)->name('community.create');
-    Route::post('createcommunity', StoreCommunityController::class)->name('community.store');
+    Route::get('/c/create', CreateCommunityController::class)->name('community.create');
+    Route::post('/c/create', StoreCommunityController::class)->name('community.store');
 
-    Route::post('/c/{community:title}/p/{post}/comment/create', CreateCommentController::class)->name('post.comment.create');
-    Route::post('/c/{community:title}/p/{post}/comment/{comment}/create', CreateReplyController::class)->name('comment.reply.create');
-    Route::get('/c/{community:title}/p/{post}/comment/{comment}/create', ShowCreateCommentController::class)->name('comment.show');
-    Route::delete('/c/{community:title}/p/{post}/comment/{comment}/delete', DeleteCommentController::class)->name('comment.delete');
+    Route::post('/c/create/{community:title}/p/{post}/comment/create', CreateCommentController::class)->name('post.comment.create');
+    Route::post('/c/create/{community:title}/p/{post}/comment/{comment}/create', CreateReplyController::class)->name('comment.reply.create');
+    Route::get('/c/create/{community:title}/p/{post}/comment/{comment}/create', ShowCreateCommentController::class)->name('comment.show');
+    Route::delete('/c/create/{community:title}/p/{post}/comment/{comment}/delete', DeleteCommentController::class)->name('comment.delete');
 
     Route::post('logout', LogoutController::class)->name('auth.logout');
-    Route::post('/c/{community:title}/follow', UserFollowCommunityController::class)->name('user.follow');
-    Route::post('/c/{community:title}/unfollow', UserUnfollowCommunityController::class)->name('user.unfollow');
+    Route::post('/c/create/{community:title}/follow', UserFollowCommunityController::class)->name('user.follow');
+    Route::post('/c/create/{community:title}/unfollow', UserUnfollowCommunityController::class)->name('user.unfollow');
 });
