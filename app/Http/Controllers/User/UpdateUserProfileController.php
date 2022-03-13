@@ -15,7 +15,8 @@ class UpdateUserProfileController extends Controller
         $attributes = request()->validate([
             'email' => ['string', 'max:255', 'unique:users,email,' . $user->id],
             'username' => ['string', 'max:255', 'unique:users,username,' . $user->id],
-            'password' => ['nullable', 'string', 'min:8', 'max:255',]
+            'password' => ['nullable', 'string', 'min:8', 'max:255',],
+            'bio' => ['nullable', 'string', 'max:255',]
         ]);
 
         if ($attributes['password']) {
