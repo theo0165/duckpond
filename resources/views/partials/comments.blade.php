@@ -10,10 +10,10 @@
                     <a href="{{ route('comment.downvote', ['community' => $community, 'comment' => $comment->getHashId()]) }}">Downvote</a> |
                     <a href="{{ route('comment.show', ['community' => $community, 'post' => $post->getHashId(), 'comment' => $comment->getHashId()]) }}">Reply</a>
                     @can('delete', $comment)
-                        <form action="{{ route('comment.delete', $comment->getHashId()) }}" method="post">
-                            @csrf
-                            @method('DELETE')
-                                <button type="submit">Delete comment</button>
+                        <form action="{{ route('comment.delete', ['community' => $community, 'post' => $post->getHashId(), 'comment' => $comment->getHashId()]) }}" method="post">
+                        @csrf
+                        @method('DELETE')
+                            <button type="submit">Delete comment</button>
                         </form>
                     @endcan
                 </p>

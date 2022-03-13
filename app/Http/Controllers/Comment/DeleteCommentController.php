@@ -9,9 +9,11 @@ use App\Http\Controllers\Controller;
 
 class DeleteCommentController extends Controller
 {
-    public function __invoke(Comment $comment)
+    public function __invoke(Community $community, Post $post, Comment $comment)
     {
         $this->authorize('delete', $comment);
+
+        // dd($comment);
 
         $comment->delete();
 
