@@ -13,6 +13,9 @@
             <x-form.input name="password" type="password"/>
         </div>
         <div>
+            <x-form.textarea name="bio">{{ $user->bio }}</x-form.textarea>
+        </div>
+        <div>
             <button type="submit">Save profile info</button>
         </div>
     </form>
