@@ -3,6 +3,10 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\ResetPassword\ShowForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPassword\ShowResetPasswordController;
+use App\Http\Controllers\Auth\ResetPassword\StoreForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPassword\StoreResetPasswordController;
 use App\Http\Controllers\Auth\ShowLoginController;
 use App\Http\Controllers\Auth\ShowRegisterController;
 use App\Http\Controllers\Comment\CreateCommentController;
@@ -86,4 +90,9 @@ Route::get('/search', SearchController::class)->name('search');
 Route::group(['middleware' => 'guest'], function () {
     Route::get('register', ShowRegisterController::class)->name('auth.register');
     Route::post('register', RegisterController::class)->name('auth.register.user');
+
+    Route::get('/forgot-password', ShowForgotPasswordController::class)->name('forgotpassword.show');
+    Route::get('/reset-password/{token}', ShowResetPasswordController::class)->name('resetpassword.show');
+    Route::post('/forgot-password', StoreForgotPasswordController::class)->name('forgotpassword.store');
+    Route::post('/reset-password/{token}', StoreResetPasswordController::class)->name('resetpassword.store');
 });
