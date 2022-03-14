@@ -5,7 +5,7 @@
             <p>{{$comment->content}}</p>
             <div>
                 <p>
-                    {{$comment->vote_count}} points
+                    {{$comment->vote_count ?? 0}} points
                     <form action="{{ route('comment.upvote', ['community' => $community, 'comment' => $comment->getHashId()]) }}" method="post">
                         @csrf
                         <input type="submit" value="Upvote" class="btn btn-success">

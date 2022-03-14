@@ -7,7 +7,7 @@
                 by <a href="{{route('users.profile', $post->user)}}">/u/{{$post->user->username}}</a>
                 ({{$post->created_at->diffForHumans()}})
             </p>
-            <p class="mb-0">{{$post->votes}} points | {{$post->comments_count}} comments</p>
+            <p class="mb-0">{{$post->votes ?? 0}} points | {{$post->comments_count}} comments</p>
             <div>
                 <form action="{{route('post.upvote', ['community' => $post->community, 'post' => $post->getHashId()])}}" method="post">
                     @csrf

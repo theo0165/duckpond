@@ -4,7 +4,7 @@
         <div class="row justify-content-center">
             <div class="">
                 <p>{{ $comment->content }}</p>
-                <p>{{ $comment->votes_count }} points</p>
+                <p>{{ $comment->votes_count ?? 0 }} points</p>
             </div>
         </div>
         <hr>
