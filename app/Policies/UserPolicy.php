@@ -12,16 +12,16 @@ class UserPolicy
 
     public function edit(User $user, User $userToEdit)
     {
-        return $user->id === $userToEdit->id;
+        return $user->id === $userToEdit->id || $user->is_admin;
     }
 
     public function update(User $user, User $userToEdit)
     {
-        return $user->id === $userToEdit->id;
+        return $user->id === $userToEdit->id || $user->is_admin;
     }
 
     public function delete(User $user, User $userToEdit)
     {
-        return $user->id === $userToEdit->id;
+        return $user->id === $userToEdit->id || $user->is_admin;
     }
 }
