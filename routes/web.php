@@ -41,10 +41,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/c/create', CreateCommunityController::class)->name('community.create');
     Route::post('/c/create', StoreCommunityController::class)->name('community.store');
 
-    Route::get('/c/{community:title}/p/{post}/upvote', PostUpvoteController::class)->name('post.upvote');
-    Route::get('/c/{community:title}/p/{post}/downvote', PostDownvoteController::class)->name('post.downvote');
-    Route::get('/c/{community:title}/c/{comment}/upvote', CommentUpvoteController::class)->name('comment.upvote');
-    Route::get('/c/{community:title}/c/{comment}/downvote', CommentDownvoteController::class)->name('comment.downvote');
+    Route::post('/c/{community:title}/p/{post}/upvote', PostUpvoteController::class)->name('post.upvote');
+    Route::post('/c/{community:title}/p/{post}/downvote', PostDownvoteController::class)->name('post.downvote');
+    Route::post('/c/{community:title}/c/{comment}/upvote', CommentUpvoteController::class)->name('comment.upvote');
+    Route::post('/c/{community:title}/c/{comment}/downvote', CommentDownvoteController::class)->name('comment.downvote');
     Route::delete('/c/{community:title}', DeleteCommunityController::class)->name('community.delete');
 
     Route::get('u/{user:username}/edit', EditUserProfileController::class)->name('users.profile.edit');

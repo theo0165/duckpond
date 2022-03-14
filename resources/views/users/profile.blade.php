@@ -32,6 +32,13 @@
     @can('update', $user)
         <a href="{{ route('users.profile.edit', $user) }}">Update</a>
     @endcan
+    @can('delete', $user)
+        <form method="post" action="{{ route('users.profile.delete', $user) }}">
+            @csrf
+            @method('delete')
+            <input type="submit" value="Delete" class="btn btn-danger">
+        </form>
+    @endcan
     <hr>
     <h2>About me</h2>
     @if ($user->bio)

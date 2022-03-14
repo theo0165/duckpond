@@ -9,15 +9,21 @@
             </p>
             <p class="mb-0">{{$post->votes}} points | {{$post->comments_count}} comments</p>
             <div>
-                <a href="{{route('post.upvote', ['community' => $post->community, 'post' => $post->getHashId()])}}">Upvote</a>
-                <a href="{{route('post.downvote', ['community' => $post->community, 'post' => $post->getHashId()])}}">Downvote</a>
+                <form action="{{route('post.upvote', ['community' => $post->community, 'post' => $post->getHashId()])}}" method="post">
+                    @csrf
+                    <input type="submit" value="Upvote" class="btn btn-success">
+                </form>
+                <form action="{{route('post.downvote', ['community' => $post->community, 'post' => $post->getHashId()])}}" method="post">
+                    @csrf
+                    <input type="submit" value="Downvote" class="btn btn-warning">
+                </form>
             </div>
             <div>
             @can('delete', $post)
                 <form action="{{ route('post.delete', ['community' => $post->community, 'post' => $post->getHashId()]) }}" method="post">
                     @csrf
                     @method('DELETE')
-                        <button type="submit">Delete post</button>
+                    <button type="submit" class="btn btn-danger">Delete post</button>
                 </form>
             @endcan
             </div>
