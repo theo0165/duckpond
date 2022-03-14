@@ -14,9 +14,9 @@ class StoreCommunityController extends Controller
         $user = auth()->user()->id;
 
         $this->validate($request, [
-            'title' => ['required', 'string', 'max:255', 'unique:reserved_words,word']
+            'title' => ['required', 'string', 'max:255', 'unique:reserved_words,word', 'unique:communities,title']
         ], [
-            'title.unique' => "This is a reserved word and can not be used."
+            'title.unique' => "This community already exists"
         ]);
 
         $newCommunity = Community::create([

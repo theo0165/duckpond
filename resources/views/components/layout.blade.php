@@ -71,9 +71,9 @@
             </ul>
         </nav>
         <div class="container">
+            <x-flash message="success" />
+            <x-flash message="error" />
             {{ $slot }}
         </div>
-        <x-flash message="success" />
-        <x-flash message="error" />
     </body>
 </html>

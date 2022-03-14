@@ -9,19 +9,19 @@
     @elseif ($checkFollows)
         <form action="{{ route('user.unfollow', $community) }}" method="post">
         @csrf
-            <button type="submit">Unfollow</button>
+            <button type="submit" class="btn btn-warning">Unfollow</button>
         </form>
     @else
          <form action="{{ route('user.follow', $community) }}" method="post">
         @csrf
-            <button type="submit">Follow</button>
+            <button type="submit" class="btn btn-primary">Follow</button>
         </form>
     @endif
     @can('delete', $community)
         <form action="{{ route('community.delete', $community) }}" method="post">
         @csrf
         @method('DELETE')
-        <button type="submit">Delete</button>
+        <button type="submit" class="btn btn-danger">Delete</button>
         </form>
     @endcan
     <hr>
@@ -55,7 +55,7 @@
                         <form action="{{ route('post.delete', ['community' => $post->community, 'post' => $post->getHashId()])}}" method="post">
                             @csrf
                             @method('DELETE')
-                                <button type="submit">Delete post</button>
+                                <button type="submit" class="btn btn-danger">Delete post</button>
                         </form>
                     @endcan
                     </div>
