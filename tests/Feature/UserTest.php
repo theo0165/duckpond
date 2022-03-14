@@ -233,4 +233,30 @@ class UserTest extends TestCase
         $request->assertOk();
         $request->assertSeeText($community->title);
     }
+
+    public function test_user_can_see_search_form()
+    {
+        $user = User::factory()->create();
+
+        $request = $this
+            ->actingAs($user)
+            ->get('/search');
+
+        $request->assertOk();
+        $request->assertSeeText('Query:');
+    }
+
+    public function test_user_can_search()
+    {
+        $user = User::factory()->create();
+        $community = Community::factory()->create();
+        $post = Post::factory()->text_type()->create();
+
+        $request = $this
+            ->actingAs($user)
+            ->get("/search?q=$post->title");
+
+        $request->assertOk();
+        $request->assertSeeText($post->title);
+    }
 }

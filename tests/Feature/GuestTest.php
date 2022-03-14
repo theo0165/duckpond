@@ -294,4 +294,24 @@ class GuestTest extends TestCase
 
         $this->assertDatabaseCount('user_follows_communities', 0);
     }
+
+    public function test_guest_can_see_search_form()
+    {
+        $response = $this->get('/search');
+        $response->assertOk();
+        $response->assertSeeText('Query:');
+    }
+
+    public function test_guest_can_search()
+    {
+        $user = User::factory()->create();
+        $community = Community::factory()->create();
+        $post = Post::factory()->text_type()->create();
+
+        $request = $this
+            ->get("/search?q=$post->title");
+
+        $request->assertOk();
+        $request->assertSeeText($post->title);
+    }
 }
