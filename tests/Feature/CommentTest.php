@@ -162,9 +162,34 @@ class CommentTest extends TestCase
 
     public function test_user_can_delete_own_comment()
     {
+        $user = User::factory()->create();
+        $community = Community::factory()->create();
+        $post = Post::factory()->text_type()->create();
+        $comment = Comment::factory()->create();
+
+        $request = $this
+            ->followingRedirects()
+            ->actingAs($user)
+            ->delete("/c/{$community->title}/p/{$post->getHashId()}/comment/{$comment->getHashId()}/delete");
+
+        $request->assertOk();
+        $this->assertModelMissing($comment);
     }
 
     public function test_user_can_not_delete_other_users_comment()
     {
+        $user = User::factory()->create();
+        $community = Community::factory()->create();
+        $post = Post::factory()->text_type()->create();
+        $comment = Comment::factory()->create();
+        $secondUser = User::factory()->create();
+
+        $request = $this
+            ->followingRedirects()
+            ->actingAs($secondUser)
+            ->delete("/c/{$community->title}/p/{$post->getHashId()}/comment/{$comment->getHashId()}/delete");
+
+        $request->assertForbidden();
+        $this->assertModelExists($comment);
     }
 }

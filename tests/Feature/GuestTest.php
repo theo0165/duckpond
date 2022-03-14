@@ -45,6 +45,22 @@ class GuestTest extends TestCase
         $request->assertSeeText("The username has already been taken.");
     }
 
+    public function test_guest_can_not_register_with_existing_email()
+    {
+        $user = User::factory()->create();
+
+        $request = $this
+            ->followingRedirects()
+            ->from('register')
+            ->post('register', [
+                'username' => 'bruce',
+                'email' => $user->email,
+                'password' => 'password'
+            ]);
+
+        $request->assertSeeText("The email has already been taken.");
+    }
+
     public function test_guest_can_see_front_page_posts()
     {
         $user = User::factory()->create();
@@ -213,16 +229,45 @@ class GuestTest extends TestCase
 
     public function test_guest_can_not_delete_post()
     {
+        $user = User::factory()->create();
         $community = Community::factory()->create();
         $post = Post::factory()->text_type()->create();
+
+        $request = $this
+            ->followingRedirects()
+            ->delete("/c/{$community->title}/p/{$post->title}/delete");
+
+        $request->assertOk();
+        $this->assertModelExists($post);
+        // $this->assertDatabaseHas('posts', ['id' => $post->id]);
     }
 
     public function test_guest_can_not_delete_comment()
     {
+        $user = User::factory()->create();
+        $community = Community::factory()->create();
+        $post = Post::factory()->text_type()->create();
+        $comment = Comment::factory()->on_post()->create();
+
+        $request = $this
+            ->followingRedirects()
+            ->delete("/c/{$community->title}/p/{$post->title}/comment/{$comment->getHashId()}/delete");
+
+        $request->assertOk();
+        $this->assertModelExists($comment);
     }
 
     public function test_guest_can_not_delete_community()
     {
+        $user = User::factory()->create();
+        $community = Community::factory()->create();
+
+        $request = $this
+            ->followingRedirects()
+            ->delete("/c/{$community->title}");
+
+        $request->assertOk();
+        $this->assertModelExists($community);
     }
 
     public function test_guest_can_not_delete_user()

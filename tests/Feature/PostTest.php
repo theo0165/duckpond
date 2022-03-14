@@ -57,6 +57,17 @@ class PostTest extends TestCase
 
     public function test_user_can_delete_post()
     {
+        $user = User::factory()->create();
+        $community = Community::factory()->create();
+        $post = Post::factory()->text_type()->create();
+
+        $request = $this
+            ->followingRedirects()
+            ->actingAs($user)
+            ->delete("/c/{$community->title}/p/{$post->getHashId()}/delete");
+
+        $request->assertOk();
+        $this->assertModelMissing($post);
     }
 
     public function test_user_can_upvote_post()

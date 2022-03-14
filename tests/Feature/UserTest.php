@@ -4,7 +4,9 @@ namespace Tests\Feature;
 
 use App\Models\Community;
 use App\Models\Post;
+use App\Models\Comment;
 use App\Models\User;
+use App\Models\UserFollowsCommunity;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -38,10 +40,6 @@ class UserTest extends TestCase
             ->get('register');
 
         $request->assertRedirect();
-    }
-
-    public function test_user_can_not_register_with_existing_password()
-    {
     }
 
     public function test_user_can_update_username()
@@ -80,6 +78,19 @@ class UserTest extends TestCase
 
     public function test_user_can_update_password()
     {
+        $user = User::factory()->create();
+
+        $request = $this
+            ->actingAs($user)
+            ->patch("/u/{$user->username}/update", [
+                'username' => $user->username,
+                'email' => 'new@email.com',
+                'password' => 'newpassword'
+            ]);
+
+        $this->assertDatabaseHas('users', [
+            'email' => 'new@email.com'
+        ]);
     }
 
     public function test_user_can_not_update_to_existing_username()
@@ -120,6 +131,18 @@ class UserTest extends TestCase
 
     public function test_user_can_see_front_page_posts()
     {
+        $user = User::factory()->create();
+        $community = Community::factory()->create();
+        $post = Post::factory()->text_type()->create();
+        UserFollowsCommunity::factory()->create();
+
+        $request = $this
+            ->followingRedirects()
+            ->actingAs($user)
+            ->get('/');
+
+        $request->assertOk();
+        $request->assertSeeText($post->title);
     }
 
     public function test_user_can_not_see_posts_if_not_following_communities()
@@ -138,21 +161,76 @@ class UserTest extends TestCase
 
     public function test_user_can_delete_own_user()
     {
+        $user = User::factory()->create();
+
+        $request = $this
+            ->followingRedirects()
+            ->actingAs($user)
+            ->delete("/u/{$user->username}/delete", [
+                'username' => $user->username,
+                'email' => $user->email,
+                'password' => 'password'
+            ]);
+
+        $request->assertOk();
+        $this->assertModelMissing($user);
     }
 
     public function test_user_can_see_their_own_posts()
     {
+        $user = User::factory()->create();
+        $community = Community::factory()->create();
+        $post = Post::factory()->text_type()->create();
+
+        $request = $this
+            ->followingRedirects()
+            ->actingAs($user)
+            ->get("u/{$user->username}/posts");
+
+        $request->assertOk();
+        $request->assertSeeText($post->title);
     }
 
     public function test_user_can_see_their_own_comments()
     {
+        $user = User::factory()->create();
+        $comment = Comment::factory()->create();
+
+        $request = $this
+            ->followingRedirects()
+            ->actingAs($user)
+            ->get("u/{$user->username}/comments");
+
+        $request->assertOk();
+        $request->assertSeeText($comment->title);
     }
 
     public function test_user_can_see_their_followed_communities()
     {
+        $user = User::factory()->create();
+        $community = Community::factory()->create();
+        UserFollowsCommunity::factory()->create();
+
+        $request = $this
+            ->followingRedirects()
+            ->actingAs($user)
+            ->get("u/{$user->username}/followed-communities");
+
+        $request->assertOk();
+        $request->assertSeeText($community->title);
     }
 
     public function test_user_can_see_their_owned_communities()
     {
+        $user = User::factory()->create();
+        $community = Community::factory()->create();
+
+        $request = $this
+            ->followingRedirects()
+            ->actingAs($user)
+            ->get("u/{$user->username}/owned-communities");
+
+        $request->assertOk();
+        $request->assertSeeText($community->title);
     }
 }
