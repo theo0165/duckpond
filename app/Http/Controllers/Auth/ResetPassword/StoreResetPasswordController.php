@@ -28,6 +28,6 @@ class StoreResetPasswordController extends Controller
 
         DB::table('password_resets')->where('token', '=', $token)->delete();
 
-        return redirect('/login');
+        return redirect('/login')->with('success', 'Your password was reset!');
     }
 }

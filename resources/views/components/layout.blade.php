@@ -33,7 +33,7 @@
                     <a href="/" class="nav-link">Duckpond</a>
                 </li>
             </ul>
-            <ul class="navbar-nav flex-row">
+            <ul class="navbar-nav flex-row flex-wrap">
                 <li class="nav-item p-3">
                     <a href="{{route('search')}}" class="nav-link">Search</a>
                 </li>
@@ -53,7 +53,7 @@
                 <li class="nav-item p-3">
                     <form action="{{ route('auth.logout') }}" method="post">
                     @csrf
-                        <button type="submit" class="btn btn-danger">Logout</button>
+                        <button type="submit" class="btn btn-outline-danger">Logout</button>
                     </form>
                 </li>
             @endauth

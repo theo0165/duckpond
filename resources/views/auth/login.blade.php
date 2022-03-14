@@ -8,9 +8,9 @@
         <div>
             <x-form.input name="password" type="password" required />
         </div>
-           <div>
-            <input type="checkbox" name="remember" id="remember">
-            <label for="remember">Remember me</label>
+        <div class="mt-2">
+            <input type="checkbox" name="remember" id="remember" class="form-check-input">
+            <label for="remember" class="form-check-label">Remember me</label>
         </div>
         <div>
             <x-form.button>Login</x-form.button>

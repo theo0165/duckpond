@@ -16,14 +16,14 @@
             <x-form.textarea name="bio">{{ $user->bio }}</x-form.textarea>
         </div>
         <div>
-            <button type="submit">Save profile info</button>
+            <button type="submit" class="btn btn-outline-primary mt-3">Save profile info</button>
         </div>
     </form>
     @can('delete', $user)
-        <form action="{{ route('users.profile.delete', $user) }}" method="post">
+    <form action="{{ route('users.profile.delete', $user) }}" method="post">
         @csrf
         @method('DELETE')
-            <button type="submit">Delete my account</button>
-        </form>
+            <button type="submit" class="btn btn-outline-danger mt-3">Delete my account</button>
+    </form>
     @endcan
 </x-layout>

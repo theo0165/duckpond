@@ -1,11 +1,11 @@
 <x-layout>
     <h1>Search</h1>
-    <form method="GET" class="col-5">
+    <form method="GET">
         <div class="form-group mb-2">
             <label for="q" class="form-label">Query:</label>
             <input type="text" name="q" id="q" class="form-control" value="{{request()->query('q') ?? ''}}">
         </div>
-        <input type="submit" value="Search" class="btn btn-primary">
+        <input type="submit" value="Search" class="btn btn-outline-primary">
     </form>
 
     <div class="mt-5">

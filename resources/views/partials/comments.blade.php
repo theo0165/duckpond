@@ -6,23 +6,23 @@
             <div>
                 <p>
                     {{$comment->vote_count ?? 0}} points
-                    <form action="{{ route('comment.upvote', ['community' => $community, 'comment' => $comment->getHashId()]) }}" method="post">
+                    <form action="{{ route('comment.upvote', ['community' => $community, 'comment' => $comment->getHashId()]) }}" method="post" class="d-inline">
                         @csrf
-                        <input type="submit" value="Upvote" class="btn btn-success">
+                        <input type="submit" value="Upvote" class="btn btn-outline-success">
                     </form>
-                    <form action="{{ route('comment.downvote', ['community' => $community, 'comment' => $comment->getHashId()]) }}" method="post">
+                    <form action="{{ route('comment.downvote', ['community' => $community, 'comment' => $comment->getHashId()]) }}" method="post" class="d-inline">
                         @csrf
-                        <input type="submit" value="Downvote" class="btn btn-warning">
+                        <input type="submit" value="Downvote" class="btn btn-outline-warning">
                     </form>
-                    <form action="{{ route('comment.show', ['community' => $community, 'post' => $post->getHashId(), 'comment' => $comment->getHashId()]) }}" method="get">
+                    <form action="{{ route('comment.show', ['community' => $community, 'post' => $post->getHashId(), 'comment' => $comment->getHashId()]) }}" method="get" class="d-inline">
                         @csrf
-                        <input type="submit" value="Reply" class="btn btn-primary">
+                        <input type="submit" value="Reply" class="btn btn-outline-primary">
                     </form>
                     @can('delete', $comment)
-                        <form action="{{ route('comment.delete', ['community' => $community, 'post' => $post->getHashId(), 'comment' => $comment->getHashId()]) }}" method="post">
+                        <form action="{{ route('comment.delete', ['community' => $community, 'post' => $post->getHashId(), 'comment' => $comment->getHashId()]) }}" method="post" class="d-inline">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Delete comment</button>
+                            <button type="submit" class="btn btn-outline-danger">Delete comment</button>
                         </form>
                     @endcan
                 </p>
