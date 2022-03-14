@@ -16,5 +16,6 @@
             <x-form.button>Login</x-form.button>
         </div>
     </form>
-    <a href="{{ route('auth.register') }}">Not a user? Register here</a>
+    <div><a href="{{ route('forgotpassword.show') }}">Forgot password?</a></div>
+    <div><a href="{{ route('auth.register') }}">Not a user? Register here</a></div>
 </x-layout>
