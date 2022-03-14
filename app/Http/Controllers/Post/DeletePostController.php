@@ -9,13 +9,14 @@ use Illuminate\Http\Request;
 
 class DeletePostController extends Controller
 {
-    public function __invoke(Post $post, Community $community)
+    public function __invoke(Community $community, Post $post)
     {
         $this->authorize('delete', $post);
 
         $post->delete();
 
-        // return redirect()->route('community.show', ['community', $community])->with('success', 'Post deleted!');
-        return redirect('/')->with('success', 'Post deleted!');
+        return redirect(
+            "/c/$community->title"
+        )->with('success', 'Post deleted!');
     }
 }

@@ -15,6 +15,36 @@ class GuestTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_guest_can_see_register_form()
+    {
+        $response = $this->get('register');
+        $response->assertOk();
+        $response->assertSeeText('Email');
+    }
+
+    public function test_guest_can_see_login_form()
+    {
+        $response = $this->get('login');
+        $response->assertOk();
+        $response->assertSeeText('Username');
+    }
+
+    public function test_guest_can_not_register_with_existing_username()
+    {
+        $user = User::factory()->create();
+
+        $request = $this
+            ->followingRedirects()
+            ->from('register')
+            ->post('register', [
+                'username' => $user->username,
+                'email' => 'new_email@yrgo.com',
+                'password' => 'password'
+            ]);
+
+        $request->assertSeeText("The username has already been taken.");
+    }
+
     public function test_guest_can_see_front_page_posts()
     {
         $user = User::factory()->create();
@@ -143,7 +173,7 @@ class GuestTest extends TestCase
 
         $request = $this
             ->followingRedirects()
-            ->post("/c/create/{$community->title}/p/{$post->getHashId()}/comment/create", [
+            ->post("/c/{$community->title}/p/{$post->getHashId()}/comment/create", [
                 'content' => 'Test comment'
             ]);
 
@@ -161,7 +191,7 @@ class GuestTest extends TestCase
 
         $request = $this
             ->followingRedirects()
-            ->get("/c/create/{$community->title}/p/{$post->title}/upvote");
+            ->get("/c/{$community->title}/p/{$post->title}/upvote");
 
         $request->assertOk();
         $this->assertDatabaseCount('votes', 0);
@@ -175,7 +205,7 @@ class GuestTest extends TestCase
 
         $request = $this
             ->followingRedirects()
-            ->get("/c/create/{$community->title}/p/{$post->title}/downvote");
+            ->get("/c/{$community->title}/p/{$post->title}/downvote");
 
         $request->assertOk();
         $this->assertDatabaseCount('votes', 0);
@@ -183,6 +213,8 @@ class GuestTest extends TestCase
 
     public function test_guest_can_not_delete_post()
     {
+        $community = Community::factory()->create();
+        $post = Post::factory()->text_type()->create();
     }
 
     public function test_guest_can_not_delete_comment()
