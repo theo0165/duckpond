@@ -19,6 +19,7 @@ use App\Http\Controllers\Community\ShowCommunityController;
 use App\Http\Controllers\ShowFrontPageController;
 use App\Http\Controllers\Post\DeletePostController;
 use App\Http\Controllers\Post\ShowPostController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\submit\ShowSubmitController;
 use App\Http\Controllers\submit\StoreSubmitController;
 use App\Http\Controllers\User\ShowUserProfileController;
@@ -79,6 +80,8 @@ Route::get('u/{user:username}/posts', ShowUserPostController::class)->name('user
 Route::get('u/{user:username}/comments', ShowUserCommentController::class)->name('users.comments');
 Route::get('u/{user:username}/followed-communities', ShowUserFollowedCommunityController::class)->name('users.followed.community');
 Route::get('u/{user:username}/owned-communities', ShowUserOwnedCommunityController::class)->name('users.owned.community');
+
+Route::get('/search', SearchController::class)->name('search');
 
 Route::group(['middleware' => 'guest'], function () {
     Route::get('register', ShowRegisterController::class)->name('auth.register');

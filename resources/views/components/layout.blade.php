@@ -34,6 +34,9 @@
                 </li>
             </ul>
             <ul class="navbar-nav flex-row">
+                <li class="nav-item p-3">
+                    <a href="{{route('search')}}" class="nav-link">Search</a>
+                </li>
             @auth
                 <li class="nav-item p-3">
                     <a href="{{route('community.index')}}" class="nav-link">All communities</a>

@@ -73,6 +73,18 @@ class Post extends Model
             ->get();
     }
 
+    public static function searchPosts(string $query)
+    {
+        return Post::with(['community', 'user'])
+            ->where('title', 'LIKE', "%{$query}%")
+            ->orWhere('content', 'LIKE', "%{$query}%")
+            ->withCount('comments')
+            ->withSum('votes as votes', 'value')
+            ->limit(100)
+            ->orderBy('votes', 'desc')
+            ->get();
+    }
+
     public function getHashId()
     {
         return Hashids::encode($this->id);
