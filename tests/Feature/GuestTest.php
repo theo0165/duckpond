@@ -11,6 +11,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
+use Str;
 
 class GuestTest extends TestCase
 {
@@ -208,7 +209,7 @@ class GuestTest extends TestCase
 
         $request = $this
             ->followingRedirects()
-            ->get("/c/{$community->title}/p/{$post->title}/upvote");
+            ->post("/c/{$community->title}/p/{$post->title}/upvote");
 
         $request->assertOk();
         $this->assertDatabaseCount('votes', 0);
@@ -222,7 +223,7 @@ class GuestTest extends TestCase
 
         $request = $this
             ->followingRedirects()
-            ->get("/c/{$community->title}/p/{$post->title}/downvote");
+            ->post("/c/{$community->title}/p/{$post->title}/downvote");
 
         $request->assertOk();
         $this->assertDatabaseCount('votes', 0);
@@ -338,7 +339,7 @@ class GuestTest extends TestCase
         ]);
 
         $request = $this
-            ->get("/reset_password/$token");
+                    ->get("/reset-password/$token");
 
         $request->assertOk();
         $request->assertSeeText('Reset password');
@@ -360,7 +361,8 @@ class GuestTest extends TestCase
         $this->assertTrue($token != null);
 
         $reset = $this
-            ->post("/reset-password/$token", [
+            ->followingRedirects()
+            ->post("/reset-password/$token->token", [
                 'password' => "password",
                 'password_confirmation' => "password"
             ]);
@@ -368,9 +370,11 @@ class GuestTest extends TestCase
         $reset->assertOk();
 
         $login = $this
+            ->followingRedirects()
             ->post('/login', [
                 'username' => $user->username,
-                'password' => 'password'
+                'password' => 'password',
+                'checkbox' => 'on'
             ]);
 
         $login->assertOk();

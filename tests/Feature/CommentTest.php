@@ -92,7 +92,7 @@ class CommentTest extends TestCase
         $request = $this
             ->followingRedirects()
             ->actingAs($user)
-            ->get("/c/{$community->title}/c/{$comment->getHashId()}/upvote");
+            ->post("/c/{$community->title}/c/{$comment->getHashId()}/upvote");
 
         $request->assertOk();
         $this->assertDatabaseHas('votes', [
@@ -115,7 +115,7 @@ class CommentTest extends TestCase
         $request = $this
             ->followingRedirects()
             ->actingAs($user)
-            ->get("/c/{$community->title}/c/{$comment->getHashId()}/upvote");
+            ->post("/c/{$community->title}/c/{$comment->getHashId()}/upvote");
 
         $request->assertOk();
         $this->assertDatabaseCount('votes', 1);
@@ -131,7 +131,7 @@ class CommentTest extends TestCase
         $request = $this
             ->actingAs($user)
             ->followingRedirects()
-            ->get("/c/{$community->title}/c/{$comment->getHashId()}/downvote");
+            ->post("/c/{$community->title}/c/{$comment->getHashId()}/downvote");
 
         $request->assertOk();
         $this->assertDatabaseHas('votes', [
@@ -154,7 +154,7 @@ class CommentTest extends TestCase
         $request = $this
             ->followingRedirects()
             ->actingAs($user)
-            ->get("/c/{$community->title}/c/{$comment->getHashId()}/downvote");
+            ->post("/c/{$community->title}/c/{$comment->getHashId()}/downvote");
 
         $request->assertOk();
         $this->assertDatabaseCount('votes', 1);
