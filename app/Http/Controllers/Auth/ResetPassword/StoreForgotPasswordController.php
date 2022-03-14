@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Auth\ResetPassword;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ForgotPassword;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Str;
 
 class StoreForgotPasswordController extends Controller
@@ -22,6 +24,8 @@ class StoreForgotPasswordController extends Controller
             'email' => $data['email'],
             'created_at' => date('Y-m-d H:m:s', strtotime('now'))
         ]);
+
+        Mail::to($data['email'])->send(new ForgotPassword($token));
 
         return view('auth.reset-password.forgot-sent');
     }

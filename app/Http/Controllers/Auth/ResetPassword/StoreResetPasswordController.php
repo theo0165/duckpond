@@ -26,7 +26,7 @@ class StoreResetPasswordController extends Controller
         $user->password = $data['password'];
         $user->save();
 
-        DB::table('password_resets')->where('token', '=', $data['token'])->delete();
+        DB::table('password_resets')->where('token', '=', $token)->delete();
 
         return redirect('/login');
     }
