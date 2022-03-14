@@ -119,13 +119,46 @@ class CommunityTest extends TestCase
 
     public function test_user_can_delete_owned_community()
     {
+        $user = User::factory()->create();
+        $community = Community::factory()->create();
+
+        $request = $this
+            ->followingRedirects()
+            ->actingAs($user)
+            ->delete("/c/{$community->title}");
+
+        $request->assertOk();
+        $this->assertModelMissing($community);
     }
 
     public function test_user_can_not_delete_other_users_community()
     {
+        $user = User::factory()->create();
+        $community = Community::factory()->create();
+        $secondUser = User::factory()->create();
+
+
+        $request = $this
+            ->followingRedirects()
+            ->actingAs($secondUser)
+            ->delete("/c/{$community->title}");
+
+        $request->assertForbidden();
+        $this->assertModelExists($community);
     }
 
     public function test_user_can_see_page_with_all_communities()
     {
+        $user = User::factory()->create();
+        $community = Community::factory()->create();
+        $post = Post::factory()->text_type()->create();
+
+        $request = $this
+            ->actingAs($user)
+            ->followingRedirects()
+            ->get("/c/all");
+
+        $request->assertOk();
+        $request->assertSeeText($community->title);
     }
 }
