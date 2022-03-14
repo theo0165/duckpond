@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Comment;
 use App\Models\Community;
 use App\Models\Post;
+use App\Models\ReservedWord;
 use App\Models\User;
 use App\Models\UserFollowsCommunity;
 use App\Models\Vote;
@@ -23,6 +24,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $reservedWords = [
+            'create',
+            'all'
+        ];
+
         $admin = new User([
             'username' => 'admin',
             'email' => 'admin@admin.com',
@@ -53,6 +59,11 @@ class DatabaseSeeder extends Seeder
             ]);
 
             $follow->save();
+        }
+
+        foreach($reservedWords as $word){
+            $reservedWord = new ReservedWord(['word' => $word]);
+            $reservedWord->save();
         }
     }
 }
