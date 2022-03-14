@@ -12,7 +12,7 @@ class ShowResetPasswordController extends Controller
     {
         $resetData = DB::table('password_resets')->where('token', $token)->first();
 
-        if(!$resetData){
+        if (!$resetData) {
             return response('Invalid token', 400);
         }
 
