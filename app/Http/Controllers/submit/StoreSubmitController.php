@@ -23,7 +23,7 @@ class StoreSubmitController extends Controller
         $community = Community::where('title', $postData['community'])->first();
 
         //dd(auth()->user()->followedCommunities()->where('community_id', $community->id));
-        if(!auth()->user()->followedCommunities()->where('community_id', $community->id)->first()){
+        if (!auth()->user()->followedCommunities()->where('community_id', $community->id)->first()) {
             return redirect(route('submit.show'))->with('error', "You need to follow /c/{$community->title} to post to it");
         }
 
