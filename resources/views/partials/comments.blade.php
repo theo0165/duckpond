@@ -14,7 +14,10 @@
                         @csrf
                         <input type="submit" value="Downvote" class="btn btn-warning">
                     </form>
-                    <a href="{{ route('comment.show', ['community' => $community, 'post' => $post->getHashId(), 'comment' => $comment->getHashId()]) }}">Reply</a>
+                    <form action="{{ route('comment.show', ['community' => $community, 'post' => $post->getHashId(), 'comment' => $comment->getHashId()]) }}" method="get">
+                        @csrf
+                        <input type="submit" value="Reply" class="btn btn-primary">
+                    </form>
                     @can('delete', $comment)
                         <form action="{{ route('comment.delete', ['community' => $community, 'post' => $post->getHashId(), 'comment' => $comment->getHashId()]) }}" method="post">
                             @csrf

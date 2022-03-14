@@ -30,7 +30,10 @@
         @endif
     </p>
     @can('update', $user)
-        <a href="{{ route('users.profile.edit', $user) }}">Update</a>
+        <form action="{{ route('users.profile.edit', $user) }}" method="GET">
+            @csrf
+            <input type="submit" value="Update" class="btn btn-primary">
+        </form>
     @endcan
     @can('delete', $user)
         <form method="post" action="{{ route('users.profile.delete', $user) }}">
