@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\UserFollowsCommunity;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
 class GuestTest extends TestCase
@@ -313,5 +314,66 @@ class GuestTest extends TestCase
 
         $request->assertOk();
         $request->assertSeeText($post->title);
+    }
+
+    public function test_guest_can_see_forgot_password()
+    {
+        $request = $this
+                    ->get('/forgot-password');
+
+        $request->assertOk();
+        $request->assertSeeText('Forgot password');
+    }
+
+    public function test_user_can_not_see_reset_password()
+    {
+        $user = User::factory()->create();
+
+        $token = Str::random(64)
+
+        DB::table('password_resets')->insert([
+            'token' => $token,
+            'email' => $user->email,
+            'created_at' => date('Y-m-d H:m:s', strtotime('now'))
+        ]);
+
+        $request = $this
+                    ->get("/reset_password/$token");
+
+        $request->assertOk();
+        $request->assertSeeText('Reset password');
+    }
+
+    public function test_guest_can_reset_password()
+    {
+        $user = User::factory()->create();
+
+        $forgot = $this
+                    ->post('/forgot-password', [
+                        'email' => $user->email
+                    ]);
+
+        $forgot->assertOk();
+
+        $token = DB::table('password_resets')->where('email', $user->email)->first();
+
+        $this->assertTrue($token != null);
+
+        $reset = $this
+                    ->post("/reset-password/$token", [
+                        'password' => "password",
+                        'password_confirmation' => "password"
+                    ]);
+
+        $reset->assertOk();
+
+        $login = $this
+                    ->post('/login', [
+                        'username' => $user->username,
+                        'password' => 'password'
+                    ]);
+
+        $login->assertOk();
+        $this->assertAuthenticatedAs($user);
     }
 }
