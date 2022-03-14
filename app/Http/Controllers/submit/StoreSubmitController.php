@@ -5,6 +5,7 @@ namespace App\Http\Controllers\submit;
 use App\Http\Controllers\Controller;
 use App\Models\Community;
 use App\Models\Post;
+use App\Models\UserFollowsCommunity;
 use App\Rules\PostTypeRule;
 use Illuminate\Http\Request;
 
@@ -20,6 +21,11 @@ class StoreSubmitController extends Controller
         ]);
 
         $community = Community::where('title', $postData['community'])->first();
+
+        //dd(auth()->user()->followedCommunities()->where('community_id', $community->id));
+        if(!auth()->user()->followedCommunities()->where('community_id', $community->id)->first()){
+            return redirect(route('submit.show'))->with('error', "You need to follow /c/{$community->title} to post to it");
+        }
 
         $post = new Post([
             'type' => $postData['type'],
