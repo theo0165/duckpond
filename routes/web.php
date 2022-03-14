@@ -72,9 +72,6 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::get('/', ShowFrontPageController::class)->name('frontpage');
 
-Route::get('login', ShowLoginController::class)->name('login');
-Route::post('login', LoginController::class)->name('auth.login.user');
-
 Route::get('/c/all', CommunityIndexController::class)->name('community.index');
 Route::get('/c/{community:title}', ShowCommunityController::class)->name('community.show');
 Route::get('/c/{community:title}/p/{post}', ShowPostController::class)->name('post.show');
@@ -90,6 +87,9 @@ Route::get('/search', SearchController::class)->name('search');
 Route::group(['middleware' => 'guest'], function () {
     Route::get('register', ShowRegisterController::class)->name('auth.register');
     Route::post('register', RegisterController::class)->name('auth.register.user');
+
+    Route::get('login', ShowLoginController::class)->name('login');
+    Route::post('login', LoginController::class)->name('auth.login.user');
 
     Route::get('/forgot-password', ShowForgotPasswordController::class)->name('forgotpassword.show');
     Route::get('/reset-password/{token}', ShowResetPasswordController::class)->name('resetpassword.show');
