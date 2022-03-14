@@ -9,7 +9,9 @@ use App\Models\User;
 use App\Models\UserFollowsCommunity;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
+use Str;
 
 class UserTest extends TestCase
 {
@@ -232,5 +234,61 @@ class UserTest extends TestCase
 
         $request->assertOk();
         $request->assertSeeText($community->title);
+    }
+
+    public function test_user_can_see_search_form()
+    {
+        $user = User::factory()->create();
+
+        $request = $this
+            ->actingAs($user)
+            ->get('/search');
+
+        $request->assertOk();
+        $request->assertSeeText('Query:');
+    }
+    public function test_user_can_not_see_forgot_password()
+    {
+        $user = User::factory()->create();
+
+        $request = $this
+            ->actingAs($user)
+            ->get('/search');
+
+        $request->assertOk();
+        $request->assertSeeText('Query:');
+    }
+
+    public function test_user_can_search()
+    {
+        $user = User::factory()->create();
+        $community = Community::factory()->create();
+        $post = Post::factory()->text_type()->create();
+
+        $request = $this
+            ->actingAs($user)
+            ->get("/search?q=$post->title");
+
+        $request->assertOk();
+        $request->assertSeeText($post->title);
+    }
+
+    public function test_user_can_not_see_reset_password()
+    {
+        $user = User::factory()->create();
+
+        $token = Str::random(64);
+
+        DB::table('password_resets')->insert([
+            'token' => $token,
+            'email' => $user->email,
+            'created_at' => date('Y-m-d H:m:s', strtotime('now'))
+        ]);
+
+        $request = $this
+            ->actingAs($user)
+            ->get("/reset_password/$token");
+
+        $request->assertNotFound();
     }
 }
