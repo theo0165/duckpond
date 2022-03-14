@@ -11,6 +11,6 @@
                 </span>
             @enderror
         </div>
-        <input type="submit" value="Send" class="btn btn-primary mt-3">
+        <input type="submit" value="Send" class="btn btn-outline-primary mt-3">
     </form>
 </x-layout>

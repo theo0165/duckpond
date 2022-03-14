@@ -1,3 +1,3 @@
 @props(['name'])
 
-<label for="{{ $name }}">{{ ucfirst($name) }}</label>
+<label for="{{ $name }}" class="form-label mt-3">{{ ucfirst($name) }}</label>

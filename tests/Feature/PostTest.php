@@ -15,7 +15,7 @@ class PostTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_can_see_single_post()
+    public function test_user_can_see_single_post()
     {
         $user = User::factory()->create();
         $community = Community::factory()->create();

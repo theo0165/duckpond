@@ -13,6 +13,6 @@
             <label for="content" class="form-label">Comment:</label>
             <textarea name="content" id="content" cols="30" rows="10" class="form-control"></textarea>
         </div>
-        <button type="submit" class="btn btn-primary mt-3">Submit</button>
+        <button type="submit" class="btn btn-outline-primary mt-3">Submit</button>
     </form>
 </x-layout>

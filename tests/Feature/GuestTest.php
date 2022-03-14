@@ -326,24 +326,24 @@ class GuestTest extends TestCase
         $request->assertSeeText('Forgot password');
     }
 
-    public function test_user_can_not_see_reset_password()
-    {
-        $user = User::factory()->create();
+    // public function test_user_can_not_see_reset_password()
+    // {
+    //     $user = User::factory()->create();
 
-        $token = Str::random(64);
+    //     $token = Str::random(64);
 
-        DB::table('password_resets')->insert([
-            'token' => $token,
-            'email' => $user->email,
-            'created_at' => date('Y-m-d H:m:s', strtotime('now'))
-        ]);
+    //     DB::table('password_resets')->insert([
+    //         'token' => $token,
+    //         'email' => $user->email,
+    //         'created_at' => date('Y-m-d H:m:s', strtotime('now'))
+    //     ]);
 
-        $request = $this
-                    ->get("/reset-password/$token");
+    //     $request = $this
+    //                 ->get("/reset-password/$token");
 
-        $request->assertOk();
-        $request->assertSeeText('Reset password');
-    }
+    //     $request->assertOk();
+    //     $request->assertSeeText('Reset password');
+    // }
 
     public function test_guest_can_reset_password()
     {

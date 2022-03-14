@@ -1,5 +1,5 @@
 <x-layout>
-    <div class="container col-6">
+    <div class="container col-10">
         <h1 class="mb-3">Submit</h1>
         <form method="POST" action="/submit">
             @csrf
@@ -54,7 +54,7 @@
                 @enderror
             </div>
             <div class="mb-5">
-                <button type="submit" class="form-control btn btn-primary">Submit</button>
+                <button type="submit" class="form-control btn btn-outline-primary">Submit</button>
             </div>
         </form>
     </div>

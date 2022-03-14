@@ -28,7 +28,7 @@
                     <form action="{{ route('post.delete', ['community' => $post->community, 'post' => $post->getHashId()]) }}" method="post">
                         @csrf
                         @method('DELETE')
-                            <button type="submit">Delete post</button>
+                            <button type="submit" class="btn btn-outline-danger">Delete post</button>
                     </form>
                 @endcan
             </div>
