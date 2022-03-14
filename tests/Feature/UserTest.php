@@ -11,6 +11,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
+use Str;
 
 class UserTest extends TestCase
 {
@@ -240,8 +241,8 @@ class UserTest extends TestCase
         $user = User::factory()->create();
 
         $request = $this
-        ->actingAs($user)
-        ->get('/search');
+            ->actingAs($user)
+            ->get('/search');
 
         $request->assertOk();
         $request->assertSeeText('Query:');
@@ -270,17 +271,13 @@ class UserTest extends TestCase
 
         $request->assertOk();
         $request->assertSeeText($post->title);
-                    ->actingAs($user)
-                    ->get('/forgot-password');
-
-        $request->assertNotFound();
     }
 
     public function test_user_can_not_see_reset_password()
     {
         $user = User::factory()->create();
 
-        $token = Str::random(64)
+        $token = Str::random(64);
 
         DB::table('password_resets')->insert([
             'token' => $token,
@@ -289,8 +286,8 @@ class UserTest extends TestCase
         ]);
 
         $request = $this
-                    ->actingAs($user)
-                    ->get("/reset_password/$token");
+            ->actingAs($user)
+            ->get("/reset_password/$token");
 
         $request->assertNotFound();
     }

@@ -319,7 +319,7 @@ class GuestTest extends TestCase
     public function test_guest_can_see_forgot_password()
     {
         $request = $this
-                    ->get('/forgot-password');
+            ->get('/forgot-password');
 
         $request->assertOk();
         $request->assertSeeText('Forgot password');
@@ -329,7 +329,7 @@ class GuestTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $token = Str::random(64)
+        $token = Str::random(64);
 
         DB::table('password_resets')->insert([
             'token' => $token,
@@ -338,7 +338,7 @@ class GuestTest extends TestCase
         ]);
 
         $request = $this
-                    ->get("/reset_password/$token");
+            ->get("/reset_password/$token");
 
         $request->assertOk();
         $request->assertSeeText('Reset password');
@@ -349,9 +349,9 @@ class GuestTest extends TestCase
         $user = User::factory()->create();
 
         $forgot = $this
-                    ->post('/forgot-password', [
-                        'email' => $user->email
-                    ]);
+            ->post('/forgot-password', [
+                'email' => $user->email
+            ]);
 
         $forgot->assertOk();
 
@@ -360,18 +360,18 @@ class GuestTest extends TestCase
         $this->assertTrue($token != null);
 
         $reset = $this
-                    ->post("/reset-password/$token", [
-                        'password' => "password",
-                        'password_confirmation' => "password"
-                    ]);
+            ->post("/reset-password/$token", [
+                'password' => "password",
+                'password_confirmation' => "password"
+            ]);
 
         $reset->assertOk();
 
         $login = $this
-                    ->post('/login', [
-                        'username' => $user->username,
-                        'password' => 'password'
-                    ]);
+            ->post('/login', [
+                'username' => $user->username,
+                'password' => 'password'
+            ]);
 
         $login->assertOk();
         $this->assertAuthenticatedAs($user);
