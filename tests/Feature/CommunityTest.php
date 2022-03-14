@@ -23,7 +23,7 @@ class CommunityTest extends TestCase
         $request = $this
             ->actingAs($user)
             ->followingRedirects()
-            ->get("/c/create/{$community->title}");
+            ->get("/c/{$community->title}");
 
         $request->assertOk();
         $request->assertSeeText([
@@ -41,7 +41,7 @@ class CommunityTest extends TestCase
         $request = $this
             ->actingAs($user)
             ->followingRedirects()
-            ->post("/c/create/{$community->title}/follow");
+            ->post("/c/{$community->title}/follow");
 
         $request->assertOk();
         $this->assertDatabaseHas('user_follows_communities', [
@@ -61,7 +61,7 @@ class CommunityTest extends TestCase
         $request = $this
             ->actingAs($user)
             ->followingRedirects()
-            ->post("/c/create/{$community->title}/follow");
+            ->post("/c/{$community->title}/follow");
 
         $request->assertOk();
         $this->assertDatabaseCount('user_follows_communities', 1);
@@ -78,7 +78,7 @@ class CommunityTest extends TestCase
         $request = $this
             ->actingAs($user)
             ->followingRedirects()
-            ->post("/c/create/{$community->title}/unfollow");
+            ->post("/c/{$community->title}/unfollow");
 
         $request->assertOk();
         $this->assertDatabaseCount('user_follows_communities', 0);
@@ -93,7 +93,7 @@ class CommunityTest extends TestCase
         $request = $this
             ->actingAs($user)
             ->followingRedirects()
-            ->post("/c/create/{$community->title}/unfollow");
+            ->post("/c/{$community->title}/unfollow");
 
         $request->assertOk();
     }
