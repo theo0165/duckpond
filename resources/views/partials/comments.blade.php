@@ -1,4 +1,7 @@
 @foreach($comments as $comment)
+    @php
+        $hasVoted = $comment->votes()->where('user_id', auth()->user()->id)->first()
+    @endphp
     <ul>
         <li>
             <a href="{{ route('users.profile', $comment->owner) }}"><b>/u/{{$comment->owner->username}}</b></a>
@@ -6,6 +9,7 @@
             <div>
                 <p>
                     {{$comment->vote_count ?? 0}} points
+                    @if ($hasVoted === null )
                     <form action="{{ route('comment.upvote', ['community' => $community, 'comment' => $comment->getHashId()]) }}" method="post" class="d-inline">
                         @csrf
                         <input type="submit" value="Upvote" class="btn btn-outline-success">
@@ -14,6 +18,25 @@
                         @csrf
                         <input type="submit" value="Downvote" class="btn btn-outline-warning">
                     </form>
+                    @elseif ($hasVoted->value === 1)
+                    <form action="{{ route('comment.upvote', ['community' => $community, 'comment' => $comment->getHashId()]) }}" method="post" class="d-inline">
+                        @csrf
+                        <input type="submit" value="Upvote*" class="btn btn-outline-success">
+                    </form>
+                    <form action="{{ route('comment.downvote', ['community' => $community, 'comment' => $comment->getHashId()]) }}" method="post" class="d-inline">
+                        @csrf
+                        <input type="submit" value="Downvote" class="btn btn-outline-warning">
+                    </form>
+                    @elseif ($hasVoted->value === -1)
+                    <form action="{{ route('comment.upvote', ['community' => $community, 'comment' => $comment->getHashId()]) }}" method="post" class="d-inline">
+                        @csrf
+                        <input type="submit" value="Upvote" class="btn btn-outline-success">
+                    </form>
+                    <form action="{{ route('comment.downvote', ['community' => $community, 'comment' => $comment->getHashId()]) }}" method="post" class="d-inline">
+                        @csrf
+                        <input type="submit" value="Downvote*" class="btn btn-outline-warning">
+                    </form>
+                    @endif
                     <form action="{{ route('comment.show', ['community' => $community, 'post' => $post->getHashId(), 'comment' => $comment->getHashId()]) }}" method="get" class="d-inline">
                         @csrf
                         <input type="submit" value="Reply" class="btn btn-outline-primary">

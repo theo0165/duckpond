@@ -28,7 +28,7 @@ class Community extends Model
     public function getPosts()
     {
         return $this->posts()
-            ->with(['community', 'user'])
+            ->with(['community', 'user', 'votes'])
             ->where('posts.created_at', '>=', Carbon::now()->subDay()->toDateTimeString())
             ->withCount('comments')
             ->withSum('votes as votes', 'value')

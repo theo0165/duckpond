@@ -61,6 +61,11 @@ class User extends Authenticatable
             ->withSum('votes as votes', 'value');
     }
 
+    public function profileComments()
+    {
+        return $this->hasMany(Post::class, 'user_id', 'id');
+    }
+
     public function comments()
     {
         return $this->hasMany(Comment::class, 'user_id', 'id');
