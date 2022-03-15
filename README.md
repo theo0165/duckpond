@@ -1,6 +1,8 @@
 <img src="https://i.giphy.com/media/gFgwnADVzsek0/giphy.webp" style="width:100%">
 
-# Laravel Project
+# Duckpond
+
+Simple Reddit/Hackernews clone written in Laravel 9.
 
 ### Install guide
 
