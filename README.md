@@ -2,6 +2,8 @@
 
 # Duckpond
 
+![](https://img.shields.io/github/workflow/status/theo0165/duckpond/Test?label=tests) ![](https://img.shields.io/github/workflow/status/theo0165/duckpond/Lint?label=lint)
+
 Simple Reddit clone written in Laravel 9.
 
 ### Install guide
@@ -42,33 +44,33 @@ Simple Reddit clone written in Laravel 9.
 
 # Code Review
 
-Code review written by [Christopher](https://github.com/chrs-m), 
+Code review written by [Christopher](https://github.com/chrs-m),
 [Oliver](https://github.com/davisdavisdavis) &
 [Sophie](https://github.com/sowulff).
 
 1. No installation guide (during time of code review)
 1. CreateReplayController :15 : $data as a variable name could be more specific.
-2. ShowUserController :12 : is this comment supposed to be there? 
-3. GuestTest :328 : This test is in a comment, can be deleted since it’s not being used. 
-4. In the table comments there is a column named parent_id, maybe specify more. 
-6. All tests “includes” the faker class but it is never used.
-7. Most of the controllers have unused request classes.
-8. Comment on what q would be in search controller.
-9. A lot of files have the “boiler” code left.
-12. The code could benefit a lot from comments explaining more specific variables.
-14. DeleteCommentController.php:16 has commented dd left in code
-15. ShowPostController.php:13 do not use $request
-16. [minor]Controller/submit breaks structure with small letters
-17. StoreSubmitController.php:25 has commented dd left in code
-18. ShowUserProfileController.php:12 commented code left in prod
-19. UserFollowCommunityController.php $checkIfFollow-naming. Check if whats follow what?
-20. Maybe pagination on front page?
-21. Models/Comment.php:52 has some commented code
-22. Models/Post.php:25 has some commented code
-23. Good use of built in functions etc.
-24. Very good html structure. 
-11. Good grouping of routes.
-25. Overall a very well made project, especially considered the time frame ⭐️
+1. ShowUserController :12 : is this comment supposed to be there?
+1. GuestTest :328 : This test is in a comment, can be deleted since it’s not being used.
+1. In the table comments there is a column named parent_id, maybe specify more.
+1. All tests “includes” the faker class but it is never used.
+1. Most of the controllers have unused request classes.
+1. Comment on what q would be in search controller.
+1. A lot of files have the “boiler” code left.
+1. The code could benefit a lot from comments explaining more specific variables.
+1. DeleteCommentController.php:16 has commented dd left in code
+1. ShowPostController.php:13 do not use $request
+1. [minor]Controller/submit breaks structure with small letters
+1. StoreSubmitController.php:25 has commented dd left in code
+1. ShowUserProfileController.php:12 commented code left in prod
+1. UserFollowCommunityController.php $checkIfFollow-naming. Check if whats follow what?
+1. Maybe pagination on front page?
+1. Models/Comment.php:52 has some commented code
+1. Models/Post.php:25 has some commented code
+1. Good use of built in functions etc.
+1. Very good html structure.
+1. Good grouping of routes.
+1. Overall a very well made project, especially considered the time frame ⭐️
 
 ### Tables/Models
 
