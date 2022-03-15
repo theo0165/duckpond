@@ -47,4 +47,5 @@
     @else
         <p>You don't follow any communities. Explore communities <a href="{{route('community.index')}}">here</a>.</p>
     @endif
+    {{$posts->onEachSide(2)->links()}}
 </x-layout>

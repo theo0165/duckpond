@@ -13,7 +13,7 @@ class ShowFrontPageController extends Controller
         $user = auth()->user() ?: null;
 
         if ($user) {
-            $posts = $user->frontPagePosts;
+            $posts = $user->frontPagePosts();
         } else {
             $posts = Post::getGuestPosts();
         }
