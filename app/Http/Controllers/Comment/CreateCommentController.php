@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Comment;
 
 use App\Http\Controllers\Controller;
+use App\Mail\NewReplyNotification;
 use App\Models\Comment;
 use App\Models\Community;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class CreateCommentController extends Controller
 {
@@ -23,6 +25,8 @@ class CreateCommentController extends Controller
         ]);
 
         $comment->save();
+
+        Mail::to($post->user->email)->send(new NewReplyNotification($community, $post, 'post'));
 
         return back();
     }
