@@ -33,7 +33,7 @@ class NewReplyNotification extends Mailable
     public function build()
     {
         return $this
-                ->subject('New reply')
+                ->subject('Duckpond: New reply')
                 ->view('mail.new-reply-notification', [
                     'community' => $this->community,
                     'post' => $this->post,
