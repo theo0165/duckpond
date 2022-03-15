@@ -106,12 +106,12 @@ class CommunityTest extends TestCase
             ->actingAs($user)
             ->followingRedirects()
             ->post('/c/create', [
-                'title' => 'Test community'
+                'title' => 'TestCommunity'
             ]);
 
         $request->assertOk();
         $this->assertDatabaseHas('communities', [
-            'title' => 'Test community',
+            'title' => 'TestCommunity',
             'user_id' => $user->id
         ]);
         $this->assertDatabaseCount('communities', 1);
