@@ -2,7 +2,7 @@
 
 # Duckpond
 
-Simple Reddit/Hackernews clone written in Laravel 9.
+Simple Reddit clone written in Laravel 9.
 
 ### Install guide
 
