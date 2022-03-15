@@ -1,6 +1,13 @@
 <x-layout title="{{ $user->username }} - Posts">
     <h1>{{ $user->username }}'s posts:</h1>
     @foreach ($user->posts as $post)
+        @php
+            if (!Auth::guest()) {
+                $hasVoted = $post->votes()->where('user_id', auth()->user()->id)->first();
+            } else {
+                $hasVoted = null;
+            }
+        @endphp
         <div class="row justify-content-center">
             <div class="d-inline-block pb-3">
                 <p class="mb-0">
@@ -10,6 +17,7 @@
                 </p>
                 <p class="mb-0">{{$post->votes ?? 0}} points | {{$post->comments_count}} comments</p>
                 <div>
+                    @if ($hasVoted === null )
                     <form action="{{route('post.upvote', ['community' => $post->community, 'post' => $post->getHashId()])}}" method="post" class="d-inline">
                     @csrf
                         <input type="submit" value="Upvote" class="btn btn-outline-success mt-2">
@@ -18,6 +26,25 @@
                         @csrf
                         <input type="submit" value="Downvote" class="btn btn-outline-warning mt-2">
                     </form>
+                    @elseif ($hasVoted->value === 1)
+                    <form action="{{route('post.upvote', ['community' => $post->community, 'post' => $post->getHashId()])}}" method="post" class="d-inline">
+                    @csrf
+                        <input type="submit" value="Upvote*" class="btn btn-outline-success mt-2">
+                    </form>
+                    <form action="{{route('post.downvote', ['community' => $post->community, 'post' => $post->getHashId()])}}" method="post" class="d-inline">
+                        @csrf
+                        <input type="submit" value="Downvote" class="btn btn-outline-warning mt-2">
+                    </form>
+                    @elseif ($hasVoted->value === -1)
+                    <form action="{{route('post.upvote', ['community' => $post->community, 'post' => $post->getHashId()])}}" method="post" class="d-inline">
+                    @csrf
+                        <input type="submit" value="Upvote" class="btn btn-outline-success mt-2">
+                    </form>
+                    <form action="{{route('post.downvote', ['community' => $post->community, 'post' => $post->getHashId()])}}" method="post" class="d-inline">
+                        @csrf
+                        <input type="submit" value="Downvote*" class="btn btn-outline-warning mt-2">
+                    </form>
+                    @endif
                 </div>
             </div>
             <div class="">
