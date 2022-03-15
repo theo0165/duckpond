@@ -25,7 +25,7 @@ class Comment extends Model
     public function children()
     {
         return $this->hasMany(Comment::class, 'parent_id', 'id')
-                ->withSum('votes as vote_count', 'value');
+            ->withSum('votes as vote_count', 'value');
     }
 
     public function votes()
@@ -48,6 +48,11 @@ class Comment extends Model
             return null;
         }
     }
+
+    // public function profileCommentParent()
+    // {
+    //     return $this->belongsTo(Post::class, 'post_id', 'id');
+    // }
 
     public function getHashId()
     {

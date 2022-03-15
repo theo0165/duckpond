@@ -12,6 +12,7 @@ class ShowCommunityController extends Controller
     {
         $user = auth()->user() ?: null;
         $posts = $community->getPosts();
+        // dd($posts);
         $checkFollows = null;
 
         if (auth()->user()) {

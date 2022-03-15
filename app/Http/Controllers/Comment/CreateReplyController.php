@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Comment;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Mail\NewReplyNotification;
 use App\Models\Comment;
 use App\Models\Community;
 use App\Models\Post;
+use Illuminate\Support\Facades\Mail;
 
 class CreateReplyController extends Controller
 {
@@ -23,6 +25,8 @@ class CreateReplyController extends Controller
         ]);
 
         $reply->save();
+
+        Mail::to($comment->owner->email)->send(new NewReplyNotification($community, $post, 'comment'));
 
         return redirect(route('post.show', ['community' => $community, 'post' => $post->getHashId()]));
     }
