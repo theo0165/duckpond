@@ -18,11 +18,11 @@ class NewReplyNotification extends Mailable
      *
      * @return void
      */
-    public function __construct(Community $community, Post $post, string $type)
+    public function __construct(private Community $community, private Post $post, private string $type)
     {
-        $this->community = $community;
-        $this->post = $post;
-        $this->type = $type;
+        // $this->community = $community;
+        // $this->post = $post;
+        // $this->type = $type;
     }
 
     /**
