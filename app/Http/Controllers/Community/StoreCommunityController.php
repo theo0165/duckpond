@@ -14,9 +14,17 @@ class StoreCommunityController extends Controller
         $user = auth()->user()->id;
 
         $this->validate($request, [
-            'title' => ['required', 'string', 'max:255', 'unique:reserved_words,word', 'unique:communities,title']
+            'title' => [
+                'required',
+                'string',
+                'max:255',
+                'unique:reserved_words,word',
+                'unique:communities,title',
+                'regex:/^[a-z]*$/i'
+            ]
         ], [
-            'title.unique' => "This community already exists"
+            'title.unique' => "This community already exists",
+            'regex' => 'Invalid community name, no spaces, numbers or special characters allowed.'
         ]);
 
         $newCommunity = Community::create([
