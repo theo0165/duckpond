@@ -1,6 +1,11 @@
 @foreach($comments as $comment)
     @php
-        $hasVoted = $comment->votes()->where('user_id', auth()->user()->id)->first()
+        if (!Auth::guest()) {
+            $hasVoted = $post->votes()->where('user_id', auth()->user()->id)->first();
+        } else {
+            $hasVoted = null;
+        }
+        // $hasVoted = $comment->votes()->where('user_id', auth()->user()->id)->first()
     @endphp
     <ul>
         <li>

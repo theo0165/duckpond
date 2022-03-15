@@ -2,7 +2,11 @@
     <h1>{{ $user->username }}'s posts:</h1>
     @foreach ($user->posts as $post)
         @php
-            $hasVoted = $post->votes()->where('user_id', auth()->user()->id)->first()
+            if (!Auth::guest()) {
+                $hasVoted = $post->votes()->where('user_id', auth()->user()->id)->first();
+            } else {
+                $hasVoted = null;
+            }
         @endphp
         <div class="row justify-content-center">
             <div class="d-inline-block pb-3">
