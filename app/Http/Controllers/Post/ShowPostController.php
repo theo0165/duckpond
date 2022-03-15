@@ -17,7 +17,7 @@ class ShowPostController extends Controller
         $comments = $post->comments()
             ->withSum('votes as vote_count', 'value')
             ->orderByDesc('vote_count')
-            ->paginate(2);
+            ->paginate(7);
         // ->get();
 
         return view('post', [

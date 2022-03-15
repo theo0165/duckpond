@@ -73,6 +73,6 @@
             <h3>Comments</h3>
             @include('partials.comments', ['comments' => $comments, 'community' => $post->community, 'post' => $post])
         </div>
-        {{$comments->onEachSide(20)->links()}}
+        {{$comments->onEachSide(2)->links()}}
     </div>
 </x-layout>
