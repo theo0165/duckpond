@@ -1,4 +1,42 @@
+<img src="https://i.giphy.com/media/gFgwnADVzsek0/giphy.webp" style="width:100%">
+
 # Laravel Project
+
+### Install guide
+
+1. Clone the repository
+
+    - ```bash
+        git clone https://github.com/theo0165/duckpond
+
+        cd duckpond
+      ```
+
+2. Create .env file
+    - ```bash
+        cp .env.example .env
+      ```
+3. Update .env with your own values.
+4. Install dependencies for php and node.js
+    - ```bash
+        npm install
+        composer install
+      ```
+5. Generate application key
+    - ```bash
+        php artisan key:generate
+      ```
+6. Run migrations and populate database for testing
+    - ```bash
+        php artisan migrate:fresh --seed
+      ```
+    - This will take up to 30 seconds
+7. Start dev servers
+    - ```bash
+        npm run dev
+        php artisan serve
+      ```
+8. Visit the website on http://localhost:8000
 
 ### Tables/Models
 
@@ -100,104 +138,3 @@
 
 -   No mods on communties
     -   Only super user
-
-### TODO
-
--   Show posts even if user does not follow any communities. ✅
-    -   Alt. Show text and link to explore communities. Print all communities with link on seperate page. ✅
--   Create post ✅
--   Create comment ✅
--   Follow community ✅
--   Reply to comment page ✅
--   Optimize single post queries.
--   Fix bug where you can only see amount of top level comments.
--   Upvote/downvote route. ✅
--   Update user ✅
--   Search
--   Tests
--   Fix policies
--   Overall security
--   Fix bug where nothing is shown if post or comment has no upvotes. ("points" instead of "x points")
-
-### Routes proposal
-
--   / - Front page, posts from all communities if guest, followed communities if auth.
-    -   /c/{community} - Single community
-        -   /edit
-        -   /delete
-        -   /join (?) - follow/unfollow community
-        ***
-        -   /p/{post} - Single post in community
-            -   /edit
-            -   /delete
-    -   /u/{user} - Single user
-        -   /edit
-        -   /delete
-    -   /search
-
-### Policies
-
--   Post
-    -   Delete
--   Community
-    -   Delete
-    -   Follow/Unfollow
--   User
-    -   Delete
-    -   Edit
-
-### Tests needed
-
--   User
-    -   Login
-    -   Register
-    -   Can not register with existing email
-    -   Can not register with existing username
-    -   Update username
-    -   Update email
-    -   Update password
-    -   Can't update to existing username
-    -   Can't update to existing email
-    -   See front page posts
-    -   Delete user
-    -   See their own posts
-    -   See their own comments
-    -   See their followed communities
-    -   See their owned communities
--   Community
-    -   See single community
-    -   Follow
-    -   Can not follow if already following
-    -   Unfollow
-    -   Create
-    -   Delete
-    -   User and guest can see page with all communities (/c/all)
--   Post
-    -   See single post
-    -   Create post to community
-    -   Delete
-    -   Upvote
-    -   Downvote
--   Comment
-    -   Create comment on post
-    -   Create comment reply
-    -   See post with comments and replys
-    -   Upvote
-    -   Downvote
-    -   Delete
--   Guest
-    -   Can see front page posts
-    -   Can see user profile
-        -   +posts
-        -   +comments
-        -   +follwed
-        -   +owned
-    -   Can not create post
-    -   Can not create comment
-    -   Can not upvote
-    -   Can not downvote
-    -   Can not delete post
-    -   Can not delete comment
-    -   Can not delete community
-    -   Can not delete user
-    -   Can not follow community
