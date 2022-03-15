@@ -6,6 +6,10 @@
 
 Simple Reddit clone written in Laravel 9.
 
+**Built by**
+- [Theo Sandell](https://github.com/theo0165)
+- [Patrik Staaf](https://github.com/patrikstaaf)
+
 ### Install guide
 
 1. Clone the repository
