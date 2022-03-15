@@ -102,7 +102,8 @@ class User extends Authenticatable
             ->where('posts.created_at', '>=', Carbon::now()->subDay()->toDateTimeString())
             ->withCount('comments')
             ->withSum('votes as votes', 'value')
-            ->limit(100)
-            ->orderBy('votes', 'desc');
+            ->limit(50)
+            ->orderBy('votes', 'desc')
+            ->paginate(50);
     }
 }

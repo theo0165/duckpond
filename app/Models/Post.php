@@ -68,9 +68,10 @@ class Post extends Model
             ->where('posts.created_at', '>=', Carbon::now()->subDay()->toDateTimeString())
             ->withCount('comments')
             ->withSum('votes as votes', 'value')
-            ->limit(100)
+            ->limit(50)
             ->orderBy('votes', 'desc')
-            ->get();
+            ->paginate(50);
+        // ->get();
     }
 
     public static function searchPosts(string $query)
