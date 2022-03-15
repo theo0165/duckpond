@@ -1,28 +1,28 @@
 <x-layout>
     <h1>/c/{{$community->title}}</h1>
-    <a href="{{ route('submit.show') }}?community={{ $community->title }}">Submit a post</a>
+    <a href="{{ route('submit.show') }}?community={{ $community->title }}" class="d-block">Submit a post</a>
     @if ($checkFollows === null)
-        <form action="{{ route('user.follow', $community) }}" method="post">
+    <form action="{{ route('user.follow', $community) }}" method="post" class="d-inline">
         @csrf
-            <button type="submit" class="btn btn-outline-primary mt-3">Follow</button>
-        </form>
+            <input type="submit" value="Follow" class="btn btn-outline-primary mt-3" />
+    </form>
     @elseif ($checkFollows)
-        <form action="{{ route('user.unfollow', $community) }}" method="post">
+    <form action="{{ route('user.unfollow', $community) }}" method="post" class="d-inline">
         @csrf
-            <button type="submit" class="btn btn-outline-warning mt-3">Unfollow</button>
-        </form>
+            <input type="submit" value="Unfollow" class="btn btn-outline-warning mt-3" />
+    </form>
     @else
-         <form action="{{ route('user.follow', $community) }}" method="post">
+    <form action="{{ route('user.follow', $community) }}" method="post" class="d-inline">
         @csrf
-            <button type="submit" class="btn btn-outline-primary mt-3">Follow</button>
-        </form>
+            <input type="submit" value="Follow" class="btn btn-outline-primary mt-3">
+    </form>
     @endif
     @can('delete', $community)
-        <form action="{{ route('community.delete', $community) }}" method="post">
+    <form action="{{ route('community.delete', $community) }}" method="post" class="d-inline">
         @csrf
         @method('DELETE')
-        <button type="submit" class="btn btn-outline-danger">Delete</button>
-        </form>
+            <input type="submit" value="Delete" class="btn btn-outline-danger mt-3" />
+    </form>
     @endcan
     <hr>
     @if ($posts->count() > 0)
@@ -36,15 +36,21 @@
                     </p>
                     <p class="mb-0">{{$post->votes ?? 0}} points | {{$post->comments_count}} comments</p>
                     <div>
-                        <a href="{{route('post.upvote', ['community' => $post->community, 'post' => $post->getHashId()])}}">Upvote</a>
-                        <a href="{{route('post.downvote', ['community' => $post->community, 'post' => $post->getHashId()])}}">Downvote</a>
+                        <form action="{{route('post.upvote', ['community' => $post->community, 'post' => $post->getHashId()])}}" method="post" class="d-inline">
+                            @csrf
+                            <input type="submit" value="Upvote" class="btn btn-outline-success mt-2">
+                        </form>
+                        <form action="{{route('post.downvote', ['community' => $post->community, 'post' => $post->getHashId()])}}" method="post" class="d-inline">
+                        @csrf
+                            <input type="submit" value="Downvote" class="btn btn-outline-warning mt-2">
+                        </form>
                     </div>
                 </div>
                 <div class="">
                     @if($post->type === "link")
                         <a href="{{$post->content}}">{{$post->title}}</a>
                     @else
-                        <p>{{$post->title}}</p>
+                        <p class="fw-bold mt-3">{{$post->title}}</p>
                         <p>{{$post->excerpt()}}</p>
                     @endif
                     <div>
@@ -55,7 +61,7 @@
                         <form action="{{ route('post.delete', ['community' => $post->community, 'post' => $post->getHashId()])}}" method="post">
                             @csrf
                             @method('DELETE')
-                                <button type="submit" class="btn btn-outline-danger">Delete post</button>
+                                <button type="submit" class="btn btn-outline-danger mt-3">Delete post</button>
                         </form>
                     @endcan
                     </div>
