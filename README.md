@@ -4,11 +4,12 @@
 
 ![](https://img.shields.io/github/workflow/status/theo0165/duckpond/Test?label=tests) ![](https://img.shields.io/github/workflow/status/theo0165/duckpond/Lint?label=lint)
 
-Simple Reddit clone written in Laravel 9.
+Simple Reddit clone written in Laravel 9. Demo screenshots available [here](https://github.com/theo0165/duckpond/tree/main/screenshots)
 
 **Built by**
-- [Theo Sandell](https://github.com/theo0165)
-- [Patrik Staaf](https://github.com/patrikstaaf)
+
+-   [Theo Sandell](https://github.com/theo0165)
+-   [Patrik Staaf](https://github.com/patrikstaaf)
 
 ### Install guide
 
